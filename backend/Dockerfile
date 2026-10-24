@@ -12,6 +12,8 @@ WORKDIR /app
 
 COPY --from=build /app/target/*.jar app.jar
 
+ENV PORT=10000
+
 EXPOSE 10000
 
 ENTRYPOINT ["java", "-XX:MaxRAMPercentage=60.0", "-XX:+UseSerialGC", "-jar", "app.jar"]

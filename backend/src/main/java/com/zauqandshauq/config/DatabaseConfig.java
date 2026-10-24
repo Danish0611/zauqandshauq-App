@@ -40,22 +40,47 @@ public class DatabaseConfig {
 
         if (dbUrl.startsWith("postgres://") || dbUrl.startsWith("postgresql://")) {
             try {
-                URI uri = new URI(dbUrl.replace("postgresql://", "http://").replace("postgres://", "http://"));
-                String host = uri.getHost();
-                int port = uri.getPort() > 0 ? uri.getPort() : 5432;
-                String path = uri.getPath() != null && uri.getPath().length() > 1 ? uri.getPath().substring(1) : "zauqandshauq";
+                String withoutProto = dbUrl.substring(dbUrl.indexOf("://") + 3);
 
-                if (uri.getUserInfo() != null) {
-                    String[] userParts = uri.getUserInfo().split(":", 2);
-                    username = userParts[0];
-                    if (userParts.length > 1) {
-                        password = userParts[1];
+                String query = "";
+                int queryIdx = withoutProto.indexOf('?');
+                if (queryIdx >= 0) {
+                    query = withoutProto.substring(queryIdx);
+                    withoutProto = withoutProto.substring(0, queryIdx);
+                }
+
+                int atIdx = withoutProto.lastIndexOf('@');
+                String hostPortDb = withoutProto;
+                if (atIdx >= 0) {
+                    String userPass = withoutProto.substring(0, atIdx);
+                    hostPortDb = withoutProto.substring(atIdx + 1);
+                    int colonIdx = userPass.indexOf(':');
+                    if (colonIdx >= 0) {
+                        username = userPass.substring(0, colonIdx);
+                        password = userPass.substring(colonIdx + 1);
+                    } else {
+                        username = userPass;
                     }
                 }
-                jdbcUrl = "jdbc:postgresql://" + host + ":" + port + "/" + path;
-                log.info("Configured Render PostgreSQL DataSource: host={}, port={}, db={}", host, port, path);
+
+                int slashIdx = hostPortDb.indexOf('/');
+                String hostPort = slashIdx >= 0 ? hostPortDb.substring(0, slashIdx) : hostPortDb;
+                String dbName = slashIdx >= 0 && slashIdx + 1 < hostPortDb.length() ? hostPortDb.substring(slashIdx + 1) : "zauqandshauq";
+
+                String host = hostPort;
+                int port = 5432;
+                int colonIdx = hostPort.lastIndexOf(':');
+                if (colonIdx >= 0) {
+                    host = hostPort.substring(0, colonIdx);
+                    try {
+                        port = Integer.parseInt(hostPort.substring(colonIdx + 1));
+                    } catch (NumberFormatException ignored) {}
+                }
+
+                jdbcUrl = "jdbc:postgresql://" + host + ":" + port + "/" + dbName + query;
+                log.info("Configured Render PostgreSQL DataSource: host={}, port={}, db={}", host, port, dbName);
             } catch (Exception e) {
-                log.warn("Could not parse URI from DATABASE_URL, fallback to raw url: {}", e.getMessage());
+                log.warn("Could not parse DATABASE_URL, fallback: {}", e.getMessage());
                 jdbcUrl = dbUrl.startsWith("jdbc:") ? dbUrl : "jdbc:" + dbUrl;
             }
         } else {
@@ -76,4 +101,3 @@ public class DatabaseConfig {
         return new HikariDataSource(config);
     }
 }
-
