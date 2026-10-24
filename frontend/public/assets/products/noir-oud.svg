@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 560" role="img" aria-label="Illustrated perfume bottle NOIR OUD">
+<defs><linearGradient id="back" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#303c28"/><stop offset="1" stop-color="#151a13"/></linearGradient><linearGradient id="glass" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#20291d"/><stop offset=".24" stop-color="#303c28"/><stop offset=".5" stop-color="#879174" stop-opacity=".7"/><stop offset=".76" stop-color="#303c28"/><stop offset="1" stop-color="#11160f"/></linearGradient><linearGradient id="metal"><stop stop-color="#9d7933"/><stop offset=".5" stop-color="#c2a259"/><stop offset="1" stop-color="#8d6b2a"/></linearGradient><filter id="blur"><feGaussianBlur stdDeviation="13"/></filter></defs>
+<rect width="460" height="560" fill="url(#back)"/><circle cx="230" cy="257" r="165" fill="#c2a259" opacity=".12"/><circle cx="230" cy="257" r="182" fill="none" stroke="#c2a259" stroke-opacity=".25"/><circle cx="230" cy="257" r="204" fill="none" stroke="#c2a259" stroke-opacity=".11" stroke-dasharray="2 9"/>
+<ellipse cx="232" cy="437" rx="115" ry="22" fill="#050704" opacity=".72" filter="url(#blur)"/>
+<rect x="194" y="109" width="72" height="52" rx="5" fill="url(#metal)"/><path d="M202 119H258 M202 130H258 M202 141H258" stroke="#49391c" stroke-opacity=".42"/>
+<rect x="207" y="158" width="46" height="35" rx="3" fill="#c2a259"/>
+<path d="M170 190 Q165 190 162 207 L137 254 Q128 270 128 293 V397 Q128 422 157 429 Q230 449 303 429 Q332 422 332 397 V293 Q332 270 323 254 L298 207 Q295 190 290 190Z" fill="url(#glass)" stroke="#c2a259" stroke-width="2"/>
+<path d="M163 218 L146 264 Q141 279 141 299 V393 Q141 409 163 416" fill="none" stroke="#f2edce" stroke-opacity=".35" stroke-width="6" stroke-linecap="round"/>
+<rect x="158" y="284" width="144" height="94" rx="1" fill="#e9e0c9" stroke="url(#metal)" stroke-width="2"/>
+<text x="230" y="304" text-anchor="middle" font-family="Georgia,serif" font-size="8" letter-spacing="2" fill="#536047">ZAUQ &amp; SHAUQ</text><path d="M181 315H279" stroke="#c2a259" stroke-width=".8"/>
+<text x="230" y="340" text-anchor="middle" font-family="Georgia,serif" font-size="18" letter-spacing="1" fill="#273021">NOIR OUD</text>
+<text x="230" y="356" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" letter-spacing="1.3" fill="#6a6d56">EAU DE PARFUM</text><text x="230" y="368" text-anchor="middle" font-family="Arial,sans-serif" font-size="6.5" letter-spacing=".6" fill="#6a6d56">ZAUQ &amp; SHAUQ</text>
+<text x="230" y="483" text-anchor="middle" font-family="Georgia,serif" font-size="11" letter-spacing="3" fill="#c2a259">NOIR OUD</text><text x="230" y="505" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" letter-spacing="2" fill="#e8e0cf" opacity=".75">OUD · AMBER · CEDAR</text>
+<path d="M44 68H100 M360 68H416 M44 493H93 M367 493H416" stroke="#c2a259" stroke-opacity=".4"/></svg>

@@ -1,0 +1,30 @@
+# Node / Angular
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+.angular/
+**/.angular/
+coverage/
+**/coverage/
+
+# Java / Maven
+target/
+**/target/
+*.class
+
+# IDE / OS
+.idea/
+**/.idea/
+.vscode/
+**/.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Secrets
+.env
+.env.*
+!.env.example
+application-local.properties
+**/application-local.properties

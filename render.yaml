@@ -1,0 +1,43 @@
+services:
+  # 1. Spring Boot Backend Web Service (Docker)
+  - type: web
+    name: zauqandshauq-backend
+    env: docker
+    rootDir: backend
+    dockerfilePath: Dockerfile
+    dockerContext: .
+    plan: free
+    region: oregon
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: DATABASE_URL
+        fromDatabase:
+          name: zauqandshauq-db
+          property: connectionString
+      - key: RAZORPAY_KEY_ID
+        value: rzp_test_TrnvmqpEGpgwfa
+      - key: RAZORPAY_KEY_SECRET
+        value: Du3jki4aIKD08SxBI4PB3sIu
+      - key: FRONTEND_ORIGIN
+        value: https://*.onrender.com,http://localhost:4200
+
+  # 2. Angular Storefront Static Site
+  - type: static
+    name: zauqandshauq-storefront
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist/zauqandshauq/browser
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+
+databases:
+  # 3. Managed PostgreSQL Database
+  - name: zauqandshauq-db
+    databaseName: zauqandshauq
+    user: postgres
+    plan: free
+    region: oregon
+

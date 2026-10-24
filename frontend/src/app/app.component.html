@@ -1,0 +1,880 @@
+<div class="announcement-bar">
+  <span class="announcement-dot"></span>
+  <span>Har Khushboo Ek Kahani Kehti Hai</span>
+  <span class="announcement-divider">·</span>
+  <span class="announcement-small" dir="rtl" style="font-size: 13px; font-family: serif; letter-spacing: 0;">خوشبو وہ خاموش زبان ہے جو دل سے دل تک بات کرتی ہے</span>
+  <span class="announcement-divider">·</span>
+  <span class="announcement-small">Complimentary delivery above ₹2,499</span>
+</div>
+
+<header class="site-header">
+  <div class="header-main page-shell">
+    <button class="mobile-menu icon-button" type="button" aria-label="Open navigation" (click)="mobileMenuOpen = !mobileMenuOpen"><span class="menu-lines"></span></button>
+    <a class="brand-lockup" href="javascript:void(0)" (click)="setView('home')" aria-label="Zauq and Shauq home">
+      <img src="/assets/logo.svg" alt="Zauq and Shauq logo" class="brand-mark">
+      <span class="brand-name-wrap"><span class="brand-name">ZAUQ <span>&amp;</span> SHAUQ</span><span class="brand-tagline">— THE ART OF FRAGRANCE —</span></span>
+    </a>
+    <nav class="desktop-nav" aria-label="Main navigation">
+      <a href="javascript:void(0)" [class.active-nav]="currentView === 'home'" (click)="setView('home')">Home</a>
+      <a href="javascript:void(0)" [class.active-nav]="currentView === 'shop'" (click)="setView('shop')">Wardrobe</a>
+      <a href="javascript:void(0)" [class.active-nav]="currentView === 'discovery'" (click)="setView('discovery')">Discovery Coffret</a>
+      <a href="javascript:void(0)" [class.active-nav]="currentView === 'quiz'" (click)="setView('quiz')" class="nav-quiz-link">Scent Quiz ✦</a>
+      <a href="javascript:void(0)" [class.active-nav]="currentView === 'philosophy'" (click)="setView('philosophy')">Philosophy &amp; Notes</a>
+      <a href="javascript:void(0)" (click)="orderLookupOpen = true">Track order</a>
+      <a href="javascript:void(0)" *ngIf="authService.isAdmin" (click)="openAdminPortal()">Admin</a>
+    </nav>
+    <div class="header-tools">
+      <form class="header-search" (submit)="$event.preventDefault(); searchProducts()">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 4.5 4.5"></path></svg>
+        <input aria-label="Search fragrances" name="search" [(ngModel)]="searchTerm" (ngModelChange)="onSearchInput()" placeholder="Search scent, code, notes…" autocomplete="off">
+        <button type="button" *ngIf="searchTerm" class="search-clear" aria-label="Clear search" (click)="searchTerm=''; searchProducts()">×</button>
+      </form>
+      <button class="icon-button" type="button" aria-label="Manage Catalog CSV" title="CSV Catalog Import / Export" (click)="openCsvModal()">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="M12 18v-6"></path><path d="m9 15 3-3 3 3"></path></svg>
+        <span class="bag-label">CSV</span>
+      </button>
+      <button class="icon-button" type="button" aria-label="Account and Orders" title="Account &amp; My Orders" (click)="authModalOpen = true">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c1.8-3.8 5-6 8-6s6.2 2.2 8 6"></path></svg>
+        <span class="bag-label">{{ authService.currentUser ? authService.currentUser.name.split(' ')[0] : 'Sign in' }}</span>
+      </button>
+      <button class="icon-button wishlist-header" type="button" [class.is-active]="showWishlistOnly" aria-label="Show wishlist" title="Wishlist" (click)="showWishlist()">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 8.8c0 5.2-8.8 10.2-8.8 10.2S3.2 14 3.2 8.8A4.7 4.7 0 0 1 12 6.1a4.7 4.7 0 0 1 8.8 2.7Z"></path></svg>
+        <span class="sr-only">Wishlist</span><span class="tool-count" *ngIf="wishlist.size">{{ wishlist.size }}</span>
+      </button>
+      <button class="icon-button bag-button" type="button" aria-label="Open shopping bag" (click)="cartOpen = true">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8.5h14l1 12H4l1-12Z"></path><path d="M9 9V6a3 3 0 0 1 6 0v3"></path></svg><span class="bag-label">Bag</span><span class="tool-count bag-count">{{ cartCount }}</span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-nav" *ngIf="mobileMenuOpen" aria-label="Mobile navigation">
+    <a href="javascript:void(0)" (click)="setView('home')">Home</a>
+    <a href="javascript:void(0)" (click)="setView('shop')">Fragrance Wardrobe</a>
+    <a href="javascript:void(0)" (click)="setView('discovery')">The Discovery Coffret</a>
+    <a href="javascript:void(0)" (click)="setView('quiz')">Interactive Scent Quiz ✦</a>
+    <a href="javascript:void(0)" (click)="setView('philosophy')">Philosophy &amp; Notes</a>
+    <a href="javascript:void(0)" (click)="orderLookupOpen = true; mobileMenuOpen = false">Track order</a>
+    <a href="javascript:void(0)" (click)="authModalOpen = true; mobileMenuOpen = false">{{ authService.currentUser ? 'My Account (' + authService.currentUser.name + ')' : 'Sign in / Register' }}</a>
+    <a href="javascript:void(0)" (click)="openAdminPortal(); mobileMenuOpen = false">Admin Portal</a>
+  </nav>
+</header>
+
+<main>
+  <!-- VIEW 1: HOME PAGE (Clean, Modular & Royal) -->
+  <ng-container *ngIf="currentView === 'home'">
+    <app-hero
+      [heroProduct]="allProducts[0] || products[0]"
+      (explore)="selectCategory($event)"
+      (viewProduct)="openProduct($event)">
+    </app-hero>
+
+    <section class="promise-strip" aria-label="Our promises">
+      <div class="promise-item"><span class="promise-icon">✦</span><span>Pure Botanical Distillations</span></div><span class="promise-star">✳</span>
+      <div class="promise-item"><span class="promise-icon">◇</span><span>Luxury Without Synthetic Loudness</span></div><span class="promise-star">✳</span>
+      <div class="promise-item"><span class="promise-icon">↗</span><span>Complimentary Delivery over ₹2,499</span></div><span class="promise-star">✳</span>
+      <div class="promise-item"><span class="promise-icon">♡</span><span>Royal Wax-Sealed Packaging</span></div>
+    </section>
+
+    <!-- Curated Signature Line (From Image 2) -->
+    <section class="signature-line-section page-shell">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-line"></span> OUR SIGNATURE LINE</div>
+          <h2>Inspired by heritage, <em>crafted for tomorrow.</em></h2>
+          <p class="section-intro">Hand-poured in small batches with rare botanicals from Mysore, Grasse &amp; Assam.</p>
+        </div>
+        <button type="button" class="text-link" (click)="setView('shop')">Explore All Compositions <span>→</span></button>
+      </div>
+
+      <div class="signature-grid">
+        <app-product-card
+          *ngFor="let product of (featuredProducts.length ? featuredProducts : products).slice(0, 4)"
+          [product]="product"
+          [wished]="isWishlisted(product)"
+          (open)="openProduct($event)"
+          (add)="addToCart($event)"
+          (toggleWish)="toggleWishlist($event)">
+        </app-product-card>
+      </div>
+    </section>
+
+    <!-- Royal Discovery Coffret Spotlight Banner (From Image 2 & Report) -->
+    <section class="home-coffret-banner page-shell">
+      <div class="coffret-banner-glass">
+        <div class="banner-badge">✦ THE 5-VIAL SAMPLING WARDROBE</div>
+        <h3>Never blind-buy. Sample 5 Master Extraits for <em>₹999</em>.</h3>
+        <p>
+          Includes 2ml vials of Noir Oud, Rose Éclat, Velvet Amber, Citrus Drift &amp; Saffron Smoke.
+          Comes with an exclusive <strong>100% full-bottle credit voucher</strong> inside.
+        </p>
+        <div class="banner-ctas">
+          <button type="button" class="btn-royal-gold" (click)="setView('discovery')">
+            Discover The Coffret <span>→</span>
+          </button>
+          <button type="button" class="btn-royal-outline" (click)="setView('quiz')">
+            Take the Scent Quiz ✦
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mood Portals (From Image 2 Moodboard) -->
+    <section class="mood-portals-section page-shell">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-line"></span> FRAGRANCE FOR EVERY MOOD</div>
+          <h2>A scent for <em>every version of you.</em></h2>
+        </div>
+        <p class="category-heading-sub">Different moods. Different moments. One that feels like you.</p>
+      </div>
+      <div class="mood-portals-grid">
+        <button class="mood-card mood-dreamers" type="button" (click)="filterByNote('White Tea')">
+          <span class="mood-num">01</span>
+          <h4>For the Dreamers</h4>
+          <p>Soft. Soulful. Serene.</p>
+          <span class="mood-link">Explore Edit ↗</span>
+        </button>
+        <button class="mood-card mood-gogetters" type="button" (click)="filterByNote('Oud')">
+          <span class="mood-num">02</span>
+          <h4>For the Go-Getters</h4>
+          <p>Bold. Fresh. Unstoppable.</p>
+          <span class="mood-link">Explore Edit ↗</span>
+        </button>
+        <button class="mood-card mood-romantics" type="button" (click)="filterByNote('Rose')">
+          <span class="mood-num">03</span>
+          <h4>For the Romantics</h4>
+          <p>Floral. Warm. Unforgettable.</p>
+          <span class="mood-link">Explore Edit ↗</span>
+        </button>
+        <button class="mood-card mood-classics" type="button" (click)="filterByNote('Sandalwood')">
+          <span class="mood-num">04</span>
+          <h4>For the Classic Souls</h4>
+          <p>Timeless. Refined. Always.</p>
+          <span class="mood-link">Explore Edit ↗</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Royal Poetic Callout Band (From Image 2) -->
+    <section class="royal-poetry-band">
+      <div class="page-shell poetry-band-inner">
+        <div class="band-column">
+          <span class="band-label">ZAUQ &amp; SHAUQ ADAB</span>
+          <h3>Kuch Khushboo Qaidi Nahi Hoti,<br><em>Woh Azad Rehti Hai…</em></h3>
+          <p>Zauq bhi… Shauq bhi… Tum bhi…</p>
+          <button type="button" class="band-btn" (click)="selectCategory('For Him')">Explore For Him ↗</button>
+        </div>
+        <div class="band-divider"></div>
+        <div class="band-column">
+          <span class="band-label">THE SCENT SIGNATURE</span>
+          <h3>Apni Mehak,<br><em>Apni Pehchaan.</em></h3>
+          <p>Har lamha, thoda sa shauq, thoda sa khud ke liye.</p>
+          <button type="button" class="band-btn" (click)="selectCategory('For Her')">Explore For Her ↗</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- The Ritual Section -->
+    <section class="scent-ritual" id="ritual">
+      <div class="ritual-topline page-shell"><span>THE Z&amp;S RITUAL</span><span>LESS, BUT MORE MEANINGFUL</span></div>
+      <div class="ritual-content page-shell">
+        <div class="ritual-heading">
+          <div class="eyebrow eyebrow-light"><span class="eyebrow-line"></span> WEAR IT YOUR WAY</div>
+          <h2>Make it a <em>ritual.</em></h2>
+          <p>The best fragrance is the one you feel before anyone else notices it.</p>
+          <a href="javascript:void(0)" (click)="setView('shop')" class="text-link text-link-light">Find your everyday <span>→</span></a>
+        </div>
+        <div class="ritual-steps">
+          <div class="ritual-step"><span class="ritual-number">01</span><span class="ritual-symbol">◌</span><div><h3>Start with skin</h3><p>Apply to warm pulse points after moisturising, when your skin is ready to hold the notes.</p></div></div>
+          <div class="ritual-step"><span class="ritual-number">02</span><span class="ritual-symbol">✧</span><div><h3>Let it unfold</h3><p>Give your fragrance a moment. Bright top notes, a fuller heart, then the lasting base.</p></div></div>
+          <div class="ritual-step"><span class="ritual-number">03</span><span class="ritual-symbol">∞</span><div><h3>Make it yours</h3><p>Wear what fits the day, the mood, the memory you want to create.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="reviews-section page-shell">
+      <div class="reviews-heading"><div class="eyebrow"><span class="eyebrow-line"></span> KIND WORDS, REAL FEELINGS</div><h2>Scents that <em>stay with you.</em></h2><div class="review-score"><span class="review-stars">★★★★★</span><strong>4.8/5</strong><span>Verified collector experiences</span></div></div>
+      <div class="review-grid"><article class="review-card" *ngFor="let review of reviews"><div class="review-card-top"><span class="review-stars">★★★★★</span><span class="review-mark">“</span></div><h3>{{ review.title }}</h3><p>{{ review.body }}</p><div class="review-author"><span class="review-avatar">{{ review.initials }}</span><span><strong>{{ review.name }}</strong><small>Experience with {{ review.product }}</small></span><span class="verified-mark">✓</span></div></article></div>
+    </section>
+
+    <!-- Service Strip -->
+    <section class="service-strip">
+      <div class="service-item"><span class="service-icon">↗</span><div><strong>Thoughtful delivery</strong><small>Free over ₹2,499</small></div></div><span class="service-separator"></span>
+      <div class="service-item"><span class="service-icon">◇</span><div><strong>Hand-Poured</strong><small>Small batch craftsmanship</small></div></div><span class="service-separator"></span>
+      <div class="service-item"><span class="service-icon">♡</span><div><strong>Gifting made personal</strong><small>Royal wax seal &amp; card</small></div></div><span class="service-separator"></span>
+      <div class="service-item"><span class="service-icon">✳</span><div><strong>Here to help</strong><small>hello&#64;zauqandshauq.in</small></div></div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter-section">
+      <div class="newsletter-decoration">Z&amp;S</div>
+      <div class="newsletter-content">
+        <div class="eyebrow eyebrow-light"><span class="eyebrow-line"></span> A NOTE FROM OUR WORLD</div>
+        <h2>A little more <em>fragrance</em><br>in your inbox.</h2>
+        <p>New arrivals, scent stories, and thoughtful things worth opening. Never noise.</p>
+        <form class="newsletter-form" (submit)="$event.preventDefault(); subscribeNewsletter()">
+          <label class="sr-only" for="newsletter-email">Your email address</label>
+          <input id="newsletter-email" type="email" name="newsletterEmail" [(ngModel)]="newsletterEmail" placeholder="Your email address" required>
+          <button type="submit" [disabled]="newsletterBusy">{{ newsletterBusy ? 'Joining…' : 'Count me in' }} <span>→</span></button>
+        </form>
+        <p class="newsletter-message" *ngIf="newsletterMessage" aria-live="polite">{{ newsletterMessage }}</p>
+        <small>By subscribing, you agree to receive occasional notes from Zauq &amp; Shauq.</small>
+      </div>
+    </section>
+  </ng-container>
+
+  <!-- VIEW 2: FRAGRANCE WARDROBE (Dedicated Shop Page) -->
+  <ng-container *ngIf="currentView === 'shop'">
+    <section class="collection-section" style="padding-top: 50px;">
+      <div class="page-shell">
+        <div class="section-heading collection-heading">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-line"></span> THE FRAGRANCE WARDROBE</div>
+            <h2>Find your <em>signature.</em></h2>
+            <p class="section-intro">Considered compositions, fetched dynamically from our PostgreSQL fragrance vault.</p>
+          </div>
+          <button type="button" class="text-link" (click)="setView('discovery')">Looking for samples? Explore Coffret <span>→</span></button>
+        </div>
+
+        <div class="collection-toolbar">
+          <div class="category-pills" role="group" aria-label="Filter by category">
+            <button *ngFor="let category of categories" type="button" [class.active]="activeCategory===category && !showWishlistOnly" (click)="onCategoryPillClick(category)">{{ category }}</button>
+            <button type="button" class="wishlist-filter" [class.active]="showWishlistOnly" (click)="showWishlistOnly=true; activeCategory='All Fragrances'">♡ Saved <span *ngIf="wishlist.size">{{ wishlist.size }}</span></button>
+          </div>
+          <label class="sort-control"><span>Sort by</span>
+            <select aria-label="Sort products" [(ngModel)]="sortBy" (ngModelChange)="onSortChange()">
+              <option value="featured">Featured</option>
+              <option value="price-low">Price: low to high</option>
+              <option value="price-high">Price: high to low</option>
+              <option value="rating">Top rated</option>
+              <option value="name">Name A–Z</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="filter-search" *ngIf="searchTerm">
+          <span>Showing results for <strong>“{{ searchTerm }}”</strong></span>
+          <button type="button" class="text-link" (click)="searchTerm=''; clearFilters()">Clear search ×</button>
+        </div>
+        <div class="filter-search" *ngIf="showWishlistOnly">
+          <span>Your saved fragrances</span>
+          <button type="button" class="text-link" (click)="showWishlistOnly=false">Show all fragrances ×</button>
+        </div>
+
+        <div class="product-grid" *ngIf="filteredProducts.length; else emptyProducts">
+          <app-product-card
+            *ngFor="let product of filteredProducts"
+            [product]="product"
+            [wished]="isWishlisted(product)"
+            (open)="openProduct($event)"
+            (add)="addToCart($event)"
+            (toggleWish)="toggleWishlist($event)">
+          </app-product-card>
+        </div>
+
+        <ng-template #emptyProducts>
+          <div class="empty-state">
+            <span class="empty-flower">✳</span>
+            <h3>No scents found just yet.</h3>
+            <p>Try another search or explore the full fragrance wardrobe.</p>
+            <button class="button button-dark" type="button" (click)="clearFilters()">View all fragrances</button>
+          </div>
+        </ng-template>
+
+        <div class="collection-footnote">
+          <span>Showing {{ filteredProducts.length }} considered compositions</span>
+          <span class="footnote-star">✳</span>
+          <span>Find the note that feels like you.</span>
+        </div>
+      </div>
+    </section>
+  </ng-container>
+
+  <!-- VIEW 3: DISCOVERY COFFRET (Dedicated Sampling Page) -->
+  <ng-container *ngIf="currentView === 'discovery'">
+    <app-discovery-set
+      (add)="addToCart($event)"
+      (buyNow)="onBuyNow($event)">
+    </app-discovery-set>
+  </ng-container>
+
+  <!-- VIEW 4: INTERACTIVE SCENT QUIZ (Dedicated Concierge Page) -->
+  <ng-container *ngIf="currentView === 'quiz'">
+    <app-scent-quiz
+      [products]="allProducts.length ? allProducts : products"
+      (openProduct)="openProduct($event)"
+      (addToCart)="addToCart($event)"
+      (filterByNote)="filterByNote($event)">
+    </app-scent-quiz>
+  </ng-container>
+
+  <!-- VIEW 5: PHILOSOPHY, NOTE ARCHITECTURE & POETICS (Dedicated About Page) -->
+  <ng-container *ngIf="currentView === 'philosophy'">
+    <app-scent-experience (filterByNote)="filterByNote($event)"></app-scent-experience>
+    <section class="story-feature" id="our-story">
+      <div class="story-art"><div class="story-art-inner"><div class="story-arch"><div class="story-glow"></div><div class="story-bottle-mark">Z<span>&amp;</span>S</div><span class="story-arch-label">THE ART OF SCENT</span></div><span class="story-vertical-text">SCENT IS A WAY OF FEELING</span><div class="story-art-caption"><span>001</span><span>AN OLFACTORY JOURNEY</span></div></div></div>
+      <div class="story-copy">
+        <div class="eyebrow eyebrow-light"><span class="eyebrow-line"></span> A LITTLE ABOUT US</div>
+        <h2>Some things are<br>better <em>felt than said.</em></h2>
+        <p class="story-lead">We believe fragrance is more than what you wear. It is what stays with you.</p>
+        <p>Born from a love of thoughtful details and beautiful rituals, Zauq &amp; Shauq is a growing collection of scents chosen for the feeling they leave behind. Familiar, unexpected, deeply personal.</p>
+        <p>We look for character over noise, craftsmanship over clutter, and the little details that make a fragrance feel like it was always yours.</p>
+        <button type="button" (click)="setView('shop')" class="text-link text-link-light">Explore the Wardrobe <span>→</span></button>
+        <div class="story-signature"><span class="signature-mark">Z&amp;S</span><span><strong>Made with zauq.</strong><small>Chosen with shauq.</small></span></div>
+      </div>
+    </section>
+  </ng-container>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-main page-shell">
+    <div class="footer-brand">
+      <a class="brand-lockup footer-lockup" href="javascript:void(0)" (click)="setView('home')">
+        <img src="/assets/logo.svg" alt="Zauq and Shauq logo" class="brand-mark">
+        <span class="brand-name-wrap"><span class="brand-name">ZAUQ <span>&amp;</span> SHAUQ</span><span class="brand-tagline">— THE ART OF FRAGRANCE —</span></span>
+      </a>
+      <p>Fragrance for the feelings that words cannot quite hold.</p>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram">ig</a>
+        <a href="https://www.pinterest.com/" target="_blank" rel="noreferrer" aria-label="Pinterest">p</a>
+        <a href="mailto:hello@zauqandshauq.in" aria-label="Email us">@</a>
+      </div>
+    </div>
+    <div class="footer-links">
+      <strong>EXPLORE</strong>
+      <a href="javascript:void(0)" (click)="setView('home')">Home</a>
+      <a href="javascript:void(0)" (click)="setView('shop')">Fragrance Wardrobe</a>
+      <a href="javascript:void(0)" (click)="setView('discovery')">The Discovery Coffret</a>
+      <a href="javascript:void(0)" (click)="setView('quiz')">Scent Quiz ✦</a>
+      <a href="javascript:void(0)" (click)="setView('philosophy')">Philosophy &amp; Notes</a>
+    </div>
+    <div class="footer-links">
+      <strong>CUSTOMER ADAB</strong>
+      <a href="javascript:void(0)" (click)="orderLookupOpen = true">Track your order</a>
+      <a href="javascript:void(0)" (click)="authModalOpen = true">My Account &amp; Orders</a>
+      <a href="javascript:void(0)" (click)="openAdminPortal()">Admin Portal</a>
+      <a href="javascript:void(0)" (click)="openCsvModal()">CSV Catalog Sync</a>
+    </div>
+    <div class="footer-note">
+      <span class="footer-note-mark">✳</span>
+      <p>For the ones who notice the little things.</p>
+      <span class="footer-note-caption">WITH LOVE, FROM Z&amp;S</span>
+    </div>
+  </div>
+  <div class="footer-bottom page-shell" id="footer-legal">
+    <span>© 2026 Zauq &amp; Shauq. Royal French &amp; Arabian Haute Parfumerie.</span>
+    <span>Har Khushboo Ek Kahani Kehti Hai.</span>
+    <span class="payment-methods">SECURE CHECKOUT · RAZORPAY &amp; POSTGRESQL BACKED</span>
+  </div>
+</footer>
+
+<!-- Modular Shopping Bag Drawer with Free Sample Milestone -->
+<app-cart-drawer
+  [open]="cartOpen"
+  [cart]="cart"
+  [cartCount]="cartCount"
+  [cartSubtotal]="cartSubtotal"
+  [freeShippingRemaining]="freeShippingRemaining"
+  (close)="cartOpen = false"
+  (quantityChange)="changeQuantity($event.item, $event.delta)"
+  (remove)="removeFromCart($event)"
+  (checkout)="openCheckout()"
+  (explore)="cartOpen = false; setView('shop')">
+</app-cart-drawer>
+
+<!-- Master French/Arabian Product Detail Modal -->
+<app-product-detail-modal
+  [product]="activeProduct"
+  [wished]="activeProduct ? isWishlisted(activeProduct) : false"
+  (close)="closeProduct()"
+  (add)="addToCart($event)"
+  (buyNow)="onBuyNow($event)"
+  (toggleWish)="toggleWishlist($event)">
+</app-product-detail-modal>
+
+<!-- Modular Order Lookup Modal -->
+<app-order-lookup-modal
+  [open]="orderLookupOpen"
+  [apiBase]="productService.apiBase"
+  [initialQuery]="orderLookupQuery"
+  (close)="orderLookupOpen = false">
+</app-order-lookup-modal>
+
+<!-- Modular Customer / Admin Auth & Profile Modal -->
+<app-auth-modal
+  [open]="authModalOpen"
+  (close)="authModalOpen = false"
+  (authenticated)="onUserAuthenticated($event)"
+  (openAdmin)="adminDashboardOpen = true">
+</app-auth-modal>
+
+<!-- Modular Admin Dashboard Portal -->
+<app-admin-dashboard
+  [open]="adminDashboardOpen"
+  (close)="adminDashboardOpen = false"
+  (catalogChanged)="onAdminCatalogChanged()">
+</app-admin-dashboard>
+
+<!-- CSV Catalog Management Modal -->
+<div class="modal-backdrop" *ngIf="csvModalOpen" (click)="closeCsvModal()" role="presentation">
+  <section class="checkout-modal" style="max-width: 620px; padding: 32px;" role="dialog" aria-modal="true" aria-label="CSV Catalog Sync" (click)="$event.stopPropagation()">
+    <button *ngIf="!csvUploading" type="button" class="close-button checkout-close" (click)="closeCsvModal()" aria-label="Close CSV dialog">×</button>
+    <div class="eyebrow"><span class="eyebrow-line"></span> POSTGRESQL CATALOG MANAGEMENT</div>
+    <h2 style="font-family: 'Playfair Display', serif; font-weight: 400; font-size: 32px; margin: 12px 0;">CSV Template &amp; <em>Bulk Upload</em></h2>
+    <p style="font-size: 11px; color: #707666; line-height: 1.8; margin-bottom: 24px;">
+      Download the production CSV template, fill in your perfume details, and upload via Postman or directly below to sync with PostgreSQL.
+    </p>
+    <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px;">
+      <a class="button button-gold" [href]="productService.templateDownloadUrl" download="perfumes_template.csv">Download CSV Template <span>↓</span></a>
+      <a class="button button-dark" [href]="productService.exportCsvUrl" download="zauq_and_shauq_products.csv">Export Live DB CSV <span>↗</span></a>
+    </div>
+    <div style="border: 1px dashed #c5b47d; background: #f3f0e3; padding: 20px;">
+      <strong style="display: block; font-size: 11px; margin-bottom: 8px; color: #303827;">Upload Production CSV File</strong>
+      <input type="file" accept=".csv,text/csv" (change)="onCsvSelected($event)" [disabled]="csvUploading" style="font-size: 10px;">
+      <p style="font-size: 9px; color: #838576; margin: 10px 0 0;">
+        Postman Endpoint: <code>POST {{ productService.apiBase }}/products/csv/upload</code> (form-data key: <code>file</code>)
+      </p>
+    </div>
+    <div class="checkout-error" *ngIf="csvError">{{ csvError }}</div>
+    <div *ngIf="csvResult" style="margin-top: 16px; padding: 14px; background: #e8efe5; border: 1px solid #b8ccb0; font-size: 10px; color: #2d4728;">
+      <strong>{{ csvResult.message }}</strong>
+      <div style="margin-top: 6px;">Total Rows: {{ csvResult.totalRows }} · Inserted: {{ csvResult.insertedCount }} · Updated: {{ csvResult.updatedCount }}</div>
+      <ul *ngIf="csvResult.errors.length" style="margin: 8px 0 0; padding-left: 18px; color: #914c3e;">
+        <li *ngFor="let err of csvResult.errors">{{ err }}</li>
+      </ul>
+    </div>
+  </section>
+</div>
+
+<!-- Checkout Modal -->
+<!-- Checkout Modal -->
+<div class="checkout-backdrop overlay" *ngIf="checkoutOpen" (click)="closeCheckout()" role="presentation"></div>
+<div class="modal-backdrop checkout-backdrop" *ngIf="checkoutOpen" role="dialog" aria-modal="true" aria-label="Checkout modal">
+  <section class="checkout-modal royal-checkout-modal" (click)="$event.stopPropagation()">
+    <button type="button" class="close-button checkout-close" (click)="closeCheckout()" aria-label="Close checkout">×</button>
+    
+    <div *ngIf="!orderReceipt; else orderSuccess">
+      <div class="checkout-top">
+        <div class="checkout-brand-lockup">
+          <img src="/assets/logo.svg" alt="Zauq and Shauq" width="40" height="40" class="checkout-brand-mark">
+          <div>
+            <div class="eyebrow eyebrow-emerald"><span class="eyebrow-line"></span> CONCIERGE CHECKOUT</div>
+            <h2>A few details for <em>your delivery</em></h2>
+          </div>
+        </div>
+        <div class="checkout-trust-badge">
+          <span class="lock-icon">🔒</span>
+          <span>Insured Express Courier · 256-Bit SSL Encrypted</span>
+        </div>
+      </div>
+
+      <div class="checkout-layout">
+        <form class="checkout-form" (submit)="$event.preventDefault(); placeOrder()">
+          
+          <div class="checkout-section-title">
+            <span class="section-step-num">01</span>
+            <div>
+              <h3>Shipping &amp; Contact Details</h3>
+              <p *ngIf="authService.currentUser">
+                Prefilled from your account (<strong>{{ authService.currentUser.name }}</strong>)
+              </p>
+            </div>
+          </div>
+
+          <label [class.has-error]="fieldErrors['name']">
+            Full name *
+            <input [(ngModel)]="checkout.name" name="name" required placeholder="e.g. Aarav Sharma" (input)="fieldErrors['name'] = ''">
+            <span class="field-error-msg" *ngIf="fieldErrors['name']">{{ fieldErrors['name'] }}</span>
+          </label>
+
+          <div class="form-row">
+            <label [class.has-error]="fieldErrors['email']">
+              Email * <small>(for confirmation &amp; tracking)</small>
+              <input [(ngModel)]="checkout.email" name="email" type="email" required placeholder="e.g. aarav@example.com" (input)="fieldErrors['email'] = ''">
+              <span class="field-error-msg" *ngIf="fieldErrors['email']">{{ fieldErrors['email'] }}</span>
+            </label>
+            <label [class.has-error]="fieldErrors['phone']">
+              Phone * <small>(for courier delivery)</small>
+              <input [(ngModel)]="checkout.phone" name="phone" required placeholder="e.g. 9876543210" (input)="fieldErrors['phone'] = ''">
+              <span class="field-error-msg" *ngIf="fieldErrors['phone']">{{ fieldErrors['phone'] }}</span>
+            </label>
+          </div>
+
+          <label [class.has-error]="fieldErrors['address']">
+            Street address &amp; Flat/House No. *
+            <input [(ngModel)]="checkout.address" name="address" required placeholder="e.g. Flat 402, Rosewood Manor, Civil Lines" (input)="fieldErrors['address'] = ''">
+            <span class="field-error-msg" *ngIf="fieldErrors['address']">{{ fieldErrors['address'] }}</span>
+          </label>
+
+          <div class="form-row form-row-three">
+            <label [class.has-error]="fieldErrors['city']">
+              City *
+              <input [(ngModel)]="checkout.city" name="city" required placeholder="e.g. Jaipur" (input)="fieldErrors['city'] = ''">
+              <span class="field-error-msg" *ngIf="fieldErrors['city']">{{ fieldErrors['city'] }}</span>
+            </label>
+            <label [class.has-error]="fieldErrors['state']">
+              State / Region *
+              <input [(ngModel)]="checkout.state" name="state" required placeholder="e.g. Rajasthan" (input)="fieldErrors['state'] = ''">
+              <span class="field-error-msg" *ngIf="fieldErrors['state']">{{ fieldErrors['state'] }}</span>
+            </label>
+            <label [class.has-error]="fieldErrors['postalCode']">
+              PIN Code *
+              <input [(ngModel)]="checkout.postalCode" name="postalCode" required placeholder="e.g. 302001" maxlength="6" (input)="fieldErrors['postalCode'] = ''">
+              <span class="field-error-msg" *ngIf="fieldErrors['postalCode']">{{ fieldErrors['postalCode'] }}</span>
+            </label>
+          </div>
+
+          <!-- Payment Method Selector -->
+          <div class="checkout-section-title" style="margin-top: 18px;">
+            <span class="section-step-num">02</span>
+            <div>
+              <h3>Choose Payment Method</h3>
+              <p>Select your preferred way to complete order</p>
+            </div>
+          </div>
+
+          <div class="payment-methods-stack">
+            <!-- Method 1: Direct Boutique UPI (Instant & Dynamic QR) -->
+            <div class="payment-option-card" [class.selected]="selectedPaymentMethod === 'UPI'" (click)="setPaymentMethod('UPI')">
+              <div class="option-radio">
+                <span class="radio-dot" *ngIf="selectedPaymentMethod === 'UPI'"></span>
+              </div>
+              <div class="option-icon">⚡</div>
+              <div class="option-content">
+                <div class="option-header-line">
+                  <strong>Direct Boutique UPI (0% Fee · Instant QR)</strong>
+                  <span class="option-tag tag-emerald">INSTANT &amp; SECURE</span>
+                </div>
+                <small>Pay via Google Pay, PhonePe, Paytm, BHIM QR, or UPI ID with instant 12-digit UTR confirmation</small>
+              </div>
+            </div>
+
+            <!-- Method 2: Razorpay Online -->
+            <div class="payment-option-card" [class.selected]="selectedPaymentMethod === 'RAZORPAY'" (click)="setPaymentMethod('RAZORPAY')">
+              <div class="option-radio">
+                <span class="radio-dot" *ngIf="selectedPaymentMethod === 'RAZORPAY'"></span>
+              </div>
+              <div class="option-icon">💳</div>
+              <div class="option-content">
+                <div class="option-header-line">
+                  <strong>Razorpay Gateway (Cards &amp; NetBanking)</strong>
+                  <span class="option-tag tag-gold" *ngIf="paymentConfig.enabled">LIVE GATEWAY</span>
+                  <span class="option-tag" *ngIf="!paymentConfig.enabled">SANDBOX</span>
+                </div>
+                <small>Visa, Mastercard, Amex, Rupay Cards, NetBanking, Wallets, and Razorpay UPI</small>
+              </div>
+            </div>
+
+            <!-- Method 3: Cash on Delivery -->
+            <div class="payment-option-card" [class.selected]="selectedPaymentMethod === 'COD'" (click)="setPaymentMethod('COD')">
+              <div class="option-radio">
+                <span class="radio-dot" *ngIf="selectedPaymentMethod === 'COD'"></span>
+              </div>
+              <div class="option-icon">📦</div>
+              <div class="option-content">
+                <div class="option-header-line">
+                  <strong>Cash on Delivery (Pay at Doorstep)</strong>
+                  <span class="option-tag tag-emerald">CONVENIENT</span>
+                </div>
+                <small>Pay with cash or UPI to courier upon doorstep flacon handover</small>
+              </div>
+            </div>
+
+            <!-- Method 4: Sandbox Demo Order -->
+            <div class="payment-option-card" [class.selected]="selectedPaymentMethod === 'DEMO'" (click)="setPaymentMethod('DEMO')">
+              <div class="option-radio">
+                <span class="radio-dot" *ngIf="selectedPaymentMethod === 'DEMO'"></span>
+              </div>
+              <div class="option-icon">🧪</div>
+              <div class="option-content">
+                <div class="option-header-line">
+                  <strong>Sandbox Demo Order (Instant Test)</strong>
+                  <span class="option-tag">NO CHARGE</span>
+                </div>
+                <small>Simulate checkout instantly; full order persisted in PostgreSQL registry</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Direct Boutique UPI Interactive Box -->
+          <div class="direct-upi-box" *ngIf="selectedPaymentMethod === 'UPI'">
+            <div class="eyebrow eyebrow-emerald"><span class="eyebrow-line"></span> DIRECT BOUTIQUE UPI SETTLEMENT</div>
+            <h4 style="font-family: 'Playfair Display', serif; font-size: 16px; margin: 4px 0 10px; color: #faeed4;">
+              Scan QR or Tap Your Preferred UPI App
+            </h4>
+            <p style="font-size: 10px; color: #b6c2af; margin-bottom: 16px; line-height: 1.6;">
+              Transfer <strong style="color: #e5c178;">{{ checkoutTotal | currency:'INR':'symbol':'1.0-0' }}</strong> to our verified boutique VPA. Once completed, enter the 12-digit UPI Reference / UTR Number below to seal your order.
+            </p>
+
+            <div class="upi-qr-row">
+              <div class="upi-qr-frame">
+                <img [src]="upiQrCodeUrl" alt="Scan to pay via UPI" width="124" height="124" loading="eager">
+                <small style="font-size: 8px; color: #1e2820; font-weight: 700; margin-top: 4px;">SCAN WITH ANY UPI APP</small>
+              </div>
+
+              <div class="upi-details-col">
+                <span style="font-size: 9px; letter-spacing: 1px; color: #9aa892; text-transform: uppercase;">Verified Boutique UPI ID:</span>
+                <div class="vpa-pill">
+                  <span class="vpa-text">{{ upiVpa }}</span>
+                  <button type="button" class="btn-copy-vpa" (click)="copyUpiId()">📋 Copy</button>
+                </div>
+
+                <span style="font-size: 9px; letter-spacing: 1px; color: #9aa892; text-transform: uppercase; display: block; margin-bottom: 6px;">
+                  Or Launch 1-Click Mobile UPI App:
+                </span>
+                <div class="upi-apps-row">
+                  <a [href]="upiPaymentUri" class="upi-app-btn">🟢 Google Pay</a>
+                  <a [href]="upiPaymentUri" class="upi-app-btn">🟣 PhonePe</a>
+                  <a [href]="upiPaymentUri" class="upi-app-btn">🔵 Paytm</a>
+                  <a [href]="upiPaymentUri" class="upi-app-btn">🟠 BHIM / Cred</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- UTR Input Box -->
+            <div class="utr-input-group" style="margin-top: 18px; padding-top: 14px; border-top: 1px dashed rgba(229, 193, 120, 0.25);">
+              <label for="upi-utr">
+                Step 2: Enter 12-Digit UPI Transaction Reference / UTR Number *
+              </label>
+              <input id="upi-utr" [(ngModel)]="upiUtr" name="upiUtr" required placeholder="e.g. 428901234567" maxlength="22" autocomplete="off">
+              <small style="font-size: 9px; color: #9aa892; display: block; margin-top: 4px;">
+                Found on your payment success screen (Google Pay, PhonePe, Paytm, or BHIM) labeled as <em>UPI Ref No.</em> or <em>UTR</em>.
+              </small>
+            </div>
+          </div>
+
+          <!-- Razorpay Showcase Box -->
+          <div class="direct-upi-box razorpay-info-box" *ngIf="selectedPaymentMethod === 'RAZORPAY'">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <div class="eyebrow eyebrow-emerald"><span class="eyebrow-line"></span> OFFICIAL SECURE PAYMENT GATEWAY</div>
+              <span class="option-tag tag-gold" style="font-size: 8.5px; letter-spacing: 1px;">TEST API ACTIVE</span>
+            </div>
+            <h4 style="font-family: 'Playfair Display', serif; font-size: 16px; margin: 4px 0 8px; color: #faeed4;">
+              Razorpay Multi-Rail Checkout
+            </h4>
+            <p style="font-size: 10.5px; color: #b6c2af; margin-bottom: 14px; line-height: 1.6;">
+              Clicking <strong>Proceed to Pay with Razorpay</strong> opens the official 256-bit encrypted checkout popup with all Indian &amp; international payment methods supported:
+            </p>
+
+            <div class="razorpay-badges-grid">
+              <div class="rzp-badge-item">
+                <span class="rzp-icon">⚡</span>
+                <div>
+                  <strong>UPI Instant Pay</strong>
+                  <small>Google Pay, PhonePe, Paytm, QR &amp; Any UPI App</small>
+                </div>
+              </div>
+              <div class="rzp-badge-item">
+                <span class="rzp-icon">💳</span>
+                <div>
+                  <strong>Credit &amp; Debit Cards</strong>
+                  <small>Visa, Mastercard, RuPay, Amex, Diners Club</small>
+                </div>
+              </div>
+              <div class="rzp-badge-item">
+                <span class="rzp-icon">🏛️</span>
+                <div>
+                  <strong>NetBanking (50+ Banks)</strong>
+                  <small>HDFC, ICICI, SBI, Axis, Kotak, PNB &amp; more</small>
+                </div>
+              </div>
+              <div class="rzp-badge-item">
+                <span class="rzp-icon">👛</span>
+                <div>
+                  <strong>Wallets &amp; EMI</strong>
+                  <small>Mobikwik, Freecharge, Airtel Money, PayLater</small>
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-top: 14px; padding-top: 10px; border-top: 1px dashed rgba(229, 193, 120, 0.25); font-size: 9.5px; color: #9aa892;">
+              <span>🔒 256-Bit TLS Bank-Grade Encryption · Powered by Razorpay</span>
+              <span>Test Key: <code style="color: #e5c178; font-family: monospace;">{{ paymentConfig.keyId || 'rzp_test_TrnvmqpEGpgwfa' }}</code></span>
+            </div>
+          </div>
+
+          <!-- Coupon / Voucher Section -->
+          <div class="coupon-section">
+            <label for="coupon-code" class="coupon-title">Have an Atelier Voucher / Discovery Credit?</label>
+            <div class="coupon-input-box">
+              <input id="coupon-code" [(ngModel)]="couponInput" name="coupon" placeholder="Enter code (e.g. ZAUQ10, ROYAL20, DISCOVER999)">
+              <button type="button" class="btn-apply-coupon" (click)="applyCoupon()">Apply</button>
+            </div>
+            
+            <!-- Quick Voucher Suggestion Pills -->
+            <div class="voucher-quick-pills">
+              <span>Quick Codes:</span>
+              <button type="button" class="quick-pill" (click)="quickApplyCoupon('ZAUQ10')">ZAUQ10 (10% Off)</button>
+              <button type="button" class="quick-pill" (click)="quickApplyCoupon('ROYAL20')">ROYAL20 (20% Off)</button>
+              <button type="button" class="quick-pill" (click)="quickApplyCoupon('DISCOVER999')">DISCOVER999 (₹999 Credit)</button>
+            </div>
+
+            <div *ngIf="appliedCoupon" class="applied-coupon-pill">
+              <span>✓ Voucher <strong>{{ appliedCoupon }}</strong> active: saving <strong>{{ discountEstimate | currency:'INR':'symbol':'1.0-0' }}</strong></span>
+              <button type="button" class="btn-remove-coupon" (click)="removeCoupon()" aria-label="Remove coupon">×</button>
+            </div>
+          </div>
+
+          <div class="checkout-error" *ngIf="orderError">
+            <span class="error-icon">⚠️</span>
+            <span>{{ orderError }}</span>
+          </div>
+
+          <!-- Dynamic Place Order Button -->
+          <button type="submit" class="button button-dark full-button checkout-submit royal-submit-btn" [disabled]="submitting || !cart.length">
+            <span *ngIf="submitting">
+              <span class="spinner-inline"></span> Securing your flacons &amp; confirming order…
+            </span>
+            <span *ngIf="!submitting">
+              <ng-container [ngSwitch]="selectedPaymentMethod">
+                <span *ngSwitchCase="'UPI'">Confirm UPI Order · {{ checkoutTotal | currency:'INR':'symbol':'1.0-0' }} <span>→</span></span>
+                <span *ngSwitchCase="'COD'">Place Cash on Delivery Order · {{ checkoutTotal | currency:'INR':'symbol':'1.0-0' }} <span>→</span></span>
+                <span *ngSwitchCase="'DEMO'">Place Sandbox Demo Order · {{ checkoutTotal | currency:'INR':'symbol':'1.0-0' }} <span>→</span></span>
+                <span *ngSwitchDefault>Proceed to Pay with Razorpay · {{ checkoutTotal | currency:'INR':'symbol':'1.0-0' }} <span>→</span></span>
+              </ng-container>
+            </span>
+          </button>
+          
+          <p class="checkout-terms">
+            By confirming your order, you agree to Zauq &amp; Shauq's Terms of Luxury Sale, complimentary exchange adab, and Privacy Policy.
+          </p>
+        </form>
+
+        <!-- Right Side: Order Summary -->
+        <aside class="order-summary royal-summary-glass">
+          <h3>Your selection <span>{{ cartCount }} item(s)</span></h3>
+          <div class="summary-items">
+            <div class="summary-item" *ngFor="let item of cart">
+              <div class="summary-thumb-wrap">
+                <img [src]="item.product.image" [alt]="item.product.name">
+                <span class="summary-qty-bubble">{{ item.quantity }}</span>
+              </div>
+              <div class="summary-info">
+                <strong>{{ item.product.name }}</strong>
+                <small>{{ item.product.size }} · {{ item.product.concentration }}</small>
+              </div>
+              <span class="summary-price">{{ item.product.price * item.quantity | currency:'INR':'symbol':'1.0-0' }}</span>
+            </div>
+          </div>
+
+          <div class="summary-row"><span>Bag Subtotal</span><strong>{{ cartSubtotal | currency:'INR':'symbol':'1.0-0' }}</strong></div>
+          
+          <div class="summary-row discount-line-row" *ngIf="discountEstimate > 0">
+            <span class="discount-label">Voucher Discount ({{ appliedCoupon }})</span>
+            <strong class="discount-val">− {{ discountEstimate | currency:'INR':'symbol':'1.0-0' }}</strong>
+          </div>
+          
+          <div class="summary-row">
+            <span>Insured Express Shipping</span>
+            <strong [class.free-shipping-text]="shippingEstimate === 0">
+              {{ shippingEstimate === 0 ? 'Complimentary' : (shippingEstimate | currency:'INR':'symbol':'1.0-0') }}
+            </strong>
+          </div>
+          
+          <div class="summary-total">
+            <div>
+              <span>Grand Total</span>
+              <small>All taxes &amp; duties included</small>
+            </div>
+            <strong>{{ checkoutTotal | currency:'INR':'symbol':'1.0-0' }}</strong>
+          </div>
+
+          <div class="summary-curated-perks">
+            <div class="curated-perk">
+              <span class="curated-icon">🎁</span>
+              <span>Complimentary 2ml Extrait de Parfum discovery vial</span>
+            </div>
+            <div class="curated-perk">
+              <span class="curated-icon">⚜️</span>
+              <span>Hand-poured batch &amp; royal wax-sealed presentation box</span>
+            </div>
+            <div class="curated-perk">
+              <span class="curated-icon">🚚</span>
+              <span>Express courier delivery within 2–4 business days</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- Order Success Receipt -->
+    <ng-template #orderSuccess>
+      <div class="order-success royal-order-success" *ngIf="orderReceipt">
+        <div class="success-seal-emblem">
+          <div class="seal-inner">✓</div>
+        </div>
+        <div class="eyebrow eyebrow-emerald"><span class="eyebrow-line"></span> ORDER SEALED &amp; REGISTERED</div>
+        <h2>Thank you, <em>{{ (orderReceipt.name || 'Friend').split(' ')[0] }}.</em></h2>
+        <p class="success-intro">
+          Your haute parfumerie selection has been safely recorded in our PostgreSQL registry. Our atelier is preparing your flacons.
+        </p>
+
+        <div class="success-order-card royal-receipt-card">
+          <div class="receipt-top-row">
+            <div>
+              <span class="receipt-label">ORDER REFERENCE</span>
+              <strong class="receipt-number">{{ orderReceipt.orderNumber }}</strong>
+            </div>
+            <button type="button" class="btn-copy-ref" (click)="copyOrderNumber(orderReceipt.orderNumber)">
+              📋 Copy Reference
+            </button>
+          </div>
+
+          <div class="receipt-meta-grid">
+            <div class="meta-item">
+              <span class="meta-label">Payment Method</span>
+              <strong>{{ orderReceipt.paymentMethod }}</strong>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Order Status</span>
+              <span class="receipt-status-pill">{{ orderReceipt.status }}</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Total Amount</span>
+              <strong class="receipt-amount">{{ orderReceipt.total | currency:'INR':'symbol':'1.0-0' }}</strong>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Recipient</span>
+              <strong>{{ orderReceipt.name }} ({{ orderReceipt.phone }})</strong>
+            </div>
+          </div>
+
+          <div class="receipt-address-box">
+            <span class="meta-label">Dispatched To</span>
+            <p>{{ orderReceipt.address }}, {{ orderReceipt.city }}, {{ orderReceipt.state }} - {{ orderReceipt.postalCode }}</p>
+          </div>
+
+          <!-- Items Ordered Breakdown -->
+          <div class="receipt-items-list" *ngIf="orderReceipt.items && orderReceipt.items.length">
+            <span class="meta-label" style="display: block; margin-bottom: 8px;">Compositions in this Order:</span>
+            <div class="receipt-item-row" *ngFor="let item of orderReceipt.items">
+              <span>{{ item.name }} × {{ item.quantity }}</span>
+              <strong>{{ item.lineTotal | currency:'INR':'symbol':'1.0-0' }}</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="receipt-actions-row">
+          <button type="button" class="button button-gold" (click)="trackThisOrder(orderReceipt.orderNumber)">
+            Track Order Status <span>→</span>
+          </button>
+          <button type="button" class="button button-dark" (click)="printReceipt()">
+            Print Receipt <span>🖨️</span>
+          </button>
+          <button type="button" class="button button-outline" (click)="resetOrderAndClose()">
+            Return to Storefront
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </section>
+</div>
+
+<!-- Toast Feedback -->
+<div class="toast" *ngIf="toast" role="status" aria-live="polite">
+  <span class="toast-check">✓</span>
+  <span>{{ toast }}</span>
+</div>
+
+<!-- Back to top button -->
+<button type="button" class="back-to-top" *ngIf="showTop" (click)="scrollToTop()" aria-label="Back to top">↑</button>

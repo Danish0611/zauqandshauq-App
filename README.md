@@ -27,7 +27,7 @@ Install **Node.js 22 LTS** (includes npm), **Java JDK 17 or newer**, and **Apach
 
 ### 1. Start Spring Boot
 
-Open PowerShell in `zauqandshauq/backend`:
+Open PowerShell in `backend`:
 
 ```powershell
 mvn spring-boot:run
@@ -37,7 +37,7 @@ The API listens on `http://localhost:8080`. By default, payment keys are absent 
 
 ### 2. Start Angular
 
-Open another PowerShell terminal in `zauqandshauq/frontend`:
+Open another PowerShell terminal in `frontend`:
 
 ```powershell
 npm install
@@ -105,13 +105,13 @@ Checkout JSON example (the frontend sends this shape):
 ## Project structure
 
 ```text
-zauqandshauq/
+zauqandshauq-App/
 ├── frontend/
 │   ├── public/assets/       # logo, favicon, hero art, 12 local product illustrations
 │   └── src/app/             # storefront component, models, API/fallback data service
 └── backend/
     ├── pom.xml
-    └── src/main/java/com/zauqandshauq/
+    └── src/main/java/com/zauqandshauq-App/
         ├── controller/      # catalogue, order, payment and newsletter endpoints
         ├── dto/             # validated checkout request models
         ├── model/           # product and order receipt records

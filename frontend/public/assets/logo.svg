@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="100%" height="100%" fill="none">
+  <defs>
+    <!-- Liquid Crown & Monogram Metallic Gold Gradient -->
+    <linearGradient id="royalGoldGrad" x1="15%" y1="0%" x2="85%" y2="100%">
+      <stop offset="0%" stop-color="#faeed4"/>
+      <stop offset="25%" stop-color="#e8c784"/>
+      <stop offset="55%" stop-color="#c89d54"/>
+      <stop offset="85%" stop-color="#e2bf7a"/>
+      <stop offset="100%" stop-color="#9a6e2e"/>
+    </linearGradient>
+
+    <!-- Deep Specular Highlight for 3D Luxury Sheen -->
+    <linearGradient id="goldSheen" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/>
+      <stop offset="50%" stop-color="#ffd991" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#9c6f2a" stop-opacity="0.9"/>
+    </linearGradient>
+
+    <!-- Subtle Amber Glow -->
+    <radialGradient id="crestAura" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#e5c178" stop-opacity="0.18"/>
+      <stop offset="70%" stop-color="#c89d54" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Drop Shadow for Dimensional Floating Effect -->
+    <filter id="royalShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000000" flood-opacity="0.55"/>
+      <feDropShadow dx="0" dy="1" stdDeviation="2" flood-color="#e5c178" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Ambient Golden Halo -->
+  <circle cx="150" cy="150" r="140" fill="url(#crestAura)"/>
+
+  <!-- Main Monogram Group with Luxury Drop Shadow -->
+  <g filter="url(#royalShadow)">
+    
+    <!-- ==========================================
+         PART 1: THE ROYAL CREST / THREE-POINT CROWN
+         ========================================== -->
+    <!-- Crown Base Band -->
+    <path d="M 112 56 Q 150 60 188 56 L 186 50 Q 150 54 114 50 Z" fill="url(#royalGoldGrad)"/>
+    <ellipse cx="150" cy="53" rx="2.5" ry="1.2" fill="#fff" opacity="0.8"/>
+    <ellipse cx="132" cy="53" rx="1.8" ry="1" fill="#fff" opacity="0.6"/>
+    <ellipse cx="168" cy="53" rx="1.8" ry="1" fill="#fff" opacity="0.6"/>
+
+    <!-- Crown Body & Spires -->
+    <path d="M 113 49 
+             L 100 28 
+             Q 115 38 126 40 
+             L 150 16 
+             L 174 40 
+             Q 185 38 200 28 
+             L 187 49 
+             Q 150 53 113 49 Z" 
+          fill="url(#royalGoldGrad)"/>
+
+    <!-- Crown Pearls / Jewels -->
+    <circle cx="150" cy="15" r="4.2" fill="url(#royalGoldGrad)"/>
+    <circle cx="150" cy="14" r="1.5" fill="#ffffff" opacity="0.9"/>
+
+    <circle cx="99" cy="27" r="3.2" fill="url(#royalGoldGrad)"/>
+    <circle cx="99" cy="26" r="1.1" fill="#ffffff" opacity="0.85"/>
+
+    <circle cx="201" cy="27" r="3.2" fill="url(#royalGoldGrad)"/>
+    <circle cx="201" cy="26" r="1.1" fill="#ffffff" opacity="0.85"/>
+
+    <!-- Small Inner Crown Arches -->
+    <path d="M 134 44 Q 142 34 150 33 Q 158 34 166 44" stroke="#684719" stroke-width="1.2" fill="none" opacity="0.6"/>
+    <circle cx="150" cy="38" r="1.8" fill="url(#royalGoldGrad)"/>
+
+    <!-- ==========================================
+         PART 2: INTERLOCKING 'Z' AND 'S' MONOGRAM
+         ========================================== -->
+
+    <!-- LETTER 'Z' (Main Structure: Serifs & Dynamic Diagonal) -->
+    <!-- Z Top Arm with Left Flourish Serif -->
+    <path d="M 82 86
+             C 82 80, 88 74, 98 74
+             L 204 74
+             C 214 74, 220 80, 218 88
+             C 215 95, 207 98, 196 98
+             L 136 98
+             L 134 103
+             L 194 103
+             C 208 103, 222 93, 224 79
+             C 226 66, 212 60, 194 60
+             L 94 60
+             C 74 60, 64 72, 66 87
+             C 67 96, 74 102, 84 102
+             L 86 96
+             C 82 94, 82 90, 82 86 Z"
+          fill="url(#royalGoldGrad)"/>
+
+    <!-- Z Diagonal Stem (Sculpted Calligraphic Stroke) -->
+    <path d="M 198 88
+             L 92 222
+             L 108 222
+             L 214 88 Z"
+          fill="url(#royalGoldGrad)"/>
+
+    <!-- Z Bottom Arm with Right Flourish Serif -->
+    <path d="M 218 214
+             C 218 220, 212 226, 202 226
+             L 96 226
+             C 86 226, 80 220, 82 212
+             C 85 205, 93 202, 104 202
+             L 164 202
+             L 166 197
+             L 106 197
+             C 92 197, 78 207, 76 221
+             C 74 234, 88 240, 106 240
+             L 206 240
+             C 226 240, 236 228, 234 213
+             C 233 204, 226 198, 216 198
+             L 214 204
+             C 218 206, 218 210, 218 214 Z"
+          fill="url(#royalGoldGrad)"/>
+
+    <!-- LETTER 'S' (Interlocking Ribbon Curves Weaving Through Z) -->
+    <!-- S Upper Arch (Weaves Over Z Top) -->
+    <path d="M 124 130
+             C 114 116, 116 96, 134 82
+             C 152 68, 178 70, 192 84
+             C 204 96, 202 114, 186 128
+             C 174 138, 158 144, 142 152
+             C 134 156, 128 160, 124 166
+             L 138 174
+             C 142 168, 148 164, 156 160
+             C 176 150, 196 142, 210 128
+             C 228 110, 228 84, 208 66
+             C 186 48, 150 48, 124 66
+             C 102 82, 98 110, 112 132 Z"
+          fill="url(#royalGoldGrad)"/>
+
+    <!-- S Lower Arch (Weaves Behind Z Diagonal & Underneath) -->
+    <path d="M 176 170
+             C 186 184, 184 204, 166 218
+             C 148 232, 122 230, 108 216
+             C 96 204, 98 186, 114 172
+             C 126 162, 142 156, 158 148
+             C 166 144, 172 140, 176 134
+             L 162 126
+             C 158 132, 152 136, 144 140
+             C 124 150, 104 158, 90 172
+             C 72 190, 72 216, 92 234
+             C 114 252, 150 252, 176 234
+             C 198 218, 202 190, 188 168 Z"
+          fill="url(#royalGoldGrad)"/>
+
+    <!-- Center Interlock Knot / Shading Accent -->
+    <ellipse cx="150" cy="150" rx="9" ry="14" transform="rotate(-38 150 150)" fill="#78531e" opacity="0.35"/>
+    <ellipse cx="150" cy="150" rx="6" ry="11" transform="rotate(-38 150 150)" fill="url(#royalGoldGrad)"/>
+
+    <!-- Little Diamond Sparks on Intersections -->
+    <polygon points="150,143 153,150 150,157 147,150" fill="#ffffff" opacity="0.85"/>
+  </g>
+</svg>
