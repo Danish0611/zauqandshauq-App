@@ -17,6 +17,7 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
 import { ScentExperienceComponent } from './components/scent-experience/scent-experience.component';
 import { ScentQuizComponent } from './components/scent-quiz/scent-quiz.component';
 import { DiscoverySetComponent } from './components/discovery-set/discovery-set.component';
+import { AiChatDrawerComponent } from './components/ai-chat-drawer/ai-chat-drawer.component';
 
 declare global {
   interface Window {
@@ -43,7 +44,8 @@ declare global {
     AdminDashboardComponent,
     ScentExperienceComponent,
     ScentQuizComponent,
-    DiscoverySetComponent
+    DiscoverySetComponent,
+    AiChatDrawerComponent
   ],
   templateUrl: './app.component.html'
 })
@@ -76,6 +78,7 @@ export class AppComponent implements OnInit, OnDestroy {
   appliedCoupon = '';
 
   // Modals & Portals
+  aiChatOpen = false;
   csvModalOpen = false;
   csvUploading = false;
   csvResult: CsvUploadResponse | null = null;

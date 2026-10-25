@@ -1,5 +1,13 @@
 @echo off
 setlocal enabledelayedexpansion
+
+:: Load local secrets from .env if present
+if exist "%~dp0.env" (
+    for /f "usebackq tokens=1,* delims==" %%a in ("%~dp0.env") do (
+        set "%%a=%%b"
+    )
+)
+
 cd /d "%~dp0backend"
 
 :: Auto-detect PostgreSQL host (localhost or WSL IP)

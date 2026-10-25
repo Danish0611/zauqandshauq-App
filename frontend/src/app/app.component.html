@@ -26,6 +26,9 @@
       <a href="javascript:void(0)" [class.active-nav]="currentView === 'quiz'" (click)="setView('quiz')" class="nav-quiz-link">
         <span class="quiz-star">✦</span> Scent Quiz
       </a>
+      <a href="javascript:void(0)" class="nav-ai-link" (click)="aiChatOpen = true" title="Consult Nadir, our AI Scent Concierge">
+        <span class="quiz-star">✦</span> Scent Concierge
+      </a>
       <a href="javascript:void(0)" [class.active-nav]="currentView === 'philosophy'" (click)="setView('philosophy')">Philosophy</a>
       <a href="javascript:void(0)" (click)="orderLookupOpen = true">Track Order</a>
       <a href="javascript:void(0)" *ngIf="authService.isAdmin" (click)="openAdminPortal()" class="nav-admin-link">Admin</a>
@@ -75,6 +78,10 @@
       <a href="javascript:void(0)" class="mobile-nav-link quiz-highlight" (click)="setView('quiz'); mobileMenuOpen = false">
         <span>✦ Interactive Scent Quiz</span>
         <span class="nav-arrow">→</span>
+      </a>
+      <a href="javascript:void(0)" class="mobile-nav-link ai-highlight" (click)="aiChatOpen = true; mobileMenuOpen = false">
+        <span>✦ AI Scent Concierge (Ask Nadir)</span>
+        <span class="nav-badge ai-badge">Gemini</span>
       </a>
       <a href="javascript:void(0)" class="mobile-nav-link" (click)="setView('philosophy'); mobileMenuOpen = false">
         <span>Philosophy &amp; Notes</span>
@@ -437,6 +444,14 @@
   (buyNow)="onBuyNow($event)"
   (toggleWish)="toggleWishlist($event)">
 </app-product-detail-modal>
+
+<!-- AI Scent Concierge Drawer & Floating Launcher (Powered by Gemini AI) -->
+<app-ai-chat-drawer
+  [open]="aiChatOpen"
+  (close)="aiChatOpen = false"
+  (viewProduct)="openProduct($event)"
+  (addToCart)="addToCart($event)">
+</app-ai-chat-drawer>
 
 <!-- Modular Order Lookup Modal -->
 <app-order-lookup-modal
