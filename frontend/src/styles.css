@@ -15,80 +15,137 @@
    APPLE LIQUID GLASS FLOATING BAR & LUXURY SHOWROOM STYLES
    ========================================================================== */
 
+/* Announcement Bar - Luxury Royal Editorial */
 .announcement-bar {
   background: #050d09 !important;
   color: #dec6b0 !important;
   border-bottom: 1px solid rgba(216, 191, 167, 0.16) !important;
-  padding: 8px 20px !important;
+  min-height: 38px !important;
+  padding: 9px 24px !important;
   font-size: 11px !important;
-  letter-spacing: 0.8px !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 14px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  position: relative !important;
+  z-index: 1010 !important;
+  box-sizing: border-box !important;
 }
 
 .announcement-dot {
+  width: 5px !important;
+  height: 5px !important;
+  border-radius: 50% !important;
   background: #e5c178 !important;
-  box-shadow: 0 0 8px #e5c178;
+  box-shadow: 0 0 8px #e5c178 !important;
+  flex-shrink: 0 !important;
 }
+
+.announcement-divider {
+  color: #c4a15d !important;
+  opacity: 0.65 !important;
+  font-size: 14px !important;
+}
+
+.announcement-main {
+  font-weight: 500 !important;
+  color: #ede4d8 !important;
+}
+
+.announcement-urdu {
+  font-size: 13px !important;
+  font-family: serif !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  color: #e5d4be !important;
+}
+
+.announcement-secondary {
+  color: #baa490 !important;
+}
+
+/* ==========================================================================
+   FLOATING APPLE-STYLE LIQUID GLASS NAVBAR (DESKTOP & RESPONSIVE MOBILE)
+   ========================================================================== */
 
 .site-header {
   position: sticky !important;
-  top: 12px !important;
+  top: 14px !important;
   z-index: 1000 !important;
-  max-width: 1260px !important;
+  max-width: 1340px !important;
   width: calc(100% - 32px) !important;
   margin: 12px auto 0 !important;
-  background: rgba(8, 20, 16, 0.8) !important;
-  backdrop-filter: blur(32px) saturate(210%) !important;
-  -webkit-backdrop-filter: blur(32px) saturate(210%) !important;
-  border: 1px solid rgba(216, 191, 167, 0.28) !important;
+  background: rgba(7, 18, 14, 0.82) !important;
+  backdrop-filter: blur(28px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
+  border: 1px solid rgba(216, 191, 167, 0.22) !important;
   border-radius: 999px !important;
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.14) !important;
-  transition: all 0.3s ease;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.52), inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
   padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.site-header.is-open {
+  border-radius: 24px 24px 0 0 !important;
 }
 
 .header-main {
-  height: 62px !important;
-  min-height: 62px !important;
-  padding: 0 24px !important;
+  height: 58px !important;
+  min-height: 58px !important;
+  padding: 0 18px 0 20px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
-  gap: 16px !important;
+  gap: 12px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  position: relative !important;
 }
 
+/* Brand Lockup (Logo + Wordmark) */
 .brand-lockup {
-  display: flex !important;
+  display: inline-flex !important;
   align-items: center !important;
-  gap: 12px !important;
+  gap: 10px !important;
   text-decoration: none !important;
   background: transparent !important;
   border: none !important;
+  flex-shrink: 0 !important;
+  cursor: pointer !important;
 }
 
 .brand-mark {
-  width: 40px !important;
-  height: 40px !important;
+  width: 35px !important;
+  height: 35px !important;
   object-fit: contain !important;
-  filter: drop-shadow(0 2px 8px rgba(229, 193, 120, 0.5)) !important;
+  filter: drop-shadow(0 2px 8px rgba(229, 193, 120, 0.45)) !important;
   border-radius: 0 !important;
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
+  flex-shrink: 0 !important;
 }
 
 .brand-name-wrap {
   display: flex !important;
   flex-direction: column !important;
+  gap: 1px !important;
 }
 
 .brand-name {
   font-family: 'Playfair Display', serif !important;
-  font-size: 19px !important;
+  font-size: 17px !important;
   font-weight: 600 !important;
-  letter-spacing: 2px !important;
+  letter-spacing: 1.6px !important;
   color: #fffdfa !important;
   text-transform: uppercase !important;
-  line-height: 1.1 !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
 }
 
 .brand-name span {
@@ -97,28 +154,39 @@
 }
 
 .brand-tagline {
-  font-size: 7.5px !important;
-  letter-spacing: 2.6px !important;
-  color: #d8bfa7 !important;
+  font-size: 6.8px !important;
+  letter-spacing: 2.2px !important;
+  color: #c9b09a !important;
   text-transform: uppercase !important;
   font-weight: 500 !important;
+  white-space: nowrap !important;
 }
 
+/* Desktop Navigation (>= 1080px) */
 .desktop-nav {
   display: flex !important;
   align-items: center !important;
-  gap: 4px !important;
+  gap: 3px !important;
+  margin-inline: auto !important;
+  flex-shrink: 0 !important;
 }
 
 .desktop-nav a {
-  color: #ebe5d8 !important;
+  color: #e8e2d4 !important;
   font-size: 11.5px !important;
   font-weight: 500 !important;
-  letter-spacing: 0.4px !important;
-  padding: 6px 14px !important;
+  letter-spacing: 0.3px !important;
+  padding: 6px 12px !important;
   border-radius: 999px !important;
   text-decoration: none !important;
-  transition: all 0.22s ease !important;
+  transition: all 0.2s ease !important;
+  white-space: nowrap !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1 !important;
+  height: 32px !important;
+  box-sizing: border-box !important;
 }
 
 .desktop-nav a:hover {
@@ -130,40 +198,64 @@
   color: #081410 !important;
   background: #e5c178 !important;
   font-weight: 600 !important;
-  box-shadow: 0 4px 14px rgba(229, 193, 120, 0.35) !important;
+  box-shadow: 0 3px 12px rgba(229, 193, 120, 0.35) !important;
 }
 
 .nav-quiz-link {
-  border: 1px solid rgba(229, 193, 120, 0.4) !important;
+  border: 1px solid rgba(229, 193, 120, 0.38) !important;
+  color: #e5c178 !important;
+  background: rgba(229, 193, 120, 0.08) !important;
+  gap: 5px !important;
+}
+
+.nav-quiz-link .quiz-star {
+  font-size: 9.5px !important;
   color: #e5c178 !important;
 }
 
+.nav-quiz-link:hover {
+  background: rgba(229, 193, 120, 0.22) !important;
+  border-color: #e5c178 !important;
+  color: #fff !important;
+}
+
+.nav-admin-link {
+  background: rgba(216, 191, 167, 0.12) !important;
+  border: 1px dashed rgba(229, 193, 120, 0.5) !important;
+  color: #e5c178 !important;
+}
+
+/* Header Action Tools (Right side) */
 .header-tools {
   display: flex !important;
   align-items: center !important;
-  gap: 8px !important;
+  gap: 7px !important;
+  flex-shrink: 0 !important;
 }
 
 .header-search {
   display: flex !important;
   align-items: center !important;
-  background: rgba(255, 255, 255, 0.08) !important;
-  border: 1px solid rgba(216, 191, 167, 0.24) !important;
+  background: rgba(255, 255, 255, 0.07) !important;
+  border: 1px solid rgba(216, 191, 167, 0.2) !important;
   border-radius: 999px !important;
-  padding: 5px 14px !important;
+  padding: 0 10px 0 12px !important;
+  height: 33px !important;
   transition: all 0.25s ease !important;
+  box-sizing: border-box !important;
 }
 
 .header-search:focus-within {
   border-color: #e5c178 !important;
-  background: rgba(255, 255, 255, 0.14) !important;
-  box-shadow: 0 0 0 2px rgba(229, 193, 120, 0.25) !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 0 0 2px rgba(229, 193, 120, 0.22) !important;
 }
 
 .header-search svg {
   stroke: #dec6b0 !important;
   width: 14px !important;
   height: 14px !important;
+  flex-shrink: 0 !important;
 }
 
 .header-search input {
@@ -171,37 +263,54 @@
   border: none !important;
   color: #fffdf7 !important;
   font-size: 11px !important;
-  padding: 0 8px !important;
+  padding: 0 6px !important;
   outline: none !important;
-  width: 150px !important;
+  width: 125px !important;
+  transition: width 0.25s ease !important;
 }
 
 .header-search input::placeholder {
   color: #9ea79c !important;
 }
 
+.search-clear {
+  border: 0 !important;
+  background: transparent !important;
+  color: #dec6b0 !important;
+  font-size: 16px !important;
+  line-height: 1 !important;
+  padding: 0 !important;
+  cursor: pointer !important;
+}
+
 .header-tools .icon-button {
   background: rgba(255, 255, 255, 0.07) !important;
-  border: 1px solid rgba(216, 191, 167, 0.22) !important;
+  border: 1px solid rgba(216, 191, 167, 0.2) !important;
   color: #fffdf7 !important;
   border-radius: 999px !important;
-  padding: 6px 12px !important;
-  display: flex !important;
+  padding: 0 12px !important;
+  height: 33px !important;
+  display: inline-flex !important;
   align-items: center !important;
+  justify-content: center !important;
   gap: 6px !important;
   transition: all 0.2s ease !important;
   font-size: 11px !important;
   cursor: pointer !important;
+  white-space: nowrap !important;
+  box-sizing: border-box !important;
 }
 
 .header-tools .icon-button svg {
   stroke: #dec6b0 !important;
-  width: 16px !important;
-  height: 16px !important;
+  width: 15px !important;
+  height: 15px !important;
+  flex-shrink: 0 !important;
 }
 
-.header-tools .icon-button:hover {
-  background: rgba(229, 193, 120, 0.15) !important;
+.header-tools .icon-button:hover,
+.header-tools .icon-button.is-active {
+  background: rgba(229, 193, 120, 0.16) !important;
   border-color: #e5c178 !important;
   color: #e5c178 !important;
 }
@@ -210,40 +319,326 @@
   stroke: #e5c178 !important;
 }
 
+.header-tools .tool-label {
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.2px !important;
+}
+
+.header-tools .wishlist-header {
+  padding: 0 9px !important;
+  position: relative !important;
+}
+
 .header-tools .tool-count {
   background: #c89d54 !important;
   color: #081410 !important;
   font-weight: 700 !important;
   border-radius: 50% !important;
-  width: 18px !important;
-  height: 18px !important;
+  width: 17px !important;
+  height: 17px !important;
   font-size: 9px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  line-height: 1 !important;
+  flex-shrink: 0 !important;
 }
 
+.header-tools .wishlist-header .tool-count {
+  position: absolute !important;
+  top: -4px !important;
+  right: -4px !important;
+  border: 2px solid #081410 !important;
+}
+
+/* Mobile Hamburger Toggle Button */
 .mobile-menu {
+  display: none !important;
   background: transparent !important;
   border: none !important;
-  color: #fff !important;
-}
-.mobile-menu .menu-lines, .mobile-menu .menu-lines::before, .mobile-menu .menu-lines::after {
-  background: #dec6b0 !important;
+  padding: 6px !important;
+  cursor: pointer !important;
+  position: relative !important;
+  width: 36px !important;
+  height: 36px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  border-radius: 50% !important;
+  transition: background 0.2s ease !important;
 }
 
-@media (max-width: 900px) {
+.mobile-menu:hover {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.mobile-menu .menu-lines {
+  position: relative !important;
+  display: block !important;
+  width: 18px !important;
+  height: 2px !important;
+  background: #dec6b0 !important;
+  border-radius: 2px !important;
+  transition: all 0.25s ease !important;
+}
+
+.mobile-menu .menu-lines::before,
+.mobile-menu .menu-lines::after {
+  content: '' !important;
+  position: absolute !important;
+  left: 0 !important;
+  width: 18px !important;
+  height: 2px !important;
+  background: #dec6b0 !important;
+  border-radius: 2px !important;
+  transition: all 0.25s ease !important;
+}
+
+.mobile-menu .menu-lines::before {
+  top: -6px !important;
+}
+
+.mobile-menu .menu-lines::after {
+  top: 6px !important;
+}
+
+.mobile-menu.is-active .menu-lines {
+  background: transparent !important;
+}
+
+.mobile-menu.is-active .menu-lines::before {
+  top: 0 !important;
+  transform: rotate(45deg) !important;
+  background: #e5c178 !important;
+}
+
+.mobile-menu.is-active .menu-lines::after {
+  top: 0 !important;
+  transform: rotate(-45deg) !important;
+  background: #e5c178 !important;
+}
+
+/* Mobile Menu Dropdown Drawer */
+.mobile-drawer-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(0, 0, 0, 0.65) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  z-index: 998 !important;
+}
+
+.mobile-nav {
+  display: block !important;
+  position: absolute !important;
+  top: calc(100% + 8px) !important;
+  left: 0 !important;
+  right: 0 !important;
+  background: rgba(9, 21, 16, 0.96) !important;
+  backdrop-filter: blur(30px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(30px) saturate(200%) !important;
+  border: 1px solid rgba(216, 191, 167, 0.24) !important;
+  border-radius: 24px !important;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+  padding: 16px 18px 20px !important;
+  z-index: 999 !important;
+  animation: mobileNavFadeIn 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  max-height: calc(100vh - 110px) !important;
+  overflow-y: auto !important;
+}
+
+@keyframes mobileNavFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.mobile-nav-inner {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 3px !important;
+}
+
+.mobile-nav-category {
+  font-size: 8px !important;
+  letter-spacing: 2.2px !important;
+  text-transform: uppercase !important;
+  color: #92897d !important;
+  font-weight: 600 !important;
+  padding: 10px 14px 4px !important;
+}
+
+.mobile-nav-link {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 11px 16px !important;
+  border-radius: 12px !important;
+  color: #f5efe3 !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link:active {
+  background: rgba(229, 193, 120, 0.12) !important;
+  color: #e5c178 !important;
+  padding-left: 20px !important;
+}
+
+.mobile-nav-link .nav-arrow {
+  color: #8c8272 !important;
+  font-size: 14px !important;
+  transition: transform 0.2s ease !important;
+}
+
+.mobile-nav-link:hover .nav-arrow {
+  color: #e5c178 !important;
+  transform: translateX(3px) !important;
+}
+
+.mobile-nav-link.quiz-highlight {
+  background: rgba(229, 193, 120, 0.08) !important;
+  border: 1px solid rgba(229, 193, 120, 0.3) !important;
+  color: #e5c178 !important;
+  font-weight: 600 !important;
+  margin: 4px 0 !important;
+}
+
+.mobile-nav-link .nav-badge {
+  font-size: 8.5px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  padding: 2px 7px !important;
+  border-radius: 20px !important;
+  background: rgba(229, 193, 120, 0.15) !important;
+  color: #e5c178 !important;
+  border: 1px solid rgba(229, 193, 120, 0.3) !important;
+  font-weight: 600 !important;
+}
+
+.mobile-nav-link .nav-badge.admin-badge {
+  background: rgba(216, 191, 167, 0.15) !important;
+  color: #dec6b0 !important;
+  border-color: rgba(216, 191, 167, 0.35) !important;
+}
+
+.mobile-nav-divider {
+  height: 1px !important;
+  background: rgba(216, 191, 167, 0.14) !important;
+  margin: 10px 8px !important;
+}
+
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS (DESKTOP, TABLET, MOBILE)
+   ========================================================================== */
+
+/* Breakpoint 1: Medium Laptops (1080px - 1240px) */
+@media (max-width: 1240px) {
+  .desktop-nav a {
+    padding: 6px 9px !important;
+    font-size: 11px !important;
+  }
+  .header-search input {
+    width: 95px !important;
+  }
+  .header-tools .tool-label {
+    display: none !important;
+  }
+}
+
+/* Breakpoint 2: Tablet & Small Laptops (Switch to Mobile Drawer <= 1080px) */
+@media (max-width: 1080px) {
+  .site-header {
+    width: calc(100% - 24px) !important;
+    top: 10px !important;
+  }
+  .desktop-nav {
+    display: none !important;
+  }
+  .mobile-menu {
+    display: inline-flex !important;
+    order: -1 !important;
+  }
+  .header-tools .tool-label {
+    display: none !important;
+  }
+  .header-tools .icon-button {
+    padding: 0 10px !important;
+  }
+  .header-search input {
+    width: 80px !important;
+  }
+  .header-search:focus-within input {
+    width: 130px !important;
+  }
+}
+
+/* Breakpoint 3: Mobile Phones (<= 640px) */
+@media (max-width: 640px) {
+  .announcement-bar {
+    padding: 7px 12px !important;
+    font-size: 10px !important;
+    letter-spacing: 0.6px !important;
+    gap: 8px !important;
+  }
+  .announcement-divider,
+  .announcement-urdu {
+    display: none !important;
+  }
   .site-header {
     width: calc(100% - 16px) !important;
     top: 8px !important;
-    border-radius: 16px !important;
+    border-radius: 18px !important;
+  }
+  .header-main {
+    height: 52px !important;
+    min-height: 52px !important;
+    padding: 0 10px !important;
+    gap: 6px !important;
+  }
+  .brand-mark {
+    width: 27px !important;
+    height: 27px !important;
+  }
+  .brand-name {
+    font-size: 14px !important;
+    letter-spacing: 1px !important;
+  }
+  .brand-tagline {
+    font-size: 5.8px !important;
+    letter-spacing: 1.4px !important;
+  }
+  .header-search {
+    padding: 0 8px !important;
+    height: 30px !important;
   }
   .header-search input {
     width: 0 !important;
     padding: 0 !important;
   }
   .header-search:focus-within input {
-    width: 110px !important;
+    width: 105px !important;
+    padding: 0 4px !important;
+  }
+  .header-tools {
+    gap: 4px !important;
+  }
+  .header-tools .icon-button {
+    height: 30px !important;
+    padding: 0 8px !important;
+  }
+  .header-tools .account-btn,
+  .header-tools .csv-btn {
+    display: none !important;
   }
 }
 
