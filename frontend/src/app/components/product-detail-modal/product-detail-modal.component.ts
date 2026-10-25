@@ -23,7 +23,12 @@ export interface NoteTier {
         [attr.aria-label]="product.name"
         (click)="$event.stopPropagation()">
         
-        <button type="button" class="close-button modal-close" (click)="close.emit()" aria-label="Close details">×</button>
+        <button type="button" class="close-button modal-close" (click)="close.emit()" aria-label="Close details">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
 
         <div class="pdp-layout">
           <!-- Left Column: Visual Gallery & Bottle Presentation -->
@@ -325,9 +330,10 @@ export interface NoteTier {
   `,
   styles: [`
     .luxury-pdp-modal {
+      position: relative !important;
       width: 100%;
       max-width: 1040px;
-      max-height: 92vh;
+      max-height: 90vh;
       overflow-y: auto;
       border-radius: 28px;
       background: linear-gradient(160deg, rgba(14, 28, 24, 0.96) 0%, rgba(8, 18, 15, 0.98) 100%);
@@ -337,6 +343,41 @@ export interface NoteTier {
       box-shadow: 0 35px 80px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.2);
       color: #f7f2ea;
       padding: 2.4rem;
+      box-sizing: border-box;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 60;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(14, 28, 24, 0.85);
+      border: 1px solid rgba(229, 193, 120, 0.38);
+      color: #f7f2ea;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 0;
+    }
+
+    .modal-close:hover {
+      background: rgba(229, 193, 120, 0.22);
+      border-color: #e5c178;
+      color: #e5c178;
+      transform: rotate(90deg) scale(1.08);
+      box-shadow: 0 6px 20px rgba(229, 193, 120, 0.3);
+    }
+
+    .modal-close:active {
+      transform: rotate(90deg) scale(0.95);
     }
 
     .pdp-layout {
@@ -937,6 +978,14 @@ export interface NoteTier {
     @media (max-width: 900px) {
       .luxury-pdp-modal {
         padding: 1.4rem;
+        padding-top: 3.4rem;
+        max-height: 94vh;
+      }
+      .modal-close {
+        top: 14px;
+        right: 14px;
+        width: 36px;
+        height: 36px;
       }
       .pdp-layout {
         grid-template-columns: 1fr;

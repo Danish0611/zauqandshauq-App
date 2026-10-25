@@ -2820,3 +2820,100 @@ html, body {
   }
 }
 
+/* ==========================================================================
+   GLOBAL MODAL, DRAWER & DIALOG LAYERING (Fix z-index stacking vs sticky navbar)
+   ========================================================================== */
+.modal-backdrop,
+.checkout-backdrop,
+.mobile-drawer-backdrop,
+.overlay {
+  z-index: 2000 !important;
+}
+
+.cart-drawer {
+  z-index: 2100 !important;
+}
+
+.toast {
+  z-index: 3000 !important;
+}
+
+.modal-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 2000 !important;
+  background: rgba(3, 8, 6, 0.85) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: clamp(16px, 3vw, 40px) !important;
+  overflow-y: auto !important;
+  box-sizing: border-box !important;
+}
+
+.product-modal,
+.checkout-modal,
+.luxury-pdp-modal {
+  position: relative !important;
+  z-index: 2005 !important;
+  margin: auto !important;
+}
+
+/* Luxury Universal Modal Close Button (PDP, Checkout, Auth, CSV, Order Tracker) */
+.modal-close,
+.checkout-close {
+  position: absolute !important;
+  top: 18px !important;
+  right: 18px !important;
+  z-index: 50 !important;
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 50% !important;
+  background: rgba(14, 28, 24, 0.9) !important;
+  border: 1px solid rgba(229, 193, 120, 0.4) !important;
+  color: #fffdf7 !important;
+  font-size: 22px !important;
+  line-height: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  float: none !important;
+  margin: 0 !important;
+}
+
+.modal-close:hover,
+.checkout-close:hover {
+  background: rgba(229, 193, 120, 0.25) !important;
+  border-color: #e5c178 !important;
+  color: #e5c178 !important;
+  transform: rotate(90deg) scale(1.08) !important;
+  box-shadow: 0 6px 22px rgba(229, 193, 120, 0.3) !important;
+}
+
+.modal-close:active,
+.checkout-close:active {
+  transform: rotate(90deg) scale(0.95) !important;
+}
+
+@media (max-width: 600px) {
+  .modal-backdrop {
+    padding: 10px !important;
+  }
+  .modal-close,
+  .checkout-close {
+    top: 12px !important;
+    right: 12px !important;
+    width: 34px !important;
+    height: 34px !important;
+    font-size: 20px !important;
+  }
+}
+
+
