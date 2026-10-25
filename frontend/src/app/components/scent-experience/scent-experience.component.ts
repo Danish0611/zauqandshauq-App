@@ -166,11 +166,11 @@ export interface PoeticQuote {
             </p>
           </div>
           <div class="category-pills">
-            <button type="button" [class.active]="quoteFilter === 'All'" (click)="quoteFilter = 'All'" style="color: #e7dec3;">All Languages</button>
-            <button type="button" [class.active]="quoteFilter === 'Persian'" (click)="quoteFilter = 'Persian'" style="color: #e7dec3;">Persian · فارسی</button>
-            <button type="button" [class.active]="quoteFilter === 'Arabic'" (click)="quoteFilter = 'Arabic'" style="color: #e7dec3;">Arabic · العربية</button>
-            <button type="button" [class.active]="quoteFilter === 'Urdu'" (click)="quoteFilter = 'Urdu'" style="color: #e7dec3;">Urdu · اردو</button>
-            <button type="button" [class.active]="quoteFilter === 'English'" (click)="quoteFilter = 'English'" style="color: #e7dec3;">English</button>
+            <button type="button" [class.active]="quoteFilter === 'All'" (click)="quoteFilter = 'All'" style="color: #e7dec3;">All Verses</button>
+            <button type="button" [class.active]="quoteFilter === 'Persian'" (click)="quoteFilter = 'Persian'" style="color: #e7dec3;">Persian Classics</button>
+            <button type="button" [class.active]="quoteFilter === 'Arabic'" (click)="quoteFilter = 'Arabic'" style="color: #e7dec3;">Arabic Traditions</button>
+            <button type="button" [class.active]="quoteFilter === 'Urdu'" (click)="quoteFilter = 'Urdu'" style="color: #e7dec3;">Urdu Adab</button>
+            <button type="button" [class.active]="quoteFilter === 'English'" (click)="quoteFilter = 'English'" style="color: #e7dec3;">English Literary</button>
           </div>
         </div>
 

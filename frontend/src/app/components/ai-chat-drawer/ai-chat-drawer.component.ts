@@ -53,7 +53,7 @@ import { Product } from '../../product.model';
               <h3>Nadir · Scent Concierge</h3>
               <span class="live-dot" title="Live Gemini AI Online"></span>
             </div>
-            <p class="concierge-subtitle">Haute Parfumerie Master · Grounded in Live Vault</p>
+            <p class="concierge-subtitle">Master Perfumer · Personal Fragrance Advisor</p>
           </div>
         </div>
 
@@ -84,7 +84,7 @@ import { Product } from '../../product.model';
 
       <!-- Royal Philosophy Strip -->
       <div class="chat-philosophy-strip">
-        <span>“خوشبو وہ خاموش زبان ہے جو دل سے دل تک بات کرتی ہے”</span>
+        <span>“Khushboo woh khamosh zubaan hai jo dil se dil tak baat karti hai” · Scent speaks from heart to heart</span>
       </div>
 
       <!-- Quick Starter Pills -->
@@ -166,7 +166,7 @@ import { Product } from '../../product.model';
             <span class="typing-dot"></span>
             <span class="typing-dot"></span>
             <span class="typing-dot"></span>
-            <span class="typing-label">Nadir is distilling an olfactory response...</span>
+            <span class="typing-label">Nadir is selecting your fragrance recommendation...</span>
           </div>
         </div>
       </div>
@@ -181,7 +181,7 @@ import { Product } from '../../product.model';
             name="chatMessage"
             [disabled]="loading"
             autocomplete="off"
-            placeholder="Ask Nadir about notes, ouds, layering, or gifts..."
+            placeholder="Ask Nadir about notes, long-lasting ouds, gifts, or layering..."
             class="chat-input" />
           <button
             type="submit"
@@ -195,7 +195,7 @@ import { Product } from '../../product.model';
           </button>
         </form>
         <div class="chat-footer-note">
-          <span>Official House Concierge · Formulated with Google Gemini 2.5/3.8 Flash</span>
+          <span>Personal Fragrance Advisor · Powered by Google Gemini</span>
         </div>
       </footer>
     </aside>
@@ -939,20 +939,20 @@ export class AiChatDrawerComponent implements OnInit {
   messages: ChatMessage[] = [];
 
   starterPrompts: string[] = [
-    '👑 Find my signature scent',
-    '🪵 Intense Oud for evening wear',
-    '🌹 Romantic Rose or Jasmine flacon',
-    '✨ How to layer perfumes?',
-    '🎁 Luxury gift under ₹3,500'
+    '👑 Find my signature perfume',
+    '🪵 Long-lasting Oud for evening parties',
+    '🌹 Best daily floral (Rose or Jasmine)',
+    '☀️ Fresh citrus & aquatic for summer',
+    '🎁 Luxury gift set under ₹3,500'
   ];
 
   constructor(private aiChatService: AiChatService) {}
 
   ngOnInit(): void {
-    // Initial royal greeting
+    // Initial royal greeting in Indian English
     this.messages.push({
       role: 'model',
-      content: 'Salam and warm welcome to House Zauq & Shauq. I am Nadir, your private Master Perfumer. Tell me what mood, occasion, or notes you seek, and I shall compose your signature flacon from our living vault.',
+      content: 'Welcome to House of Zauq & Shauq. I am Nadir, your personal perfume consultant. Please let me know what fragrance notes, occasion (office wear, weddings, festive dinners, daily wear), or budget you have in mind, and I will recommend the best flacons from our collection.',
       timestamp: new Date()
     });
   }
@@ -1006,7 +1006,7 @@ export class AiChatDrawerComponent implements OnInit {
         console.error('AI Concierge error:', err);
         this.messages.push({
           role: 'model',
-          content: 'I apologize, noble patron. A brief tremor in our communications has occurred. Let me assure you, our vault remains full of exquisite creations. Please ask again in a moment.',
+          content: 'I apologize, dear patron. A brief connection delay occurred. Please ask again, and I will be delighted to assist you.',
           timestamp: new Date()
         });
         this.scrollToBottom();
@@ -1018,7 +1018,7 @@ export class AiChatDrawerComponent implements OnInit {
     this.messages = [
       {
         role: 'model',
-        content: 'Our olfactory journey has been reset. What fragrance essence or occasion may I curate for you next, esteemed patron?',
+        content: 'Our consultation has been reset. What fragrance notes, occasion, or budget may I assist you with, dear patron?',
         timestamp: new Date()
       }
     ];
@@ -1035,8 +1035,11 @@ export class AiChatDrawerComponent implements OnInit {
   formatMessage(content: string): string {
     if (!content) return '';
 
+    // Normalize any broken currency symbols or question marks into Indian Rupee symbol ₹
+    let formatted = content.replace(/(?:[\uFFFD?]+1?|Rs\.?\s*|INR\s*)(\d[\d,]*)/gi, '₹$1');
+
     // Remove [Product: Name] tags from raw text to avoid cluttered text, replacing with bold name
-    let formatted = content.replace(/\[Product:\s*([^\]]+)\]/gi, '<strong>$1</strong>');
+    formatted = formatted.replace(/\[Product:\s*([^\]]+)\]/gi, '<strong>$1</strong>');
 
     // Parse simple Markdown bold (**text**)
     formatted = formatted.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
@@ -1066,3 +1069,4 @@ export class AiChatDrawerComponent implements OnInit {
     }
   }
 }
+

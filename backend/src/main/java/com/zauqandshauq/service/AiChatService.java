@@ -157,7 +157,13 @@ public class AiChatService {
             if (candidates.isArray() && !candidates.isEmpty()) {
                 JsonNode parts = candidates.get(0).path("content").path("parts");
                 if (parts.isArray() && !parts.isEmpty()) {
-                    return parts.get(0).path("text").asText();
+                    String text = parts.get(0).path("text").asText();
+                    if (text != null) {
+                        // Normalize any broken currency symbols or question marks before digits
+                        text = text.replaceAll("[\\uFFFD\\?]+1?([0-9])", "\u20B9$1");
+                        text = text.replaceAll("Rs\\.?\\s*([0-9])", "\u20B9$1");
+                    }
+                    return text;
                 }
             }
         } else {
@@ -244,18 +250,18 @@ public class AiChatService {
         }
 
         StringBuilder reply = new StringBuilder();
-        reply.append("Salam and welcome to House Zauq & Shauq. As Nadir, your Royal Scent Sommelier, I have consulted our living vault for your inquiry.\n\n");
+        reply.append("Welcome to House of Zauq & Shauq. As Nadir, your personal fragrance advisor, I have reviewed our collection for your request.\n\n");
 
         if (!matched.isEmpty()) {
-            reply.append("Based on your refined preference, I warmly present our house creations:\n\n");
+            reply.append("Based on your preference, here are our recommended handcrafted flacons:\n\n");
             for (Product p : matched) {
                 reply.append(String.format("✦ **[Product: %s]** (%s) — *₹%.0f*\n", p.getName(), p.getCategory(), p.getPrice()));
-                reply.append(String.format("  • **Olfactory Signature**: %s\n", String.join(", ", p.getNotes())));
-                reply.append(String.format("  • **Master's Note**: %s\n\n", p.getDescription()));
+                reply.append(String.format("  • **Olfactory Notes**: %s\n", String.join(", ", p.getNotes())));
+                reply.append(String.format("  • **Description**: %s\n\n", p.getDescription()));
             }
-            reply.append("Each flacon is hand-poured with pure botanicals and aged macerations for remarkable sillage. How else may I tailor your fragrance ritual?");
+            reply.append("Each flacon is hand-poured with pure botanicals for long-lasting sillage. How else may I assist your fragrance selection?");
         } else {
-            reply.append("Our boutique offers rare flacons uniting French Grasse artistry with ancient Eastern attars. Tell me of your favored notes—such as wild Assam Oud, Damask Rose, Velvet Amber, or sun-drenched Bergamot—and I shall compose your signature recommendation.");
+            reply.append("Our house offers rare artisanal perfumes blending international French craftsmanship with classic Kannauj and Assam heritage. Tell me about your preferred notes—such as Assam Oud, Kannauj Rose, Velvet Amber, or fresh Bergamot—and I will suggest your ideal scent.");
         }
 
         return new ChatResponse(reply.toString(), matched, "offline-artisanal-sommelier", true);
