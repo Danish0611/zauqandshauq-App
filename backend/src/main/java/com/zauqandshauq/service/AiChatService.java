@@ -87,7 +87,7 @@ public class AiChatService {
 
         // 3. Ultra-fast Gemini AI call with instant offline fallback
         if (apiKey != null && !apiKey.isBlank() && apiKey.length() > 15) {
-            String[] modelsToTry = new String[]{"gemini-flash-lite-latest", "gemini-3.5-flash", "gemini-3.8-flash", "gemini-flash-latest"};
+            String[] modelsToTry = new String[]{"gemini-2.5-flash", "gemini-1.5-flash", "gemini-2.0-flash"};
             for (String model : modelsToTry) {
                 try {
                     String reply = callGemini(model, fullSystemPrompt, request.getHistory(), userPrompt);
@@ -95,6 +95,9 @@ public class AiChatService {
                         List<Product> recommendedProducts = extractRecommendedProducts(reply, userPrompt, catalog);
                         return new ChatResponse(reply, recommendedProducts, model, false);
                     }
+                } catch (SecurityException se) {
+                    log.warn("Gemini auth error, skipping retries for speed: {}", se.getMessage());
+                    break;
                 } catch (Exception e) {
                     log.warn("Gemini model [{}] fast call skipped: {}. Trying next model.", model, e.getMessage());
                 }
@@ -146,7 +149,7 @@ public class AiChatService {
         HttpRequest httpRequest = HttpRequest.newBuilder()
                 .uri(URI.create(endpoint))
                 .header("Content-Type", "application/json")
-                .timeout(Duration.ofSeconds(6))
+                .timeout(Duration.ofMillis(3500))
                 .POST(HttpRequest.BodyPublishers.ofString(jsonPayload, StandardCharsets.UTF_8))
                 .build();
 
@@ -168,7 +171,12 @@ public class AiChatService {
                 }
             }
         } else {
-            throw new RuntimeException("Gemini HTTP " + response.statusCode() + ": " + response.body());
+            String errBody = response.body();
+            if (response.statusCode() == 400 || response.statusCode() == 401 || response.statusCode() == 403) {
+                log.warn("Gemini API key rejected or invalid ({}: {}). Switching to instant sommelier.", response.statusCode(), errBody);
+                throw new SecurityException("Auth failure: " + response.statusCode());
+            }
+            throw new RuntimeException("Gemini HTTP " + response.statusCode() + ": " + errBody);
         }
 
         return null;

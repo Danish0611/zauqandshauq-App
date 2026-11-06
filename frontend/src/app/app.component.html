@@ -123,15 +123,111 @@
       (viewProduct)="openProduct($event)">
     </app-hero>
 
-    <section class="promise-strip" aria-label="Our promises">
-      <div class="promise-item"><span class="promise-icon">✦</span><span>Pure Botanical Distillations</span></div><span class="promise-star">✳</span>
-      <div class="promise-item"><span class="promise-icon">◇</span><span>Luxury Without Synthetic Loudness</span></div><span class="promise-star">✳</span>
-      <div class="promise-item"><span class="promise-icon">↗</span><span>Complimentary Delivery over ₹2,499</span></div><span class="promise-star">✳</span>
-      <div class="promise-item"><span class="promise-icon">♡</span><span>Royal Wax-Sealed Packaging</span></div>
+    <!-- LUXURY TRUST STRIP (MATCHING INSPIRATION BOARD) -->
+    <section class="promise-strip luxury-trust-strip page-shell" aria-label="Authenticity and service promises">
+      <div class="promise-item">
+        <span class="promise-icon">✦</span>
+        <div class="promise-meta">
+          <strong>100% Authentic</strong>
+          <small>Haute Parfumerie Extraits</small>
+        </div>
+      </div>
+      <span class="promise-star">✳</span>
+      <div class="promise-item">
+        <span class="promise-icon">◇</span>
+        <div class="promise-meta">
+          <strong>Free Delivery</strong>
+          <small>On Orders Above ₹999</small>
+        </div>
+      </div>
+      <span class="promise-star">✳</span>
+      <div class="promise-item">
+        <span class="promise-icon">🔒</span>
+        <div class="promise-meta">
+          <strong>Secure Payments</strong>
+          <small>UPI, Cards &amp; NetBanking</small>
+        </div>
+      </div>
+      <span class="promise-star">✳</span>
+      <div class="promise-item">
+        <span class="promise-icon">↺</span>
+        <div class="promise-meta">
+          <strong>Easy Returns</strong>
+          <small>100% Sampling Guarantee</small>
+        </div>
+      </div>
     </section>
 
-    <!-- Curated Signature Line (From Image 2) -->
-    <section class="signature-line-section page-shell">
+    <!-- SHOP BY CATEGORY SECTION (FROM INSPIRATION BOARD) -->
+    <section class="category-cards-section page-shell" id="categories" aria-label="Shop by fragrance category">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-line"></span> CURATED FRAGRANCE FAMILIES</div>
+          <h2>Shop by Category. <em>Find the scent that matches your vibe.</em></h2>
+        </div>
+        <button type="button" class="text-link" (click)="setView('shop')">View Full Catalog <span>→</span></button>
+      </div>
+
+      <div class="luxury-category-grid">
+        <button type="button" class="luxury-cat-card" (click)="selectCategory('For Him')">
+          <div class="cat-card-bg bg-for-him"></div>
+          <div class="cat-card-overlay"></div>
+          <div class="cat-card-content">
+            <span class="cat-kicker">COLLECTION 01</span>
+            <h3>For Him</h3>
+            <p>Bold &amp; Confident</p>
+            <span class="cat-card-link">Explore Edit ↗</span>
+          </div>
+        </button>
+
+        <button type="button" class="luxury-cat-card" (click)="selectCategory('For Her')">
+          <div class="cat-card-bg bg-for-her"></div>
+          <div class="cat-card-overlay"></div>
+          <div class="cat-card-content">
+            <span class="cat-kicker">COLLECTION 02</span>
+            <h3>For Her</h3>
+            <p>Elegant &amp; Graceful</p>
+            <span class="cat-card-link">Explore Edit ↗</span>
+          </div>
+        </button>
+
+        <button type="button" class="luxury-cat-card" (click)="selectCategory('Unisex')">
+          <div class="cat-card-bg bg-unisex"></div>
+          <div class="cat-card-overlay"></div>
+          <div class="cat-card-content">
+            <span class="cat-kicker">COLLECTION 03</span>
+            <h3>Unisex</h3>
+            <p>Beyond Boundaries</p>
+            <span class="cat-card-link">Explore Edit ↗</span>
+          </div>
+        </button>
+
+        <button type="button" class="luxury-cat-card" (click)="filterByNote('Oud')">
+          <div class="cat-card-bg bg-oud"></div>
+          <div class="cat-card-overlay"></div>
+          <div class="cat-card-content">
+            <span class="cat-kicker">COLLECTION 04</span>
+            <h3>Oud Collection</h3>
+            <p>Pure Resinous Luxury</p>
+            <span class="cat-card-link">Explore Edit ↗</span>
+          </div>
+        </button>
+
+        <button type="button" class="luxury-cat-card" (click)="selectCategory('All Fragrances')">
+          <div class="cat-card-bg bg-limited"></div>
+          <div class="cat-card-overlay"></div>
+          <div class="cat-card-content">
+            <span class="cat-kicker">COLLECTION 05</span>
+            <h3>Limited Edition</h3>
+            <p>Rare &amp; Exclusive Batches</p>
+            <span class="cat-card-link">Explore Edit ↗</span>
+          </div>
+        </button>
+      </div>
+    </section>
+
+    <!-- Curated Signature Line (From Inspiration Board) -->
+    <section class="signature-line-section page-shell" id="signature-line">
       <div class="section-heading">
         <div>
           <div class="eyebrow"><span class="eyebrow-line"></span> OUR SIGNATURE LINE</div>
@@ -153,7 +249,89 @@
       </div>
     </section>
 
-    <!-- Royal Discovery Coffret Spotlight Banner (From Image 2 & Report) -->
+    <!-- ==========================================================
+         BRAND STORY & CINEMATIC PARFUMERIE REEL (USER'S VIDEOS)
+         ========================================================== -->
+    <section class="cinematic-film-section page-shell" id="brand-story" aria-label="Brand Story and Cinematic Film">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-line"></span> THE RITUAL OF SCENT · CINEMATIC EDITORIAL</div>
+          <h2>Where Fragrance Meets Emotion. <em>The Film.</em></h2>
+          <p class="section-intro">
+            Experience the slow distillation of rare botanicals, hand-numbered crystal flacons, and the emotional resonance of personal memory.
+          </p>
+        </div>
+        <span class="cinematic-badge">✦ 4K CINEMATIC REEL</span>
+      </div>
+
+      <div class="cinematic-showcase-grid">
+        <!-- Desktop / Widescreen Cinematic Reel Video Player -->
+        <div class="cinematic-video-frame">
+          <video 
+            #cinematicReel
+            class="cinematic-video-player"
+            src="/assets/videos/perfume-cinematic-reel.mp4"
+            autoplay
+            muted
+            loop
+            playsinline>
+          </video>
+          <div class="video-overlay-tint"></div>
+          
+          <div class="video-bottom-controls">
+            <div class="video-brand-tag">
+              <span class="tag-monogram">Z&amp;S</span>
+              <div>
+                <strong>Haute Parfumerie Film</strong>
+                <small>Pure Extrait Concentration · Mysore &amp; Grasse</small>
+              </div>
+            </div>
+            
+            <button 
+              type="button" 
+              class="video-audio-toggle-btn" 
+              (click)="toggleVideoAudio(cinematicReel)"
+              [title]="cinematicReel.muted ? 'Unmute Sound' : 'Mute Sound'">
+              <span>{{ cinematicReel.muted ? '🔇 Unmute Sound' : '🔊 Sound Active' }}</span>
+              <span class="audio-pulse" *ngIf="!cinematicReel.muted"></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Vertical Mobile Scent Story Card & Heritage Poetry -->
+        <div class="cinematic-story-side">
+          <!-- Heritage Literary Card -->
+          <div class="story-couplet-card">
+            <span class="story-kicker">HERITAGE RESONANCE</span>
+            <blockquote dir="rtl" class="urdu-quote">خوشبو وہ خاموش زبان ہے جو دل سے دل تک بات کرتی ہے</blockquote>
+            <p class="quote-translation">“Fragrance is the silent tongue that speaks from heart to heart.”</p>
+            <small class="quote-tradition">Urdu Literary Tradition · House of Zauq &amp; Shauq</small>
+          </div>
+
+          <!-- Vertical Mobile-First Reel Preview Card -->
+          <div class="mobile-story-preview">
+            <video 
+              class="mobile-story-video"
+              src="/assets/videos/perfume-story-mobile.mp4"
+              autoplay
+              muted
+              loop
+              playsinline>
+            </video>
+            <div class="story-card-glass">
+              <span class="story-star">✦</span>
+              <strong>Apni Mehak, Apni Pehchaan</strong>
+              <p>Hand-poured luxury flacons crafted for your unforgettable signature.</p>
+              <button type="button" class="btn-story-explore" (click)="setView('shop')">
+                Explore Flacons ↗
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Royal Discovery Coffret Spotlight Banner -->
     <section class="home-coffret-banner page-shell">
       <div class="coffret-banner-glass">
         <div class="banner-badge">✦ THE 5-VIAL SAMPLING WARDROBE</div>
@@ -173,277 +351,26 @@
       </div>
     </section>
 
-    <!-- SECTION: FRAGRANTICA OLFACTORY ACCORD MATRIX & PYRAMID ARCHITECTURE -->
-    <section class="fragrantica-master-section page-shell" id="olfactory-matrix" aria-label="Fragrantica Scent Accord Matrix">
-      <div class="matrix-header-row">
-        <div>
-          <div class="eyebrow"><span class="eyebrow-line"></span> OLFACTORY ARCHITECTURE · FRAGRANTICA MATRIX</div>
-          <h2>The Science of Sillage. <em>Deconstructed.</em></h2>
-          <p class="section-intro">Explore precise molecular accord percentages, volatile 3-tier pyramids, and verified longevity profiles.</p>
+    <!-- Royal Poetic Callout Band (From Inspiration Board) -->
+    <section class="royal-poetry-band">
+      <div class="page-shell poetry-band-inner">
+        <div class="band-column">
+          <span class="band-label">ZAUQ &amp; SHAUQ ADAB</span>
+          <h3>Kuch Khushboo Qaidi Nahi Hoti,<br><em>Woh Azad Rehti Hai…</em></h3>
+          <p>Zauq bhi… Shauq bhi… Tum bhi…</p>
+          <button type="button" class="band-btn" (click)="selectCategory('For Him')">Explore For Him ↗</button>
         </div>
-        
-        <!-- Fragrance Selector Tabs -->
-        <div class="matrix-selector-tabs" role="tablist">
-          <button 
-            *ngFor="let m of fragranticaMatrix; let idx = index"
-            type="button"
-            class="matrix-tab-pill"
-            [class.is-active]="idx === selectedMatrixIndex"
-            (click)="selectMatrixScent(idx)"
-            role="tab"
-            [attr.aria-selected]="idx === selectedMatrixIndex">
-            <span class="m-num">0{{ idx + 1 }}</span>
-            <span class="m-name">{{ m.name }}</span>
-          </button>
+        <div class="band-divider"></div>
+        <div class="band-column">
+          <span class="band-label">THE SCENT SIGNATURE</span>
+          <h3>Apni Mehak,<br><em>Apni Pehchaan.</em></h3>
+          <p>Har lamha, thoda sa shauq, thoda sa khud ke liye.</p>
+          <button type="button" class="band-btn" (click)="selectCategory('For Her')">Explore For Her ↗</button>
         </div>
-      </div>
-
-      <div class="matrix-cockpit-grid">
-        
-        <!-- COLUMN 1: FRAGRANTICA ACCORD BARS & BOTTLE SHOWCASE -->
-        <div class="matrix-bottle-card">
-          <div class="matrix-flacon-preview" (click)="inspectMatrixScent()">
-            <img [src]="currentMatrixScent.image" [alt]="currentMatrixScent.name" class="matrix-bottle-img" />
-            <div class="matrix-bottle-halo"></div>
-            <span class="matrix-conc-badge">{{ currentMatrixScent.concentration }}</span>
-          </div>
-          
-          <div class="matrix-flacon-info">
-            <span class="matrix-origin">ORIGIN: {{ currentMatrixScent.origin }}</span>
-            <h3>{{ currentMatrixScent.name }}</h3>
-            <p class="matrix-nose">Formula by {{ currentMatrixScent.perfumerNose }}</p>
-            
-            <div class="matrix-ctas">
-              <button type="button" class="btn-royal-gold" (click)="inspectMatrixScent()">
-                Inspect Flacon · ₹{{ currentMatrixScent.price | number }} <span>↗</span>
-              </button>
-              <button type="button" class="btn-royal-outline" (click)="setView('discovery')">
-                Sample in Coffret ✦
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- COLUMN 2: MAIN ACCORDS (FRAGRANTICA HORIZONTAL PROPORTION BARS) -->
-        <div class="matrix-accords-card">
-          <div class="card-inner-heading">
-            <span class="card-kicker">MOLECULAR PROMINENCE</span>
-            <h4>Main Accords (Fragrantica Scale)</h4>
-          </div>
-
-          <div class="fragrantica-full-bars">
-            <div *ngFor="let acc of currentMatrixScent.accords" class="f-full-bar-row">
-              <div class="f-bar-labels">
-                <span class="f-accord-name">{{ acc.name }}</span>
-                <span class="f-accord-val">{{ acc.percent }}%</span>
-              </div>
-              <div class="f-track">
-                <div class="f-fill" [style.width.%]="acc.percent" [style.background]="acc.color"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- SENSORY COMMUNITY RATINGS GAUGES -->
-          <div class="sensory-gauges-grid">
-            <div class="gauge-box">
-              <span class="gauge-lbl">LONGEVITY</span>
-              <strong>{{ currentMatrixScent.ratings.longevity }}</strong>
-              <div class="gauge-bar"><div class="gauge-fill" [style.width.%]="currentMatrixScent.ratings.longevityPercent"></div></div>
-            </div>
-            <div class="gauge-box">
-              <span class="gauge-lbl">SILLAGE &amp; PROJECTION</span>
-              <strong>{{ currentMatrixScent.ratings.sillage }}</strong>
-              <div class="gauge-bar"><div class="gauge-fill" [style.width.%]="currentMatrixScent.ratings.sillagePercent"></div></div>
-            </div>
-            <div class="gauge-box">
-              <span class="gauge-lbl">SEASON RADAR</span>
-              <strong>{{ currentMatrixScent.ratings.season }}</strong>
-            </div>
-            <div class="gauge-box">
-              <span class="gauge-lbl">DAY / NIGHT</span>
-              <strong>{{ currentMatrixScent.ratings.dayNight }}</strong>
-            </div>
-          </div>
-        </div>
-
-        <!-- COLUMN 3: THE 3-TIER VOLATILITY PYRAMID -->
-        <div class="matrix-pyramid-card">
-          <div class="card-inner-heading">
-            <span class="card-kicker">VOLATILITY DECONSTRUCTION</span>
-            <h4>Olfactory Notes Pyramid</h4>
-          </div>
-
-          <div class="pyramid-tiers-stack">
-            <!-- Tier 1: Top -->
-            <div class="pyramid-tier-block tier-top">
-              <div class="tier-badge-row">
-                <span class="tier-tag">🌿 TOP NOTES</span>
-                <span class="tier-time">First 15 – 30 Minutes</span>
-              </div>
-              <p class="tier-desc">Immediate botanical greeting; volatile bright molecules that stimulate the limbic brain.</p>
-              <div class="tier-chips">
-                <span *ngFor="let n of currentMatrixScent.pyramid.top" class="tier-chip">✦ {{ n }}</span>
-              </div>
-            </div>
-
-            <!-- Tier 2: Heart -->
-            <div class="pyramid-tier-block tier-heart">
-              <div class="tier-badge-row">
-                <span class="tier-tag">🌺 HEART ACCORD</span>
-                <span class="tier-time">2 – 4 Hours</span>
-              </div>
-              <p class="tier-desc">The emotional core of the composition; develops intimacy and soulful warmth on warm skin.</p>
-              <div class="tier-chips">
-                <span *ngFor="let n of currentMatrixScent.pyramid.heart" class="tier-chip">◇ {{ n }}</span>
-              </div>
-            </div>
-
-            <!-- Tier 3: Base -->
-            <div class="pyramid-tier-block tier-base">
-              <div class="tier-badge-row">
-                <span class="tier-tag">🪵 BASE SILLAGE</span>
-                <span class="tier-time">12 – 24 Hours</span>
-              </div>
-              <p class="tier-desc">Heavy-molecule resinous fixatives that create the lasting, unforgettable memory trail.</p>
-              <div class="tier-chips">
-                <span *ngFor="let n of currentMatrixScent.pyramid.base" class="tier-chip">♥ {{ n }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
     </section>
 
-    <!-- SCROLL-MORPH SCENT EVOLUTION (Changes image and aroma notes dynamically on website scrolling) -->
-    <section class="scroll-scent-showcase" id="scroll-scent-section" aria-label="Living Scent Scroll Evolution">
-      <div class="scroll-showcase-backdrop" [style.background]="currentScrollScent.gradient"></div>
-      
-      <div class="page-shell scroll-showcase-shell">
-        
-        <!-- Section Top Headline -->
-        <div class="scroll-showcase-header">
-          <div class="eyebrow eyebrow-light">
-            <span class="eyebrow-line"></span> THE LIVING SCENT ARCHITECTURE · SCROLL TO EXPERIENCE
-          </div>
-          <h2>Five Signatures. <em>One Continuous Journey.</em></h2>
-          <p class="scroll-showcase-desc">
-            As you scroll through our boutique, witness the flacon transform and disperse rare botanicals—from 20-year aged wild Assam agarwood to luminescent dawn Damask rose, warm molten vanilla benzoin, and holy Kashmiri saffron.
-          </p>
-
-          <!-- Interactive Scent Timeline Tabs (Clickable & Active on Scroll) -->
-          <div class="scroll-timeline-nav" role="tablist">
-            <button 
-              *ngFor="let s of scrollScents; let i = index"
-              type="button"
-              class="timeline-step-btn"
-              [class.is-active]="i === scrollScentIndex"
-              (click)="setScrollScent(i)"
-              [attr.aria-selected]="i === scrollScentIndex">
-              <span class="step-num">0{{ i + 1 }}</span>
-              <span class="step-title">{{ s.name }}</span>
-              <span class="step-active-glow" *ngIf="i === scrollScentIndex"></span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Split Stage: Flacon Display + Scent Notes Details -->
-        <div class="scroll-showcase-stage">
-          
-          <!-- Flacon Center Stage with Scent Diffuser Mist Spray -->
-          <div class="scroll-flacon-podium">
-            
-            <!-- Scent Diffuser Mist Atomizer Spray Animation on Scroll -->
-            <div class="scent-diffuser-atomizer scroll-diffuser" [class.spray-active]="scrollScentSpritzing" aria-hidden="true">
-              <div class="diffuser-nozzle-flare"></div>
-              <div class="diffuser-mist-cone"></div>
-              <div class="diffuser-mist-plume-left"></div>
-              <div class="diffuser-mist-plume-right"></div>
-              <div class="diffuser-particles">
-                <span class="diffuser-drop d1"></span>
-                <span class="diffuser-drop d2"></span>
-                <span class="diffuser-drop d3"></span>
-                <span class="diffuser-drop d4"></span>
-                <span class="diffuser-drop d5"></span>
-                <span class="diffuser-drop d6"></span>
-              </div>
-              <div class="diffuser-aroma-ring ring-1"></div>
-              <div class="diffuser-floating-note">✦ Diffusing {{ currentScrollScent.name }}</div>
-            </div>
-
-            <!-- Morphing Flacon Image with Golden Halo Ring -->
-            <div class="podium-aura-ring"></div>
-            <div class="podium-halo-core"></div>
-            
-            <div class="podium-image-wrap" (click)="inspectScrollScent(currentScrollScent)">
-              <img 
-                class="podium-flacon-img" 
-                [src]="currentScrollScent.image" 
-                [alt]="currentScrollScent.name + ' bottle in scroll exhibition'" />
-              <div class="podium-shadow"></div>
-            </div>
-
-            <!-- Manual Spritz Aroma Button -->
-            <button 
-              type="button" 
-              class="podium-spritz-btn" 
-              (click)="triggerScrollScentSpritz()"
-              title="Spritz aroma mist">
-              <span>💨 Spritz Scent Atomizer</span>
-              <span class="spritz-star">✦</span>
-            </button>
-          </div>
-
-          <!-- Active Scent Profile Card -->
-          <div class="scroll-profile-card">
-            <div class="profile-header">
-              <span class="profile-step-tag">SCENT 0{{ scrollScentIndex + 1 }} OF 0{{ scrollScents.length }}</span>
-              <span class="profile-size-tag">{{ currentScrollScent.size }} · {{ currentScrollScent.concentration }}</span>
-            </div>
-
-            <h3 class="profile-name">{{ currentScrollScent.name }}</h3>
-            <p class="profile-family">{{ currentScrollScent.family }}</p>
-            <blockquote class="profile-quote">{{ currentScrollScent.quote }}</blockquote>
-
-            <!-- Olfactory Notes Architecture -->
-            <div class="profile-notes-breakdown">
-              <div class="note-row">
-                <span class="note-lbl">TOP NOTE</span>
-                <strong class="note-val">{{ currentScrollScent.meters.top }}</strong>
-              </div>
-              <div class="note-row">
-                <span class="note-lbl">HEART ACCORD</span>
-                <strong class="note-val">{{ currentScrollScent.meters.heart }}</strong>
-              </div>
-              <div class="note-row">
-                <span class="note-lbl">BASE SILLAGE</span>
-                <strong class="note-val">{{ currentScrollScent.meters.base }}</strong>
-              </div>
-            </div>
-
-            <!-- Price & Actions -->
-            <div class="profile-cta-row">
-              <div class="profile-price">
-                <span>Price</span>
-                <strong>₹{{ currentScrollScent.price | number }}</strong>
-              </div>
-              <div class="profile-buttons">
-                <button type="button" class="btn-royal-gold" (click)="inspectScrollScent(currentScrollScent)">
-                  Inspect Flacon <span>↗</span>
-                </button>
-                <button type="button" class="btn-royal-outline" (click)="setView('shop')">
-                  Full Wardrobe →
-                </button>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Mood Portals (From Image 2 Moodboard) -->
+    <!-- Mood Portals Section -->
     <section class="mood-portals-section page-shell">
       <div class="section-heading">
         <div>
@@ -477,25 +404,6 @@
           <p>Timeless. Refined. Always.</p>
           <span class="mood-link">Explore Edit ↗</span>
         </button>
-      </div>
-    </section>
-
-    <!-- Royal Poetic Callout Band (From Image 2) -->
-    <section class="royal-poetry-band">
-      <div class="page-shell poetry-band-inner">
-        <div class="band-column">
-          <span class="band-label">ZAUQ &amp; SHAUQ ADAB</span>
-          <h3>Kuch Khushboo Qaidi Nahi Hoti,<br><em>Woh Azad Rehti Hai…</em></h3>
-          <p>Zauq bhi… Shauq bhi… Tum bhi…</p>
-          <button type="button" class="band-btn" (click)="selectCategory('For Him')">Explore For Him ↗</button>
-        </div>
-        <div class="band-divider"></div>
-        <div class="band-column">
-          <span class="band-label">THE SCENT SIGNATURE</span>
-          <h3>Apni Mehak,<br><em>Apni Pehchaan.</em></h3>
-          <p>Har lamha, thoda sa shauq, thoda sa khud ke liye.</p>
-          <button type="button" class="band-btn" (click)="selectCategory('For Her')">Explore For Her ↗</button>
-        </div>
       </div>
     </section>
 

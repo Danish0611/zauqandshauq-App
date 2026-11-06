@@ -832,6 +832,15 @@ export class AppComponent implements OnInit, OnDestroy {
     }
   }
 
+  toggleVideoAudio(videoEl: HTMLVideoElement): void {
+    if (videoEl) {
+      videoEl.muted = !videoEl.muted;
+      if (!videoEl.muted && videoEl.paused) {
+        videoEl.play();
+      }
+    }
+  }
+
   closeCheckout(): void {
     if (!this.submitting) this.checkoutOpen = false;
   }

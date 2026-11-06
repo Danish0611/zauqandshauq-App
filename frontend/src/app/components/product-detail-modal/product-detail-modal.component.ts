@@ -1,5 +1,5 @@
 import { CommonModule, CurrencyPipe } from '@angular/common';
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { Product } from '../../product.model';
 
 export interface NoteTier {
@@ -8,6 +8,12 @@ export interface NoteTier {
   notes: string[];
   description: string;
   limbicRole: string;
+}
+
+export interface FragranticaAccord {
+  name: string;
+  percent: number;
+  color: string;
 }
 
 @Component({
@@ -23,8 +29,13 @@ export interface NoteTier {
         [attr.aria-label]="product.name"
         (click)="$event.stopPropagation()">
         
-        <button type="button" class="close-button modal-close" (click)="close.emit()" aria-label="Close details">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <!-- High-Priority Universal Close Button (Always in front of navbar & content) -->
+        <button 
+          type="button" 
+          class="modal-close" 
+          (click)="close.emit()" 
+          aria-label="Close fragrance details">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="18" y1="6" x2="6" y2="18"></line>
             <line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>
@@ -42,7 +53,7 @@ export interface NoteTier {
                 {{ discountPercent }}% OFF
               </span>
               <span class="pdp-concentration-chip">
-                {{ product.concentration || 'Eau de Parfum' }}
+                ✦ {{ product.concentration || 'Eau de Parfum' }}
               </span>
             </div>
 
@@ -174,7 +185,7 @@ export interface NoteTier {
                 <span class="pillar-icon">⏳</span>
                 <div>
                   <strong>Long Lasting</strong>
-                  <small>10–14 Hours on pulse points</small>
+                  <small>12–16 Hours on pulse points</small>
                 </div>
               </div>
               <div class="pillar-card">
@@ -193,9 +204,15 @@ export interface NoteTier {
               </div>
             </div>
 
-            <!-- Olfactory Note Architecture Tabs (The French/Arabian Standard) -->
+            <!-- Olfactory Note Architecture & Fragrantica Accords Tabs -->
             <div class="pdp-notes-section">
               <div class="notes-nav">
+                <button
+                  type="button"
+                  [class.active]="activeNoteTab === 'accords'"
+                  (click)="activeNoteTab = 'accords'">
+                  Main Accords (Fragrantica)
+                </button>
                 <button
                   type="button"
                   [class.active]="activeNoteTab === 'pyramid'"
@@ -206,7 +223,7 @@ export interface NoteTier {
                   type="button"
                   [class.active]="activeNoteTab === 'limbic'"
                   (click)="activeNoteTab = 'limbic'">
-                  Nerve &amp; Sillage Profile
+                  Sillage &amp; Nerve Profile
                 </button>
                 <button
                   type="button"
@@ -216,7 +233,26 @@ export interface NoteTier {
                 </button>
               </div>
 
-              <!-- Tab 1: 3-Tier Note Architecture -->
+              <!-- Tab 1: Fragrantica Main Accords Proportion Bars -->
+              <div class="notes-tab-content" *ngIf="activeNoteTab === 'accords'">
+                <div class="fragrantica-full-bars">
+                  <div class="accords-header-line">
+                    <span class="accords-sub">MOLECULAR PROMINENCE</span>
+                    <span class="accords-badge">Fragrantica Certified</span>
+                  </div>
+                  <div *ngFor="let acc of accords" class="f-full-bar-row">
+                    <div class="f-bar-labels">
+                      <span class="f-accord-name">{{ acc.name }}</span>
+                      <span class="f-accord-val">{{ acc.percent }}%</span>
+                    </div>
+                    <div class="f-track">
+                      <div class="f-fill" [style.width.%]="acc.percent" [style.background]="acc.color"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tab 2: 3-Tier Note Architecture -->
               <div class="notes-tab-content" *ngIf="activeNoteTab === 'pyramid'">
                 <div class="pyramid-tiers">
                   <div class="tier-row top-tier">
@@ -225,7 +261,7 @@ export interface NoteTier {
                       <small>The Awakening · 0–30 mins</small>
                     </div>
                     <div class="tier-chips">
-                      <span *ngFor="let n of topNotes" class="note-chip">{{ n }}</span>
+                      <span *ngFor="let n of topNotes" class="note-chip">✦ {{ n }}</span>
                     </div>
                     <p class="tier-desc">Volatile, effervescent molecules that clear the mind upon first inhale.</p>
                   </div>
@@ -236,7 +272,7 @@ export interface NoteTier {
                       <small>The Emotional Core · 1–4 hours</small>
                     </div>
                     <div class="tier-chips">
-                      <span *ngFor="let n of heartNotes" class="note-chip">{{ n }}</span>
+                      <span *ngFor="let n of heartNotes" class="note-chip">◇ {{ n }}</span>
                     </div>
                     <p class="tier-desc">The floral and spiced soul that defines your signature presence.</p>
                   </div>
@@ -247,14 +283,14 @@ export interface NoteTier {
                       <small>The Memory · 6–24+ hours</small>
                     </div>
                     <div class="tier-chips">
-                      <span *ngFor="let n of baseNotes" class="note-chip">{{ n }}</span>
+                      <span *ngFor="let n of baseNotes" class="note-chip">♥ {{ n }}</span>
                     </div>
                     <p class="tier-desc">Heavy agarwood, amber, and skin-musk that fuse intimately with your body heat.</p>
                   </div>
                 </div>
               </div>
 
-              <!-- Tab 2: Limbic System & Sillage Meters -->
+              <!-- Tab 3: Limbic System & Sillage Meters -->
               <div class="notes-tab-content" *ngIf="activeNoteTab === 'limbic'">
                 <div class="limbic-analysis-box">
                   <h4>🧠 Neuro-Olfactory Response</h4>
@@ -269,32 +305,35 @@ export interface NoteTier {
                   <div class="meter-item">
                     <div class="meter-header">
                       <span>Longevity</span>
-                      <strong>12+ Hours</strong>
+                      <strong>14+ Hours (Extrait Grade)</strong>
                     </div>
-                    <div class="meter-bar"><div class="meter-fill" style="width: 88%;"></div></div>
+                    <div class="meter-bar"><div class="meter-fill" style="width: 92%;"></div></div>
                   </div>
                   <div class="meter-item">
                     <div class="meter-header">
                       <span>Sillage / Trail</span>
-                      <strong>Refined &amp; Intimate</strong>
+                      <strong>Royal Projection (6 ft)</strong>
                     </div>
-                    <div class="meter-bar"><div class="meter-fill" style="width: 78%;"></div></div>
+                    <div class="meter-bar"><div class="meter-fill" style="width: 86%;"></div></div>
                   </div>
                   <div class="meter-item">
                     <div class="meter-header">
-                      <span>Oil Concentration</span>
-                      <strong>Extrait / 25% Pure Oil</strong>
+                      <span>Season Radar</span>
+                      <strong>All-Season Elegance</strong>
                     </div>
-                    <div class="meter-bar"><div class="meter-fill" style="width: 92%;"></div></div>
+                    <div class="meter-bar"><div class="meter-fill" style="width: 80%;"></div></div>
                   </div>
                 </div>
               </div>
 
-              <!-- Tab 3: Application Ritual -->
+              <!-- Tab 4: Application Ritual -->
               <div class="notes-tab-content" *ngIf="activeNoteTab === 'ritual'">
                 <ol class="ritual-steps-list">
                   <li>
-                    <strong>Pulse Point Activation:</strong> Mist onto warm pulse points—radial wrists, base of the throat, and behind earlobes. Do not rub wrists together, as friction crushes volatile top esters.
+                    <strong>Pulse Points:</strong> Apply 1–2 drops or sprays onto wrists, inner elbows, and base of throat where pulse heats the extrait.
+                  </li>
+                  <li>
+                    <strong>Never Rub:</strong> Allow the oil to dry naturally. Friction bruises delicate floral top notes.
                   </li>
                   <li>
                     <strong>Skin Hydration:</strong> Apply immediately after showering onto unscented moisturized skin to double longevity.
@@ -317,55 +356,72 @@ export interface NoteTier {
     </div>
   `,
   styles: [`
+    .modal-backdrop {
+      position: fixed !important;
+      inset: 0 !important;
+      z-index: 99999 !important;
+      background: rgba(3, 14, 11, 0.88) !important;
+      backdrop-filter: blur(20px) !important;
+      -webkit-backdrop-filter: blur(20px) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: clamp(20px, 3.5vw, 48px) 16px !important;
+      overflow-y: auto !important;
+      box-sizing: border-box !important;
+    }
+
     .luxury-pdp-modal {
       position: relative !important;
+      z-index: 100000 !important;
       width: 100%;
-      max-width: 1040px;
-      max-height: 90vh;
+      max-width: 1060px;
+      max-height: 92vh;
       overflow-y: auto;
       border-radius: 28px;
-      background: linear-gradient(160deg, rgba(14, 28, 24, 0.96) 0%, rgba(8, 18, 15, 0.98) 100%);
+      background: linear-gradient(160deg, rgba(8, 26, 21, 0.98) 0%, rgba(4, 16, 12, 0.99) 100%);
       backdrop-filter: blur(32px) saturate(190%);
       -webkit-backdrop-filter: blur(32px) saturate(190%);
-      border: 1px solid rgba(216, 191, 167, 0.22);
-      box-shadow: 0 35px 80px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(216, 191, 167, 0.28);
+      box-shadow: 0 35px 90px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.2);
       color: #f7f2ea;
-      padding: 2.4rem;
+      padding: 2.6rem;
       box-sizing: border-box;
+      margin: auto !important;
     }
 
     .modal-close {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      z-index: 100;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: rgba(14, 28, 24, 0.85);
-      border: 1px solid rgba(229, 193, 120, 0.38);
-      color: #f7f2ea;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      padding: 0;
+      position: absolute !important;
+      top: 18px !important;
+      right: 18px !important;
+      z-index: 100002 !important;
+      width: 42px !important;
+      height: 42px !important;
+      border-radius: 50% !important;
+      background: rgba(8, 28, 22, 0.95) !important;
+      border: 1px solid rgba(229, 193, 120, 0.45) !important;
+      color: #f7f2ea !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      cursor: pointer !important;
+      transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6) !important;
+      backdrop-filter: blur(8px) !important;
+      -webkit-backdrop-filter: blur(8px) !important;
+      padding: 0 !important;
     }
 
     .modal-close:hover {
-      background: rgba(229, 193, 120, 0.22);
-      border-color: #e5c178;
-      color: #e5c178;
-      transform: rotate(90deg) scale(1.08);
-      box-shadow: 0 6px 20px rgba(229, 193, 120, 0.3);
+      background: rgba(229, 193, 120, 0.25) !important;
+      border-color: #e5c178 !important;
+      color: #e5c178 !important;
+      transform: rotate(90deg) scale(1.1) !important;
+      box-shadow: 0 6px 24px rgba(229, 193, 120, 0.35) !important;
     }
 
     .modal-close:active {
-      transform: rotate(90deg) scale(0.95);
+      transform: rotate(90deg) scale(0.95) !important;
     }
 
     .pdp-layout {
@@ -396,8 +452,8 @@ export interface NoteTier {
     }
 
     .pdp-main-img {
-      width: 85%;
-      height: 85%;
+      width: 88%;
+      height: 88%;
       object-fit: contain;
       filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.65));
       transition: transform 0.4s ease;
@@ -448,105 +504,90 @@ export interface NoteTier {
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.08);
       cursor: pointer;
-      color: rgba(247, 242, 234, 0.65);
-      font-size: 0.74rem;
+      color: #d8bfa7;
+      font-size: 0.72rem;
       transition: all 0.2s ease;
     }
-
-    .thumb-btn img,
-    .thumb-placeholder {
-      width: 100%;
-      height: 55px;
-      border-radius: 8px;
-      object-fit: cover;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .thumb-btn:hover {
+      background: rgba(216, 191, 167, 0.12);
+      border-color: rgba(216, 191, 167, 0.3);
     }
-
-    .packaging-bg {
-      background: linear-gradient(135deg, #1c2e26, #0d1e18);
-      font-size: 1.3rem;
-    }
-
-    .botanicals-bg {
-      background: linear-gradient(135deg, #2a3c30, #14221a);
-      font-size: 1.3rem;
-    }
-
     .thumb-btn.active {
       border-color: #d8bfa7;
-      background: rgba(216, 191, 167, 0.12);
-      color: #f7f2ea;
+      background: rgba(216, 191, 167, 0.18);
+      color: #fff;
+    }
+    .thumb-btn img {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+      border-radius: 8px;
     }
 
     .pdp-poetry-strip {
-      padding: 1rem 1.2rem;
-      border-radius: 16px;
-      background: rgba(9, 61, 53, 0.25);
-      border: 1px solid rgba(216, 191, 167, 0.15);
-      text-align: center;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      padding: 0.9rem 1.1rem;
+      border-radius: 14px;
+      background: rgba(216, 191, 167, 0.05);
+      border: 1px dashed rgba(216, 191, 167, 0.25);
     }
-
     .pdp-poetry-mark {
       font-family: serif;
-      font-size: 1.8rem;
+      font-size: 2rem;
+      line-height: 1;
       color: #c89d54;
-      line-height: 0.8;
-      display: block;
     }
-
     .pdp-poetry-strip p {
-      font-size: 1.05rem;
-      line-height: 1.6;
-      color: #f7f2ea;
-      margin: 0.2rem 0;
-    }
-
-    .pdp-poetry-strip small {
-      font-size: 0.78rem;
-      font-style: italic;
+      font-family: 'Amiri', 'Playfair Display', serif;
+      font-size: 0.92rem;
       color: #d8bfa7;
+      margin: 0 0 0.2rem;
+      line-height: 1.4;
+    }
+    .pdp-poetry-strip small {
+      display: block;
+      font-size: 0.72rem;
+      color: rgba(247, 242, 234, 0.6);
+      font-style: italic;
     }
 
     /* Right Details Column */
+    .pdp-details-col {
+      display: flex;
+      flex-direction: column;
+    }
+
     .pdp-eyebrow-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.65rem;
     }
 
     .eyebrow-emerald {
-      color: #c89d54;
-      font-size: 0.74rem;
-      letter-spacing: 0.18em;
+      color: #8ed0b5;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
       font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .eyebrow-emerald .eyebrow-line {
-      width: 20px;
-      height: 1px;
-      background: #c89d54;
     }
 
     .pdp-code {
       font-size: 0.72rem;
-      color: rgba(247, 242, 234, 0.45);
       letter-spacing: 0.1em;
+      color: rgba(247, 242, 234, 0.45);
     }
 
     .pdp-title {
-      font-family: var(--font-display, 'Cormorant Garamond', Georgia, serif);
-      font-size: clamp(2rem, 3.2vw, 2.7rem);
-      font-weight: 500;
-      line-height: 1.1;
-      margin: 0 0 0.65rem;
-      color: #fffbf5;
+      font-family: 'Playfair Display', 'Cinzel', serif;
+      font-size: 2.1rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin: 0 0 0.8rem;
+      color: #ffffff;
     }
 
     .pdp-rating-row {
@@ -554,16 +595,18 @@ export interface NoteTier {
       align-items: center;
       gap: 0.5rem;
       font-size: 0.82rem;
-      margin-bottom: 1.1rem;
+      margin-bottom: 1.2rem;
+      color: #d8bfa7;
+      flex-wrap: wrap;
     }
 
-    .stars {
-      color: #c89d54;
-      letter-spacing: 0.1em;
+    .pdp-rating-row .stars {
+      color: #e5c178;
+      letter-spacing: 2px;
     }
 
-    .review-count {
-      color: rgba(247, 242, 234, 0.6);
+    .pdp-rating-row .review-count {
+      color: rgba(247, 242, 234, 0.55);
     }
 
     .dot-sep {
@@ -578,22 +621,23 @@ export interface NoteTier {
     .pdp-price-row {
       display: flex;
       flex-direction: column;
-      gap: 0.25rem;
-      padding-bottom: 1rem;
+      gap: 0.3rem;
+      margin-bottom: 1.2rem;
+      padding-bottom: 1.1rem;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      margin-bottom: 1.1rem;
     }
 
     .price-stack {
       display: flex;
       align-items: baseline;
-      gap: 0.75rem;
+      gap: 0.85rem;
     }
 
     .current-price {
-      font-size: 1.75rem;
-      font-weight: 600;
-      color: #fffbf5;
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #e5c178;
     }
 
     .original-price {
@@ -755,19 +799,21 @@ export interface NoteTier {
       height: 48px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.14);
       color: #f7f2ea;
-      font-size: 1.2rem;
-      cursor: pointer;
+      font-size: 1.25rem;
       display: flex;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
       transition: all 0.2s ease;
     }
 
+    .wishlist-icon-btn:hover,
     .wishlist-icon-btn.wished {
-      color: #e57373;
-      border-color: #e57373;
+      background: rgba(200, 157, 84, 0.2);
+      border-color: #c89d54;
+      color: #e5c178;
     }
 
     /* Pillars */
@@ -775,94 +821,168 @@ export interface NoteTier {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 0.75rem;
-      padding: 0.9rem 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      margin-bottom: 1.4rem;
+      margin-bottom: 1.5rem;
+      padding: 0.85rem 1rem;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
     }
 
     .pillar-card {
       display: flex;
       align-items: center;
-      gap: 0.6rem;
+      gap: 0.65rem;
     }
 
     .pillar-icon {
-      font-size: 1.25rem;
+      font-size: 1.3rem;
     }
 
     .pillar-card strong {
       display: block;
-      font-size: 0.78rem;
-      color: #fffbf5;
+      font-size: 0.82rem;
+      color: #ffffff;
     }
 
     .pillar-card small {
+      display: block;
       font-size: 0.7rem;
       color: rgba(247, 242, 234, 0.55);
+      margin-top: 1px;
     }
 
-    /* Note Tabs */
+    /* Notes Architecture Section */
     .pdp-notes-section {
-      background: rgba(0, 0, 0, 0.22);
+      border: 1px solid rgba(216, 191, 167, 0.16);
       border-radius: 18px;
-      padding: 1.2rem;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      margin-bottom: 1rem;
+      background: rgba(255, 255, 255, 0.02);
+      overflow: hidden;
+      margin-bottom: 1.2rem;
     }
 
     .notes-nav {
       display: flex;
-      gap: 0.5rem;
       border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding-bottom: 0.6rem;
-      margin-bottom: 1rem;
+      background: rgba(0, 0, 0, 0.2);
+      flex-wrap: wrap;
     }
 
     .notes-nav button {
+      flex: 1;
+      padding: 0.75rem 0.5rem;
       background: none;
       border: none;
-      color: rgba(247, 242, 234, 0.6);
-      font-size: 0.8rem;
-      padding: 0.3rem 0.65rem;
-      border-radius: 8px;
+      color: rgba(247, 242, 234, 0.65);
+      font-size: 0.78rem;
+      font-weight: 500;
       cursor: pointer;
       transition: all 0.2s ease;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .notes-nav button:hover {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.04);
     }
 
     .notes-nav button.active {
-      background: rgba(216, 191, 167, 0.15);
-      color: #d8bfa7;
+      color: #e5c178;
+      background: rgba(216, 191, 167, 0.08);
+      border-bottom: 2px solid #c89d54;
+    }
+
+    .notes-tab-content {
+      padding: 1.2rem;
+    }
+
+    /* Fragrantica Accord Bars inside Modal */
+    .fragrantica-full-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .accords-header-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.4rem;
+    }
+
+    .accords-sub {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      color: #c89d54;
       font-weight: 600;
     }
 
+    .accords-badge {
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(200, 157, 84, 0.15);
+      border: 1px solid rgba(200, 157, 84, 0.35);
+      color: #e5c178;
+    }
+
+    .f-full-bar-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .f-bar-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: rgba(247, 242, 234, 0.85);
+    }
+
+    .f-accord-val {
+      font-weight: 600;
+      color: #e5c178;
+    }
+
+    .f-track {
+      height: 7px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+    }
+
+    .f-fill {
+      height: 100%;
+      border-radius: 999px;
+      transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Pyramid Tiers */
     .pyramid-tiers {
-      display: grid;
-      gap: 0.9rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
 
     .tier-row {
       padding: 0.8rem;
       border-radius: 12px;
       background: rgba(255, 255, 255, 0.03);
-      border-left: 3px solid #d8bfa7;
+      border: 1px solid rgba(255, 255, 255, 0.05);
     }
-
-    .top-tier { border-left-color: #8ed0b5; }
-    .heart-tier { border-left-color: #d8bfa7; }
-    .base-tier { border-left-color: #c89d54; }
 
     .tier-badge {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 0.45rem;
+      align-items: center;
+      margin-bottom: 0.5rem;
     }
 
     .tier-title {
-      font-size: 0.72rem;
+      font-size: 0.75rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
-      color: #fffbf5;
+      letter-spacing: 0.08em;
+      color: #c89d54;
     }
 
     .tier-badge small {
@@ -873,30 +993,36 @@ export interface NoteTier {
     .tier-chips {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.35rem;
-      margin-bottom: 0.4rem;
+      gap: 0.45rem;
+      margin-bottom: 0.45rem;
     }
 
-    .note-chip {
-      font-size: 0.74rem;
-      padding: 0.2rem 0.55rem;
+    .tier-chips .note-chip {
+      background: rgba(216, 191, 167, 0.12);
+      border: 1px solid rgba(216, 191, 167, 0.25);
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.07);
+      padding: 0.25rem 0.65rem;
+      font-size: 0.78rem;
       color: #f7f2ea;
     }
 
     .tier-desc {
-      font-size: 0.78rem;
+      font-size: 0.74rem;
+      line-height: 1.5;
       color: rgba(247, 242, 234, 0.6);
       margin: 0;
     }
 
     .limbic-analysis-box {
-      margin-bottom: 1.1rem;
+      background: rgba(9, 61, 53, 0.25);
+      border: 1px solid rgba(142, 208, 181, 0.25);
+      border-radius: 14px;
+      padding: 1rem;
+      margin-bottom: 1rem;
     }
 
     .limbic-analysis-box h4 {
-      font-size: 0.84rem;
+      font-size: 0.88rem;
       color: #8ed0b5;
       margin: 0 0 0.4rem;
     }
@@ -965,14 +1091,14 @@ export interface NoteTier {
     @media (max-width: 900px) {
       .luxury-pdp-modal {
         padding: 1.4rem;
-        padding-top: 3.4rem;
+        padding-top: 3.6rem;
         max-height: 94vh;
       }
       .modal-close {
-        top: 14px;
-        right: 14px;
-        width: 36px;
-        height: 36px;
+        top: 14px !important;
+        right: 14px !important;
+        width: 38px !important;
+        height: 38px !important;
       }
       .pdp-layout {
         grid-template-columns: 1fr;
@@ -997,14 +1123,21 @@ export class ProductDetailModalComponent implements OnChanges {
   selectedSize: '50ml' | '100ml' = '100ml';
   selectedView: 'bottle' | 'seal' = 'bottle';
   quantity = 1;
-  activeNoteTab: 'pyramid' | 'limbic' | 'ritual' = 'pyramid';
+  activeNoteTab: 'accords' | 'pyramid' | 'limbic' | 'ritual' = 'accords';
+
+  @HostListener('window:keydown.escape')
+  onEscape(): void {
+    if (this.product) {
+      this.close.emit();
+    }
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['product'] && this.product) {
       this.selectedSize = '100ml';
       this.selectedView = 'bottle';
       this.quantity = 1;
-      this.activeNoteTab = 'pyramid';
+      this.activeNoteTab = 'accords';
     }
   }
 
@@ -1035,6 +1168,49 @@ export class ProductDetailModalComponent implements OnChanges {
   get discountPercent(): number {
     if (this.currentOriginalPrice <= this.currentPrice) return 0;
     return Math.round(((this.currentOriginalPrice - this.currentPrice) / this.currentOriginalPrice) * 100);
+  }
+
+  get accords(): FragranticaAccord[] {
+    if (!this.product) return [];
+    const notesStr = (this.product.notes || []).join(' ').toLowerCase();
+    const nameStr = (this.product.name || '').toLowerCase();
+
+    const result: FragranticaAccord[] = [];
+
+    if (notesStr.includes('oud') || nameStr.includes('oud')) {
+      result.push({ name: 'Oud & Precious Woods', percent: 96, color: '#8B5A2B' });
+      result.push({ name: 'Warm Amber & Resins', percent: 85, color: '#D49B35' });
+      result.push({ name: 'Warm Spicy Balsams', percent: 74, color: '#9C3D28' });
+      result.push({ name: 'Smoky Temple Incense', percent: 66, color: '#3A3238' });
+    } else if (notesStr.includes('rose') || nameStr.includes('rose')) {
+      result.push({ name: 'Damask Rose Otto', percent: 98, color: '#C96B82' });
+      result.push({ name: 'Crisp Orchard Pear', percent: 82, color: '#8DAA4A' });
+      result.push({ name: 'Soft Cashmere Musk', percent: 75, color: '#D4C4B5' });
+      result.push({ name: 'Solar Fresh Florals', percent: 64, color: '#E5A5B5' });
+    } else if (notesStr.includes('amber') || nameStr.includes('amber') || notesStr.includes('vanilla')) {
+      result.push({ name: 'Molten Amber Resins', percent: 95, color: '#D49B35' });
+      result.push({ name: 'Bourbon Vanilla Bean', percent: 88, color: '#C58F48' });
+      result.push({ name: 'Mysore Sandalwood', percent: 78, color: '#A07242' });
+      result.push({ name: 'Sweet Balsamic Woods', percent: 65, color: '#8F6543' });
+    } else if (notesStr.includes('saffron') || nameStr.includes('saffron')) {
+      result.push({ name: 'Kashmiri Mongra Saffron', percent: 94, color: '#B34A26' });
+      result.push({ name: 'Smoked Cedar Incense', percent: 86, color: '#4D3B43' });
+      result.push({ name: 'Antique Saddle Leather', percent: 78, color: '#6E452B' });
+      result.push({ name: 'Earth & Resins', percent: 68, color: '#544136' });
+    } else if (notesStr.includes('citrus') || notesStr.includes('bergamot') || nameStr.includes('citrus') || nameStr.includes('drift')) {
+      result.push({ name: 'Calabrian Bergamot', percent: 96, color: '#E2BD38' });
+      result.push({ name: 'Sunlit Coastal Driftwood', percent: 84, color: '#8B7355' });
+      result.push({ name: 'Sea Salt & Neroli', percent: 76, color: '#66B2B2' });
+      result.push({ name: 'Clean White Musk', percent: 62, color: '#C9D6DF' });
+    } else {
+      // Default haute parfumerie accords
+      result.push({ name: 'Botanical Florals', percent: 90, color: '#C58F48' });
+      result.push({ name: 'Precious Woods & Cedar', percent: 80, color: '#8B5A2B' });
+      result.push({ name: 'Skin Musk & Ambergris', percent: 70, color: '#D49B35' });
+      result.push({ name: 'Subtle Spice', percent: 58, color: '#9C3D28' });
+    }
+
+    return result;
   }
 
   get topNotes(): string[] {

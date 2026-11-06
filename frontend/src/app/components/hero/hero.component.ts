@@ -49,15 +49,15 @@ export interface HeroSlide {
   imports: [CommonModule],
   template: `
     <section 
-      class="hero-slider-section" 
+      class="hero-slider-section luxury-minimal-hero" 
       id="home"
       (mouseenter)="pauseAutoplay()"
       (mouseleave)="resumeAutoplay()"
       (touchstart)="onTouchStart($event)"
       (touchend)="onTouchEnd($event)"
-      aria-label="Haute Parfumerie Luxury Wardrobe">
+      aria-label="Zauq and Shauq Haute Parfumerie Hero">
 
-      <!-- Ambient Spotlight & Liquid Gold Particle Sillage Canvas -->
+      <!-- Ambient Spotlight & Canvas Particles -->
       <div class="slider-backdrop" [style.background]="currentSlide.spotlightGradient"></div>
       <canvas #mistCanvas class="hero-ambient-canvas" aria-hidden="true"></canvas>
       <div class="slider-grain"></div>
@@ -68,353 +68,255 @@ export interface HeroSlide {
       </div>
 
       <!-- ==========================================================
-           1. MAISON BRAND REVEAL & ROYAL WARDROBE ENTRANCE PORTAL
+           MINIMALIST EDITORIAL HERO (MATCHING INSPIRATION BOARD)
            ========================================================== -->
-      <div class="wardrobe-portal-header page-shell">
-        <div class="portal-brand-lockup">
-          <div class="portal-crest-wrap">
-            <div class="portal-crest-halo"></div>
-            <img src="/assets/logo.png" alt="Maison Zauq and Shauq Crest" class="portal-crest-img">
+      <div class="slider-inner page-shell hero-editorial-grid">
+        
+        <!-- LEFT COLUMN: EDITORIAL TYPOGRAPHY & CTAs -->
+        <div class="hero-copy-col" [class.slide-transitioning]="isTransitioning">
+          
+          <!-- Kicker Eyebrow with Brand Monogram -->
+          <div class="hero-eyebrow-row">
+            <span class="hero-crest-mini-wrap">
+              <img src="/assets/logo.png" alt="Z&amp;S" class="hero-crest-mini">
+            </span>
+            <span class="hero-kicker">✦ THE ART OF PERSONAL SCENT · HAUTE PARFUMERIE</span>
           </div>
-          <div class="portal-brand-meta">
-            <span class="portal-kicker">MAISON DE HAUTE PARFUMERIE · PARIS &amp; JAIPUR</span>
-            <h1 class="portal-title">The Royal Fragrance Wardrobe</h1>
-            <p class="portal-persian-quote" dir="rtl">خوشبو وہ خاموش زبان ہے جو دل سے دل تک بات کرتی ہے</p>
-            <p class="portal-tagline">
-              “Fragrance is the silent tongue that speaks from heart to heart.” Step inside our private wardrobe to reveal each numbered extrait one by one.
-            </p>
+
+          <!-- Main Grand Title (From Inspiration Board) -->
+          <h1 class="hero-grand-title">
+            <span class="title-line-1">More Than Fragrance.</span>
+            <span class="title-line-2">
+              <em>It's a Feeling.</em>
+            </span>
+          </h1>
+
+          <!-- Editorial Subtitle Narrative -->
+          <p class="hero-lead-narrative">
+            Hand-poured luxury extraits crafted for every mood, every memory, every story.
+            Infused with 20-year aged wild Assam agarwood, Grasse damask rose, and sacred saffron.
+          </p>
+
+          <!-- Current Active Flacon Live Chip -->
+          <div class="active-flacon-strip">
+            <span class="flacon-batch-pill">✦ BATCH NO. 0{{ currentSlideIndex + 1 }} · {{ currentSlide.edition }}</span>
+            <span class="flacon-active-name">{{ currentSlide.name }}</span>
+            <span class="flacon-price-tag">₹{{ currentSlide.price | number }}</span>
+          </div>
+
+          <!-- Primary Action Buttons (Flared Gold, Smoked Glass & Watch Story) -->
+          <div class="hero-actions-row">
+            <button 
+              type="button" 
+              class="btn-flared-gold hero-cta-btn" 
+              (click)="onShopFlacon()"
+              [attr.aria-label]="'Shop ' + currentSlide.name + ' for ₹' + currentSlide.price">
+              <span class="btn-text">Shop Now · ₹{{ currentSlide.price | number }}</span>
+              <span class="btn-arrow">↗</span>
+            </button>
+
+            <button 
+              type="button" 
+              class="btn-smoked-glass hero-cta-btn" 
+              (click)="explore.emit('All Fragrances')"
+              aria-label="Explore Full Fragrance Wardrobe">
+              <span>Explore Collection</span>
+              <span class="btn-arrow">→</span>
+            </button>
+
+            <!-- Video Story Launcher Button -->
+            <button 
+              type="button" 
+              class="btn-video-story" 
+              (click)="openStoryVideo()"
+              title="Watch Our Parfumerie Film">
+              <span class="video-play-glyph">▶</span>
+              <span>Watch Our Story</span>
+            </button>
+          </div>
+
+          <!-- Slide Selector Navigation Tabs (Numbered 01 to 05) -->
+          <div class="hero-tabs-nav" role="tablist" aria-label="Select Fragrance Flacon">
+            <button 
+              *ngFor="let s of slides; let i = index" 
+              type="button" 
+              class="hero-tab-pill" 
+              [class.is-active]="i === currentSlideIndex"
+              (click)="goToSlide(i)"
+              role="tab"
+              [attr.aria-selected]="i === currentSlideIndex">
+              <span class="tab-index">0{{ i + 1 }}</span>
+              <span class="tab-name">{{ s.name }}</span>
+              <span class="tab-dot" *ngIf="i === currentSlideIndex"></span>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN: ILLUMINATED DESIGNER FLACON STAGE WITH ATOMIZER SPRAY -->
+        <div class="hero-stage-col">
+          <div class="flacon-cinematic-stage" [class.stage-transitioning]="isTransitioning">
+            
+            <!-- Luxury Gold Frame Accents -->
+            <div class="stage-frame-corner top-left" aria-hidden="true"></div>
+            <div class="stage-frame-corner top-right" aria-hidden="true"></div>
+            <div class="stage-frame-corner bottom-left" aria-hidden="true"></div>
+            <div class="stage-frame-corner bottom-right" aria-hidden="true"></div>
+
+            <!-- Rotating Gold Orbit Rings & Halos -->
+            <div class="gold-halo-core" aria-hidden="true"></div>
+            <div class="gold-orbit-ring ring-outer" aria-hidden="true"></div>
+            <div class="gold-orbit-ring ring-inner" aria-hidden="true"></div>
+
+            <!-- Floating Olfactory Feature Badges -->
+            <div class="floating-badge badge-top-left">
+              <span class="badge-icon">✦</span>
+              <span>{{ currentSlide.badges[0] }}</span>
+            </div>
+
+            <div class="floating-badge badge-top-right">
+              <span class="badge-icon">♥</span>
+              <span>{{ currentSlide.concentration }}</span>
+            </div>
+
+            <!-- Central Floating Bottle with Scent Diffuser Mist Atomizer -->
+            <div class="flacon-holder" [class.is-spritzing]="isSpritzing">
+              
+              <!-- SCENT BOTTLE DIFFUSER MIST ATOMIZER SPRAY ANIMATION -->
+              <div class="scent-diffuser-atomizer" [class.spray-active]="isSpritzing || isTransitioning" aria-hidden="true">
+                <div class="diffuser-nozzle-flare"></div>
+                <div class="diffuser-mist-cone"></div>
+                <div class="diffuser-mist-plume-left"></div>
+                <div class="diffuser-mist-plume-right"></div>
+                <div class="diffuser-particles">
+                  <span class="diffuser-drop d1"></span>
+                  <span class="diffuser-drop d2"></span>
+                  <span class="diffuser-drop d3"></span>
+                  <span class="diffuser-drop d4"></span>
+                  <span class="diffuser-drop d5"></span>
+                  <span class="diffuser-drop d6"></span>
+                  <span class="diffuser-drop d7"></span>
+                  <span class="diffuser-drop d8"></span>
+                </div>
+                <div class="diffuser-aroma-ring ring-1"></div>
+                <div class="diffuser-aroma-ring ring-2"></div>
+                <div class="diffuser-floating-note">✦ Diffusing {{ currentSlide.name }}</div>
+              </div>
+
+              <!-- Main Illuminated Designer Flacon -->
+              <img 
+                class="flacon-hero-image" 
+                [src]="currentSlide.image" 
+                [alt]="currentSlide.name + ' designer perfume flacon'"
+                (click)="onShopFlacon()"
+                loading="eager">
+              <div class="flacon-pedestal-shadow" aria-hidden="true"></div>
+
+              <!-- Interactive Spritz Tester Mist Action Button -->
+              <button 
+                type="button" 
+                class="spritz-mist-trigger-btn"
+                (click)="triggerSpritz($event)"
+                [title]="'Spritz ' + currentSlide.name + ' aroma mist'">
+                <span class="spritz-icon">💨</span>
+                <span class="spritz-label">Spray Flacon Scent Mist</span>
+                <span class="spritz-star">✦</span>
+              </button>
+            </div>
+
+            <!-- Flacon Pedestal Label / Vintage Crest -->
+            <div class="flacon-vintage-card">
+              <div class="vintage-stamp">
+                <span class="vintage-est">MAISON</span>
+                <strong class="vintage-logo">Z&amp;S</strong>
+                <span class="vintage-city">PARIS · JAIPUR</span>
+              </div>
+              <div class="vintage-details">
+                <span class="vintage-cat">{{ currentSlide.concentration }} · {{ currentSlide.size }}</span>
+                <strong class="vintage-title">{{ currentSlide.name }}</strong>
+                <button type="button" class="vintage-inspect-btn" (click)="onShopFlacon()">
+                  <span>Inspect Scent Profile</span>
+                  <span class="arrow-glyph">↗</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Stage Navigation Arrows -->
+            <div class="stage-controls">
+              <button 
+                type="button" 
+                class="nav-arrow-btn prev-btn" 
+                (click)="prevSlide()" 
+                aria-label="Previous Fragrance Flacon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </button>
+              
+              <div class="stage-slide-indicator">
+                <span>0{{ currentSlideIndex + 1 }}</span>
+                <div class="indicator-bar">
+                  <div class="indicator-fill" [style.width.%]="((currentSlideIndex + 1) / slides.length) * 100"></div>
+                </div>
+                <span>0{{ slides.length }}</span>
+              </div>
+
+              <button 
+                type="button" 
+                class="nav-arrow-btn next-btn" 
+                (click)="nextSlide()" 
+                aria-label="Next Fragrance Flacon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M9 18l6-6-6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </button>
+            </div>
+
           </div>
         </div>
 
-        <!-- Sequential Wardrobe Alcove Selectors (One-by-One Switcher) -->
-        <div class="wardrobe-alcove-tabs" role="tablist" aria-label="Fragrance Wardrobe Flacons">
-          <button 
-            *ngFor="let s of slides; let i = index" 
-            type="button" 
-            class="alcove-tab-pill" 
-            [class.is-active]="i === currentSlideIndex"
-            (click)="goToSlide(i)"
-            role="tab"
-            [attr.aria-selected]="i === currentSlideIndex">
-            <span class="alcove-roman">{{ getRoman(i) }}</span>
-            <span class="alcove-name">{{ s.name }}</span>
-            <span class="alcove-tag" *ngIf="i === currentSlideIndex">Selected</span>
-          </button>
-
-          <button 
-            type="button" 
-            class="wardrobe-doors-toggle-btn"
-            (click)="toggleWardrobeDoors()"
-            [title]="wardrobeDoorsOpen ? 'Close Wardrobe Doors' : 'Open Wardrobe Doors'">
-            <span>{{ wardrobeDoorsOpen ? '✦ Wardrobe Open' : '◇ Step Inside Wardrobe' }}</span>
-          </button>
-        </div>
       </div>
 
       <!-- ==========================================================
-           2. INTERACTIVE LUXURY WARDROBE INTERIOR (BOTTLES ONE BY ONE)
+           CINEMATIC STORY VIDEO LIGHTBOX MODAL
            ========================================================== -->
-      <div class="wardrobe-cabinet-wrapper" [class.doors-closed]="!wardrobeDoorsOpen">
+      <div 
+        class="video-lightbox-backdrop" 
+        *ngIf="storyVideoOpen" 
+        (click)="closeStoryVideo()" 
+        role="dialog" 
+        aria-modal="true" 
+        aria-label="Zauq &amp; Shauq Parfumerie Film">
         
-        <!-- Left & Right Animated Wardrobe Doors with Gold Trim -->
-        <div class="wardrobe-door door-left" aria-hidden="true" (click)="toggleWardrobeDoors()">
-          <div class="door-panel">
-            <div class="door-brass-crest">
-              <img src="/assets/logo.png" alt="Z&amp;S" class="door-crest-mini">
-              <span>ZAUQ</span>
-            </div>
-            <div class="door-handle handle-left"></div>
-          </div>
-        </div>
-
-        <div class="wardrobe-door door-right" aria-hidden="true" (click)="toggleWardrobeDoors()">
-          <div class="door-panel">
-            <div class="door-brass-crest">
-              <img src="/assets/logo.png" alt="Z&amp;S" class="door-crest-mini">
-              <span>SHAUQ</span>
-            </div>
-            <div class="door-handle handle-right"></div>
-          </div>
-        </div>
-
-        <!-- WARDROBE INTERIOR: ACTIVE FLACON ALCOVE -->
-        <div class="slider-inner page-shell">
+        <div class="video-lightbox-card" (click)="$event.stopPropagation()">
+          <button 
+            type="button" 
+            class="video-lightbox-close" 
+            (click)="closeStoryVideo()" 
+            aria-label="Close video">
+            ✕
+          </button>
           
-          <!-- LEFT COLUMN: CINEMATIC EDITORIAL COPY -->
-          <div class="slider-copy-col" [class.slide-transitioning]="isTransitioning">
-            
-            <!-- Edition Badge & Live Counter -->
-            <div class="slide-badge-row">
-              <span class="edition-pill">
-                <span class="pill-sparkle">✦</span>
-                {{ currentSlide.edition }}
-              </span>
-              <div class="slide-counter">
-                <span class="current-num">0{{ currentSlideIndex + 1 }}</span>
-                <span class="counter-slash">/</span>
-                <span class="total-num">0{{ slides.length }}</span>
-              </div>
-            </div>
-
-            <!-- Main Grand Title with Golden Italic Accent -->
-            <h2 class="slide-title">
-              <span class="slide-title-name">{{ currentSlide.name }}</span>
-              <span class="slide-title-sub">
-                <em>{{ currentSlide.headline }}</em>
-              </span>
-            </h2>
-
-            <!-- Sensory Narrative Description -->
-            <p class="slide-narrative">
-              {{ currentSlide.description }}
-            </p>
-
-            <!-- FRAGRANTICA-INSPIRED MAIN ACCORDS BARS -->
-            <div class="fragrantica-mini-accords" aria-label="Main Fragrantica Olfactory Accords">
-              <div class="accords-header">
-                <span class="accords-kicker">MAIN ACCORDS</span>
-                <span class="accords-source">FRAGRANTICA PROFILE</span>
-              </div>
-              <div class="accords-bars-deck">
-                <div 
-                  *ngFor="let acc of currentSlide.accords" 
-                  class="accord-bar-row"
-                  [title]="acc.name + ': ' + acc.percent + '% prominence'">
-                  <span class="accord-title">{{ acc.name }}</span>
-                  <div class="accord-meter-track">
-                    <div class="accord-meter-fill" [style.width.%]="acc.percent" [style.background]="acc.color"></div>
-                  </div>
-                  <span class="accord-percent">{{ acc.percent }}%</span>
-                </div>
-              </div>
-              
-              <!-- Sensory Performance Badges -->
-              <div class="fragrantica-metrics-strip">
-                <span class="f-pill"><i class="f-bullet">⏱</i> {{ currentSlide.fragrantica.longevity }}</span>
-                <span class="f-pill"><i class="f-bullet">✨</i> {{ currentSlide.fragrantica.sillage }}</span>
-                <span class="f-pill"><i class="f-bullet">❄️</i> {{ currentSlide.fragrantica.season }}</span>
-              </div>
-            </div>
-
-            <!-- Interactive Olfactory Pyramid Chips -->
-            <div class="olfactory-pyramid" aria-label="Olfactory Notes Pyramid">
-              <div class="note-chip">
-                <span class="note-level">TOP</span>
-                <span class="note-scent">{{ currentSlide.notes.top }}</span>
-              </div>
-              <div class="note-chip">
-                <span class="note-level">HEART</span>
-                <span class="note-scent">{{ currentSlide.notes.heart }}</span>
-              </div>
-              <div class="note-chip">
-                <span class="note-level">BASE</span>
-                <span class="note-scent">{{ currentSlide.notes.base }}</span>
-              </div>
-            </div>
-
-            <!-- Persian & Urdu Literary Couplet Card -->
-            <div class="literary-quote-card">
-              <div class="quote-header">
-                <span class="quote-kicker">HERITAGE RESONANCE</span>
-                <span class="quote-author">{{ currentSlide.quoteAuthor }}</span>
-              </div>
-              <div class="quote-persian" dir="rtl">{{ currentSlide.quoteScript }}</div>
-              <p class="quote-translation">{{ currentSlide.quoteTranslation }}</p>
-            </div>
-
-            <!-- Primary Luxury Action Buttons -->
-            <div class="slide-actions-row">
-              <button 
-                type="button" 
-                class="btn-flared-gold" 
-                (click)="onShopFlacon()"
-                [attr.aria-label]="'Shop ' + currentSlide.name + ' for ₹' + currentSlide.price">
-                <span class="btn-text">Acquire Flacon · ₹{{ currentSlide.price | number }}</span>
-                <span class="btn-arrow">↗</span>
-              </button>
-
-              <button 
-                type="button" 
-                class="btn-smoked-glass" 
-                (click)="explore.emit('All Fragrances')"
-                aria-label="Explore Full Fragrance Wardrobe">
-                <span>View Full Wardrobe</span>
-                <span class="btn-arrow">→</span>
-              </button>
-            </div>
-
-            <!-- Slide Selector Navigation Tabs -->
-            <div class="slide-tabs-nav" role="tablist" aria-label="Select Fragrance Slide">
-              <button 
-                *ngFor="let s of slides; let i = index" 
-                type="button" 
-                class="slide-tab-pill" 
-                [class.is-active]="i === currentSlideIndex"
-                (click)="goToSlide(i)"
-                role="tab"
-                [attr.aria-selected]="i === currentSlideIndex">
-                <span class="tab-index">0{{ i + 1 }}</span>
-                <span class="tab-name">{{ s.name }}</span>
-                <span class="tab-active-indicator" *ngIf="i === currentSlideIndex"></span>
-              </button>
-            </div>
-
+          <div class="video-player-wrap">
+            <video 
+              #storyVideoPlayer
+              class="story-video-element" 
+              src="/assets/videos/perfume-cinematic-reel.mp4" 
+              controls 
+              autoplay 
+              playsinline>
+            </video>
           </div>
-
-          <!-- RIGHT COLUMN: ILLUMINATED FLACON STAGE WITH SCENT DIFFUSER ATOMIZER SPRAY -->
-          <div class="slider-stage-col">
-            
-            <div class="flacon-cinematic-stage" [class.stage-transitioning]="isTransitioning">
-              
-              <!-- Canva-style Luxury Gold Frame Accents -->
-              <div class="stage-frame-corner top-left" aria-hidden="true"></div>
-              <div class="stage-frame-corner top-right" aria-hidden="true"></div>
-              <div class="stage-frame-corner bottom-left" aria-hidden="true"></div>
-              <div class="stage-frame-corner bottom-right" aria-hidden="true"></div>
-
-              <!-- Rotating Gold Orbit Rings & Halos -->
-              <div class="gold-halo-core" aria-hidden="true"></div>
-              <div class="gold-orbit-ring ring-outer" aria-hidden="true"></div>
-              <div class="gold-orbit-ring ring-inner" aria-hidden="true"></div>
-
-              <!-- Floating Olfactory Feature Badges -->
-              <div class="floating-badge badge-top-left">
-                <span class="badge-icon">✦</span>
-                <span>{{ currentSlide.badges[0] }}</span>
-              </div>
-
-              <div class="floating-badge badge-bottom-right">
-                <span class="badge-icon">◇</span>
-                <span>{{ currentSlide.badges[1] }}</span>
-              </div>
-
-              <div class="floating-badge badge-top-right">
-                <span class="badge-icon">♥</span>
-                <span>{{ currentSlide.concentration }}</span>
-              </div>
-
-              <!-- Central Floating Bottle with Scent Diffuser Mist Atomizer -->
-              <div class="flacon-holder" [class.is-spritzing]="isSpritzing">
-                
-                <!-- SCENT BOTTLE DIFFUSER MIST ATOMIZER SPRAY ANIMATION -->
-                <div class="scent-diffuser-atomizer" [class.spray-active]="isSpritzing || isTransitioning" aria-hidden="true">
-                  <div class="diffuser-nozzle-flare"></div>
-                  <div class="diffuser-mist-cone"></div>
-                  <div class="diffuser-mist-plume-left"></div>
-                  <div class="diffuser-mist-plume-right"></div>
-                  <div class="diffuser-particles">
-                    <span class="diffuser-drop d1"></span>
-                    <span class="diffuser-drop d2"></span>
-                    <span class="diffuser-drop d3"></span>
-                    <span class="diffuser-drop d4"></span>
-                    <span class="diffuser-drop d5"></span>
-                    <span class="diffuser-drop d6"></span>
-                    <span class="diffuser-drop d7"></span>
-                    <span class="diffuser-drop d8"></span>
-                  </div>
-                  <div class="diffuser-aroma-ring ring-1"></div>
-                  <div class="diffuser-aroma-ring ring-2"></div>
-                  <div class="diffuser-floating-note">✦ {{ currentSlide.notes.top }}</div>
-                </div>
-
-                <!-- Main Illuminated Flacon (Haute Parfumerie Luxury Flacon) -->
-                <img 
-                  class="flacon-hero-image" 
-                  [src]="currentSlide.image" 
-                  [alt]="currentSlide.name + ' luxury perfume flacon'"
-                  (click)="onShopFlacon()"
-                  loading="eager">
-                <div class="flacon-pedestal-shadow" aria-hidden="true"></div>
-
-                <!-- Interactive Spritz Tester Mist Action Button -->
-                <button 
-                  type="button" 
-                  class="spritz-mist-trigger-btn"
-                  (click)="triggerSpritz($event)"
-                  [title]="'Spritz ' + currentSlide.name + ' aroma mist'">
-                  <span class="spritz-icon">💨</span>
-                  <span class="spritz-label">Spray Flacon Scent Mist</span>
-                  <span class="spritz-star">✦</span>
-                </button>
-              </div>
-
-              <!-- Flacon Pedestal Label / Vintage Crest -->
-              <div class="flacon-vintage-card">
-                <div class="vintage-stamp">
-                  <span class="vintage-est">MAISON</span>
-                  <strong class="vintage-logo">Z&amp;S</strong>
-                  <span class="vintage-city">PARIS · JAIPUR</span>
-                </div>
-                <div class="vintage-details">
-                  <span class="vintage-cat">{{ currentSlide.concentration }} · {{ currentSlide.size }}</span>
-                  <strong class="vintage-title">{{ currentSlide.name }}</strong>
-                  <button type="button" class="vintage-inspect-btn" (click)="onShopFlacon()">
-                    <span>Inspect Scent Profile</span>
-                    <span class="arrow-glyph">↗</span>
-                  </button>
-                </div>
-              </div>
-
-              <!-- Stage Navigation Arrows -->
-              <div class="stage-controls">
-                <button 
-                  type="button" 
-                  class="nav-arrow-btn prev-btn" 
-                  (click)="prevSlide()" 
-                  aria-label="Previous Fragrance Flacon">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                </button>
-                
-                <div class="stage-slide-indicator">
-                  <span>0{{ currentSlideIndex + 1 }}</span>
-                  <div class="indicator-bar">
-                    <div class="indicator-fill" [style.width.%]="((currentSlideIndex + 1) / slides.length) * 100"></div>
-                  </div>
-                  <span>0{{ slides.length }}</span>
-                </div>
-
-                <button 
-                  type="button" 
-                  class="nav-arrow-btn next-btn" 
-                  (click)="nextSlide()" 
-                  aria-label="Next Fragrance Flacon">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M9 18l6-6-6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                </button>
-              </div>
-
+          
+          <div class="video-card-footer">
+            <div>
+              <span class="video-kicker">MAISON DE HAUTE PARFUMERIE</span>
+              <h4>The Art of Scent · The Ritual of Extrait</h4>
             </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      <!-- Luxury Bottom Scent Signature Strip -->
-      <div class="slider-signature-bar">
-        <div class="page-shell bar-content">
-          <div class="bar-item">
-            <span class="bar-star">✦</span>
-            <span>Pure Botanical Distillates</span>
-          </div>
-          <span class="bar-dot">·</span>
-          <div class="bar-item">
-            <span class="bar-star">◇</span>
-            <span>Zero Synthetic Loudness</span>
-          </div>
-          <span class="bar-dot">·</span>
-          <div class="bar-item">
-            <span class="bar-star">↗</span>
-            <span>Complimentary All-India Delivery Above ₹2,499</span>
-          </div>
-          <span class="bar-dot">·</span>
-          <div class="bar-item">
-            <span class="bar-star">♡</span>
-            <span>Royal Wax-Sealed Packaging</span>
+            <button type="button" class="btn-flared-gold btn-video-shop" (click)="closeStoryVideo(); onShopFlacon()">
+              <span>Explore Fragrances</span>
+              <span>↗</span>
+            </button>
           </div>
         </div>
       </div>
@@ -429,6 +331,7 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
   @Output() viewProduct = new EventEmitter<Product>();
 
   @ViewChild('mistCanvas') private mistCanvasRef?: ElementRef<HTMLCanvasElement>;
+  @ViewChild('storyVideoPlayer') private storyVideoPlayerRef?: ElementRef<HTMLVideoElement>;
 
   readonly slides: HeroSlide[] = [
     {
@@ -456,7 +359,7 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
         { name: 'Smoky Incense', percent: 66, color: '#3A3238' }
       ],
       fragrantica: {
-        longevity: 'Eternal (14+ hrs)',
+        longevity: 'Eternal (16+ hrs)',
         sillage: 'Royal Projection',
         season: 'Fall · Winter',
         timeOfDay: 'Evening Gala'
@@ -598,63 +501,46 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
         base: 'Sunlit Driftwood · Ocean Amber'
       },
       accords: [
-        { name: 'Citrus Fresh', percent: 94, color: '#3A9BB7' },
-        { name: 'Aquatic Marine', percent: 86, color: '#2B7092' },
-        { name: 'Aromatic Tea', percent: 76, color: '#668F80' },
-        { name: 'Clean Driftwood', percent: 68, color: '#887B6C' }
+        { name: 'Calabrian Bergamot', percent: 96, color: '#E2BD38' },
+        { name: 'Sunlit Driftwood', percent: 84, color: '#8B7355' },
+        { name: 'Sea Salt & Neroli', percent: 76, color: '#66B2B2' },
+        { name: 'Clean White Musk', percent: 62, color: '#C9D6DF' }
       ],
       fragrantica: {
         longevity: 'Long Lasting (10+ hrs)',
-        sillage: 'Breezy Radiance',
+        sillage: 'Moderate & Fresh',
         season: 'Spring · Summer',
-        timeOfDay: 'Day & Evening'
+        timeOfDay: 'Daytime Elegance'
       },
-      quoteScript: 'نسیمِ بادِ صبا بویِ تو دارد',
+      quoteScript: 'نسیم صبا بوی بهشت می‌آورد',
       quoteAuthor: 'Saadi Shirazi',
-      quoteTranslation: '“The morning breeze carries the fragrance of your presence.”',
-      badges: ['Riviera Breeze', 'Calabrian Citrus', 'Summer Favorite'],
-      spotlightGradient: 'radial-gradient(circle at 65% 45%, rgba(20, 68, 85, 0.75) 0%, rgba(6, 26, 19, 0.96) 60%, #03120c 100%)',
-      accentColor: '#8ec5d6'
+      quoteTranslation: '“The morning breeze carries the fragrance of paradise.”',
+      badges: ['Calabrian Citrus', 'Sea Salt Air', 'Refreshing Extrait'],
+      spotlightGradient: 'radial-gradient(circle at 65% 45%, rgba(20, 75, 85, 0.72) 0%, rgba(4, 22, 28, 0.96) 60%, #020c10 100%)',
+      accentColor: '#8ed0b5'
     }
   ];
 
   currentSlideIndex = 0;
+  progressPercent = 0;
   isPaused = false;
   isTransitioning = false;
   isSpritzing = false;
-  progressPercent = 0;
-  wardrobeDoorsOpen = true;
+  storyVideoOpen = false;
 
-  getRoman(i: number): string {
-    const romans = ['I', 'II', 'III', 'IV', 'V', 'VI'];
-    return romans[i] || (i + 1).toString();
-  }
+  private readonly SLIDE_DURATION_MS = 8500;
+  private readonly PROGRESS_STEP_MS = 50;
+  private progressInterval: any;
+  private autoplayTimer: any;
+  private spritzTimeout: any;
 
-  toggleWardrobeDoors(): void {
-    this.wardrobeDoorsOpen = !this.wardrobeDoorsOpen;
-    if (this.wardrobeDoorsOpen) {
-      setTimeout(() => this.triggerSpritz(), 300);
-    }
-  }
-
-  private autoplayTimer?: ReturnType<typeof setInterval>;
-  private progressInterval?: ReturnType<typeof setInterval>;
-  private spritzTimeout?: ReturnType<typeof setTimeout>;
   private touchStartX = 0;
   private touchEndX = 0;
-  private readonly SLIDE_DURATION_MS = 6000;
-  private readonly PROGRESS_STEP_MS = 50;
-
-  // Particle Canvas Simulator
   private animFrameId?: number;
-  private particles: Array<{ x: number; y: number; r: number; vy: number; vx: number; alpha: number; maxAlpha: number }> = [];
-
-  get currentSlide(): HeroSlide {
-    return this.slides[this.currentSlideIndex];
-  }
 
   ngOnInit(): void {
     this.startProgress();
+    // Auto-spritz the initial flacon lightly
     setTimeout(() => this.triggerSpritz(), 800);
   }
 
@@ -664,89 +550,43 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy(): void {
     this.stopAutoplay();
-    if (this.spritzTimeout) {
-      clearTimeout(this.spritzTimeout);
-    }
-    if (this.animFrameId) {
-      cancelAnimationFrame(this.animFrameId);
-    }
+    if (this.spritzTimeout) clearTimeout(this.spritzTimeout);
+    if (this.animFrameId) cancelAnimationFrame(this.animFrameId);
   }
 
-  private initMistCanvas(): void {
-    if (!this.mistCanvasRef) return;
-    const canvas = this.mistCanvasRef.nativeElement;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    const resize = () => {
-      canvas.width = canvas.parentElement?.clientWidth || window.innerWidth;
-      canvas.height = canvas.parentElement?.clientHeight || 650;
-    };
-    resize();
-    window.addEventListener('resize', resize, { passive: true });
-
-    // Seed 40 ambient floating scent particles
-    this.particles = [];
-    for (let i = 0; i < 40; i++) {
-      this.particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 2.2 + 0.8,
-        vx: (Math.random() - 0.5) * 0.35,
-        vy: -(Math.random() * 0.5 + 0.25),
-        alpha: Math.random() * 0.6,
-        maxAlpha: Math.random() * 0.5 + 0.2
-      });
-    }
-
-    const render = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      for (const p of this.particles) {
-        p.x += p.vx;
-        p.y += p.vy;
-        p.alpha += 0.005;
-        if (p.alpha > p.maxAlpha) {
-          p.alpha = 0.05;
-        }
-
-        if (p.y < -10) {
-          p.y = canvas.height + 10;
-          p.x = Math.random() * canvas.width;
-        }
-        if (p.x < 0) p.x = canvas.width;
-        if (p.x > canvas.width) p.x = 0;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(229, 200, 117, ${p.alpha})`;
-        ctx.shadowColor = '#d4af37';
-        ctx.shadowBlur = 6;
-        ctx.fill();
-      }
-
-      this.animFrameId = requestAnimationFrame(render);
-    };
-    render();
+  get currentSlide(): HeroSlide {
+    return this.slides[this.currentSlideIndex] || this.slides[0];
   }
 
-  @HostListener('window:keydown', ['$event'])
-  handleKeyboard(event: KeyboardEvent): void {
-    if (event.key === 'ArrowLeft') {
-      this.prevSlide();
-    } else if (event.key === 'ArrowRight') {
-      this.nextSlide();
+  openStoryVideo(): void {
+    this.storyVideoOpen = true;
+    this.pauseAutoplay();
+  }
+
+  closeStoryVideo(): void {
+    this.storyVideoOpen = false;
+    this.resumeAutoplay();
+  }
+
+  @HostListener('window:keydown.escape')
+  onEscape(): void {
+    if (this.storyVideoOpen) {
+      this.closeStoryVideo();
     }
   }
 
   nextSlide(): void {
-    const nextIndex = (this.currentSlideIndex + 1) % this.slides.length;
-    this.goToSlide(nextIndex);
+    this.triggerTransition();
+    this.currentSlideIndex = (this.currentSlideIndex + 1) % this.slides.length;
+    this.resetProgress();
+    this.triggerSpritz();
   }
 
   prevSlide(): void {
-    const prevIndex = (this.currentSlideIndex - 1 + this.slides.length) % this.slides.length;
-    this.goToSlide(prevIndex);
+    this.triggerTransition();
+    this.currentSlideIndex = (this.currentSlideIndex - 1 + this.slides.length) % this.slides.length;
+    this.resetProgress();
+    this.triggerSpritz();
   }
 
   goToSlide(index: number): void {
@@ -777,7 +617,9 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   resumeAutoplay(): void {
-    this.isPaused = false;
+    if (!this.storyVideoOpen) {
+      this.isPaused = false;
+    }
   }
 
   onTouchStart(e: TouchEvent): void {
@@ -795,9 +637,9 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
     const delta = this.touchEndX - this.touchStartX;
     if (Math.abs(delta) > 45) {
       if (delta < 0) {
-        this.nextSlide(); // Swiped left -> next
+        this.nextSlide();
       } else {
-        this.prevSlide(); // Swiped right -> prev
+        this.prevSlide();
       }
     }
   }
@@ -869,5 +711,69 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
       };
       this.viewProduct.emit(fallbackProduct);
     }
+  }
+
+  private initMistCanvas(): void {
+    if (!this.mistCanvasRef) return;
+    const canvas = this.mistCanvasRef.nativeElement;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const resize = () => {
+      canvas.width = canvas.parentElement?.clientWidth || window.innerWidth;
+      canvas.height = canvas.parentElement?.clientHeight || 650;
+    };
+    resize();
+    window.addEventListener('resize', resize);
+
+    const particles: Array<{
+      x: number;
+      y: number;
+      r: number;
+      vx: number;
+      vy: number;
+      alpha: number;
+      color: string;
+    }> = [];
+
+    const colors = ['#e5c178', '#c89d54', '#deb46a', '#ffffff', '#8ed0b5'];
+
+    for (let i = 0; i < 35; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 2.2 + 0.8,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: -Math.random() * 0.6 - 0.2,
+        alpha: Math.random() * 0.5 + 0.2,
+        color: colors[Math.floor(Math.random() * colors.length)]
+      });
+    }
+
+    const render = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (const p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.y < -10) {
+          p.y = canvas.height + 10;
+          p.x = Math.random() * canvas.width;
+        }
+        if (p.x < -10) p.x = canvas.width + 10;
+        if (p.x > canvas.width + 10) p.x = -10;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.alpha;
+        ctx.fill();
+      }
+
+      ctx.globalAlpha = 1.0;
+      this.animFrameId = requestAnimationFrame(render);
+    };
+
+    render();
   }
 }

@@ -53,7 +53,7 @@ export class AiChatService {
     };
 
     return this.http.post<ChatResponse>(this.apiUrl, payload).pipe(
-      timeout(4500),
+      timeout(3200),
       catchError((err) => {
         console.warn('Backend chat service unreachable or slow. Providing instant artisanal sommelier response.', err);
         const fallback = this.getInstantClientFallback(message);
