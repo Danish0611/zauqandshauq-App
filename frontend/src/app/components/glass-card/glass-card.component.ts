@@ -87,3 +87,4 @@ export class GlassCardComponent {
   @Input() interactive = false;
   @Input() padding = '1.75rem';
 }
+

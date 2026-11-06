@@ -124,3 +124,4 @@ export class MarqueeComponent {
   @Input() speed = 28;
   @Input() reverse = false;
 }
+

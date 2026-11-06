@@ -1,9 +1,12 @@
-import { CommonModule, CurrencyPipe } from '@angular/common';
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { CommonModule, CurrencyPipe, isPlatformBrowser } from '@angular/common';
+import { Component, HostListener, Inject, NgZone, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, Subscription, debounceTime, distinctUntilChanged } from 'rxjs';
+import Lenis from 'lenis';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Product, CartItem, CheckoutRequest, PaymentOrder, OrderReceipt, CsvUploadResponse, UserProfile } from './product.model';
 import { ProductService } from './product.service';
 import { AuthService } from './auth.service';
@@ -20,6 +23,9 @@ import { DiscoverySetComponent } from './components/discovery-set/discovery-set.
 import { AiChatDrawerComponent } from './components/ai-chat-drawer/ai-chat-drawer.component';
 import { MarqueeComponent } from './components/marquee/marquee.component';
 import { GlassCardComponent } from './components/glass-card/glass-card.component';
+import { IntroSprayComponent } from './components/intro-spray/intro-spray.component';
+import { SprayCursorComponent } from './components/spray-cursor/spray-cursor.component';
+import { ScentFamiliesShowcaseComponent } from './components/scent-families-showcase/scent-families-showcase.component';
 
 declare global {
   interface Window {
@@ -49,7 +55,10 @@ declare global {
     DiscoverySetComponent,
     AiChatDrawerComponent,
     MarqueeComponent,
-    GlassCardComponent
+    GlassCardComponent,
+    IntroSprayComponent,
+    SprayCursorComponent,
+    ScentFamiliesShowcaseComponent
   ],
   templateUrl: './app.component.html'
 })
@@ -476,14 +485,25 @@ export class AppComponent implements OnInit, OnDestroy {
     { initials: 'KV', name: 'Kabir V.', title: 'My everyday signature', body: 'Citrus Drift is fresh, clean and easy to wear. I keep reaching for it before work and on weekends.', product: 'Citrus Drift' }
   ];
 
+  private lenisInstance?: Lenis;
+  private isBrowser: boolean;
+
   constructor(
+    @Inject(PLATFORM_ID) platformId: object,
+    private ngZone: NgZone,
     public productService: ProductService,
     public authService: AuthService,
     private http: HttpClient,
     private route: ActivatedRoute
-  ) {}
+  ) {
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
 
   ngOnInit(): void {
+    if (this.isBrowser) {
+      this.initSmoothScroll();
+    }
+
     this.loadInitialCatalog();
     this.loadProducts();
     this.loadPaymentConfig();
@@ -515,8 +535,39 @@ export class AppComponent implements OnInit, OnDestroy {
     } catch { /* Ignore invalid local browser data and start with an empty bag. */ }
   }
 
+  private initSmoothScroll(): void {
+    try {
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) return;
+
+      this.ngZone.runOutsideAngular(() => {
+        gsap.registerPlugin(ScrollTrigger);
+        this.lenisInstance = new Lenis({
+          duration: 1.2,
+          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          orientation: 'vertical',
+          gestureOrientation: 'vertical',
+          smoothWheel: true
+        });
+
+        this.lenisInstance.on('scroll', ScrollTrigger.update);
+
+        gsap.ticker.add((time: number) => {
+          this.lenisInstance?.raf(time * 1000);
+        });
+
+        gsap.ticker.lagSmoothing(0);
+      });
+    } catch (e) {
+      console.warn('Lenis smooth scroll skipped:', e);
+    }
+  }
+
   ngOnDestroy(): void {
     this.searchSub?.unsubscribe();
+    if (this.lenisInstance) {
+      this.lenisInstance.destroy();
+    }
   }
 
   onUserAuthenticated(user: UserProfile): void {

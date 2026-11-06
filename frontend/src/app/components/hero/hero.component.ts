@@ -83,11 +83,11 @@ export interface HeroSlide {
             <span class="hero-kicker">✦ THE ART OF PERSONAL SCENT · HAUTE PARFUMERIE</span>
           </div>
 
-          <!-- Main Grand Title (From Inspiration Board) -->
+          <!-- Main Grand Title (Scent, With Soul) -->
           <h1 class="hero-grand-title">
-            <span class="title-line-1">More Than Fragrance.</span>
+            <span class="title-line-1">Scent, With Soul.</span>
             <span class="title-line-2">
-              <em>It's a Feeling.</em>
+              <em>More Than Fragrance. It's a Feeling.</em>
             </span>
           </h1>
 
@@ -104,34 +104,24 @@ export interface HeroSlide {
             <span class="flacon-price-tag">₹{{ currentSlide.price | number }}</span>
           </div>
 
-          <!-- Primary Action Buttons (Flared Gold, Smoked Glass & Watch Story) -->
+          <!-- Primary Action Buttons (Explore Collection & Find Your Scent) -->
           <div class="hero-actions-row">
             <button 
               type="button" 
               class="btn-flared-gold hero-cta-btn" 
-              (click)="onShopFlacon()"
-              [attr.aria-label]="'Shop ' + currentSlide.name + ' for ₹' + currentSlide.price">
-              <span class="btn-text">Shop Now · ₹{{ currentSlide.price | number }}</span>
-              <span class="btn-arrow">↗</span>
+              (click)="explore.emit('All Fragrances')"
+              aria-label="Explore Full Fragrance Collection">
+              <span class="btn-text">Explore Collection</span>
+              <span class="btn-arrow">→</span>
             </button>
 
             <button 
               type="button" 
               class="btn-smoked-glass hero-cta-btn" 
-              (click)="explore.emit('All Fragrances')"
-              aria-label="Explore Full Fragrance Wardrobe">
-              <span>Explore Collection</span>
-              <span class="btn-arrow">→</span>
-            </button>
-
-            <!-- Video Story Launcher Button -->
-            <button 
-              type="button" 
-              class="btn-video-story" 
-              (click)="openStoryVideo()"
-              title="Watch Our Parfumerie Film">
-              <span class="video-play-glyph">▶</span>
-              <span>Watch Our Story</span>
+              (click)="explore.emit('quiz')"
+              aria-label="Find Your Signature Scent via Scent Finder">
+              <span>Find Your Scent ✦</span>
+              <span class="btn-arrow">↗</span>
             </button>
           </div>
 

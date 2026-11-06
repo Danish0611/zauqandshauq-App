@@ -1,3 +1,9 @@
+<!-- SPRAY-OPENING INTRO (First visit per session, skips gracefully) -->
+<app-intro-spray></app-intro-spray>
+
+<!-- ELEGANT SPRAY CURSOR (Fine pointer devices with mist drift & tap puffs) -->
+<app-spray-cursor></app-spray-cursor>
+
 <div class="royal-header-wrapper">
   <div class="announcement-bar">
     <span class="announcement-dot"></span>
@@ -249,87 +255,10 @@
       </div>
     </section>
 
-    <!-- ==========================================================
-         BRAND STORY & CINEMATIC PARFUMERIE REEL (USER'S VIDEOS)
-         ========================================================== -->
-    <section class="cinematic-film-section page-shell" id="brand-story" aria-label="Brand Story and Cinematic Film">
-      <div class="section-heading">
-        <div>
-          <div class="eyebrow"><span class="eyebrow-line"></span> THE RITUAL OF SCENT · CINEMATIC EDITORIAL</div>
-          <h2>Where Fragrance Meets Emotion. <em>The Film.</em></h2>
-          <p class="section-intro">
-            Experience the slow distillation of rare botanicals, hand-numbered crystal flacons, and the emotional resonance of personal memory.
-          </p>
-        </div>
-        <span class="cinematic-badge">✦ 4K CINEMATIC REEL</span>
-      </div>
-
-      <div class="cinematic-showcase-grid">
-        <!-- Desktop / Widescreen Cinematic Reel Video Player -->
-        <div class="cinematic-video-frame">
-          <video 
-            #cinematicReel
-            class="cinematic-video-player"
-            src="/assets/videos/perfume-cinematic-reel.mp4"
-            autoplay
-            muted
-            loop
-            playsinline>
-          </video>
-          <div class="video-overlay-tint"></div>
-          
-          <div class="video-bottom-controls">
-            <div class="video-brand-tag">
-              <span class="tag-monogram">Z&amp;S</span>
-              <div>
-                <strong>Haute Parfumerie Film</strong>
-                <small>Pure Extrait Concentration · Mysore &amp; Grasse</small>
-              </div>
-            </div>
-            
-            <button 
-              type="button" 
-              class="video-audio-toggle-btn" 
-              (click)="toggleVideoAudio(cinematicReel)"
-              [title]="cinematicReel.muted ? 'Unmute Sound' : 'Mute Sound'">
-              <span>{{ cinematicReel.muted ? '🔇 Unmute Sound' : '🔊 Sound Active' }}</span>
-              <span class="audio-pulse" *ngIf="!cinematicReel.muted"></span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Vertical Mobile Scent Story Card & Heritage Poetry -->
-        <div class="cinematic-story-side">
-          <!-- Heritage Literary Card -->
-          <div class="story-couplet-card">
-            <span class="story-kicker">HERITAGE RESONANCE</span>
-            <blockquote dir="rtl" class="urdu-quote">خوشبو وہ خاموش زبان ہے جو دل سے دل تک بات کرتی ہے</blockquote>
-            <p class="quote-translation">“Fragrance is the silent tongue that speaks from heart to heart.”</p>
-            <small class="quote-tradition">Urdu Literary Tradition · House of Zauq &amp; Shauq</small>
-          </div>
-
-          <!-- Vertical Mobile-First Reel Preview Card -->
-          <div class="mobile-story-preview">
-            <video 
-              class="mobile-story-video"
-              src="/assets/videos/perfume-story-mobile.mp4"
-              autoplay
-              muted
-              loop
-              playsinline>
-            </video>
-            <div class="story-card-glass">
-              <span class="story-star">✦</span>
-              <strong>Apni Mehak, Apni Pehchaan</strong>
-              <p>Hand-poured luxury flacons crafted for your unforgettable signature.</p>
-              <button type="button" class="btn-story-explore" (click)="setView('shop')">
-                Explore Flacons ↗
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- PINNED SCENT FAMILIES SHOWCASE & 3-TIER SCENT PYRAMID -->
+    <app-scent-families-showcase
+      (explore)="selectCategory($event)">
+    </app-scent-families-showcase>
 
     <!-- Royal Discovery Coffret Spotlight Banner -->
     <section class="home-coffret-banner page-shell">
