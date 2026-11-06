@@ -1,11 +1,11 @@
 <div class="royal-header-wrapper">
   <div class="announcement-bar">
     <span class="announcement-dot"></span>
-    <span class="announcement-main">Har Khushboo Ek Kahani Kehti Hai</span>
+    <span class="announcement-main">Scent, With Soul</span>
     <span class="announcement-divider">·</span>
     <span class="announcement-urdu" dir="rtl">خوشبو وہ خاموش زبان ہے جو دل سے دل تک بات کرتی ہے</span>
     <span class="announcement-divider">·</span>
-    <span class="announcement-secondary">Complimentary delivery across India above ₹2,499</span>
+    <span class="announcement-secondary">Complimentary delivery across India above ₹999</span>
   </div>
 
   <header class="site-header" [class.is-open]="mobileMenuOpen">
@@ -17,18 +17,18 @@
       <img src="/assets/logo.png" alt="Zauq and Shauq logo" class="brand-mark">
       <span class="brand-name-wrap">
         <span class="brand-name">ZAUQ <span>&amp;</span> SHAUQ</span>
-        <span class="brand-tagline">— THE ART OF FRAGRANCE —</span>
+        <span class="brand-tagline">SCENT, WITH SOUL</span>
       </span>
     </a>
     <nav class="desktop-nav" aria-label="Main navigation">
       <a href="javascript:void(0)" [class.active-nav]="currentView === 'home'" (click)="setView('home')">Home</a>
-      <a href="javascript:void(0)" [class.active-nav]="currentView === 'shop'" (click)="setView('shop')">Wardrobe</a>
+      <a href="javascript:void(0)" [class.active-nav]="currentView === 'shop'" (click)="setView('shop')">Collection</a>
       <a href="javascript:void(0)" [class.active-nav]="currentView === 'discovery'" (click)="setView('discovery')">Discovery Coffret</a>
       <a href="javascript:void(0)" [class.active-nav]="currentView === 'quiz'" (click)="setView('quiz')" class="nav-quiz-link">
-        <span class="quiz-star">✦</span> Scent Quiz
+        <span class="quiz-star">✦</span> Scent Finder
       </a>
       <a href="javascript:void(0)" class="nav-ai-link" (click)="aiChatOpen = true" title="Consult Nadir, our AI Scent Concierge">
-        <span class="quiz-star">✦</span> Scent Concierge
+        <span class="quiz-star">✦</span> Concierge
       </a>
       <a href="javascript:void(0)" [class.active-nav]="currentView === 'philosophy'" (click)="setView('philosophy')">Philosophy</a>
       <a href="javascript:void(0)" (click)="orderLookupOpen = true">Track Order</a>
@@ -439,20 +439,22 @@
       <div class="service-item"><span class="service-icon">✳</span><div><strong>Here to help</strong><small>hello&#64;zauqandshauq.in</small></div></div>
     </section>
 
-    <!-- Newsletter -->
+    <!-- Newsletter in Glass Card -->
     <section class="newsletter-section">
       <div class="newsletter-decoration">Z&amp;S</div>
       <div class="newsletter-content">
-        <div class="eyebrow eyebrow-light"><span class="eyebrow-line"></span> A NOTE FROM OUR WORLD</div>
-        <h2>A little more <em>fragrance</em><br>in your inbox.</h2>
-        <p>New arrivals, scent stories, and thoughtful things worth opening. Never noise.</p>
-        <form class="newsletter-form" (submit)="$event.preventDefault(); subscribeNewsletter()">
-          <label class="sr-only" for="newsletter-email">Your email address</label>
-          <input id="newsletter-email" type="email" name="newsletterEmail" [(ngModel)]="newsletterEmail" placeholder="Your email address" required>
-          <button type="submit" [disabled]="newsletterBusy">{{ newsletterBusy ? 'Joining…' : 'Count me in' }} <span>→</span></button>
-        </form>
-        <p class="newsletter-message" *ngIf="newsletterMessage" aria-live="polite">{{ newsletterMessage }}</p>
-        <small>By subscribing, you agree to receive occasional notes from Zauq &amp; Shauq.</small>
+        <app-glass-card variant="deep" padding="2.8rem 2.2rem">
+          <div class="eyebrow eyebrow-light"><span class="eyebrow-line"></span> A NOTE FROM OUR WORLD</div>
+          <h2>A little more <em>fragrance</em><br>in your inbox.</h2>
+          <p>New arrivals, scent stories, and thoughtful things worth opening. Never noise.</p>
+          <form class="newsletter-form" (submit)="$event.preventDefault(); subscribeNewsletter()">
+            <label class="sr-only" for="newsletter-email">Your email address</label>
+            <input id="newsletter-email" type="email" name="newsletterEmail" [(ngModel)]="newsletterEmail" placeholder="Your email address" required>
+            <button type="submit" [disabled]="newsletterBusy">{{ newsletterBusy ? 'Joining…' : 'Count me in' }} <span>→</span></button>
+          </form>
+          <p class="newsletter-message" *ngIf="newsletterMessage" aria-live="polite">{{ newsletterMessage }}</p>
+          <small>By subscribing, you agree to receive occasional notes from Zauq &amp; Shauq.</small>
+        </app-glass-card>
       </div>
     </section>
   </ng-container>
@@ -560,14 +562,22 @@
   </ng-container>
 </main>
 
+<!-- Continuous Luxury Values Marquee -->
+<app-marquee></app-marquee>
+
 <footer class="site-footer">
   <div class="footer-main page-shell">
     <div class="footer-brand">
       <a class="brand-lockup footer-lockup" href="javascript:void(0)" (click)="setView('home')">
         <img src="/assets/logo.png" alt="Zauq and Shauq logo" class="brand-mark">
-        <span class="brand-name-wrap"><span class="brand-name">ZAUQ <span>&amp;</span> SHAUQ</span><span class="brand-tagline">— THE ART OF FRAGRANCE —</span></span>
+        <span class="brand-name-wrap">
+          <span class="brand-name">ZAUQ <span>&amp;</span> SHAUQ</span>
+          <span class="brand-tagline">SCENT, WITH SOUL</span>
+        </span>
       </a>
-      <p>Fragrance for the feelings that words cannot quite hold.</p>
+      <p class="footer-manifesto">
+        Scent, with soul. Hand-poured extraits de parfum crafted from 20-year aged wild Assam agarwood, Grasse damask rose, and Mysore sandalwood.
+      </p>
       <div class="footer-socials">
         <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram">ig</a>
         <a href="https://www.pinterest.com/" target="_blank" rel="noreferrer" aria-label="Pinterest">p</a>

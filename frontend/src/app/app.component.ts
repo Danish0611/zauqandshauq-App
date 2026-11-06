@@ -18,6 +18,8 @@ import { ScentExperienceComponent } from './components/scent-experience/scent-ex
 import { ScentQuizComponent } from './components/scent-quiz/scent-quiz.component';
 import { DiscoverySetComponent } from './components/discovery-set/discovery-set.component';
 import { AiChatDrawerComponent } from './components/ai-chat-drawer/ai-chat-drawer.component';
+import { MarqueeComponent } from './components/marquee/marquee.component';
+import { GlassCardComponent } from './components/glass-card/glass-card.component';
 
 declare global {
   interface Window {
@@ -45,7 +47,9 @@ declare global {
     ScentExperienceComponent,
     ScentQuizComponent,
     DiscoverySetComponent,
-    AiChatDrawerComponent
+    AiChatDrawerComponent,
+    MarqueeComponent,
+    GlassCardComponent
   ],
   templateUrl: './app.component.html'
 })

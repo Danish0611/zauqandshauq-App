@@ -1,0 +1,94 @@
+/* ==========================================================================
+   ZAUQ & SHAUQ — LUXURY DESIGN SYSTEM TOKENS
+   Tagline: "Scent, With Soul"
+   Palette: Deep Olive Green (#202a1c), Champagne Gold (#C9A96E),
+            Warm Ivory (#F5EFE6), Near-Black (#0d0f0b)
+   Easing: cubic-bezier(0.22, 1, 0.36, 1)
+   ========================================================================== */
+
+:root {
+  /* --- PALETTE --- */
+  --color-olive-base: #202a1c;
+  --color-olive-dark: #141b12;
+  --color-olive-light: #2c3a27;
+  --color-champagne-gold: #C9A96E;
+  --color-champagne-light: #dfc796;
+  --color-champagne-dark: #a88444;
+  --color-champagne-dim: rgba(201, 169, 110, 0.18);
+  --color-champagne-border: rgba(201, 169, 110, 0.28);
+  --color-warm-ivory: #F5EFE6;
+  --color-ivory-dim: rgba(245, 239, 230, 0.82);
+  --color-ivory-muted: rgba(245, 239, 230, 0.62);
+  --color-near-black: #0d0f0b;
+
+  /* Aliases for global consistency */
+  --bg-primary: var(--color-olive-base);
+  --bg-deep: var(--color-near-black);
+  --bg-surface: var(--color-olive-light);
+  --text-primary: var(--color-warm-ivory);
+  --text-muted: var(--color-ivory-dim);
+  --text-dim: var(--color-ivory-muted);
+  --accent-gold: var(--color-champagne-gold);
+  --border-gold: var(--color-champagne-border);
+
+  /* --- TYPOGRAPHY --- */
+  --font-heading: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-serif-sub: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --letter-spacing-wide: 0.18em;
+  --letter-spacing-kicker: 0.24em;
+
+  /* --- GLASSMORPHISM TOKENS --- */
+  --glass-blur: blur(16px);
+  --glass-blur-heavy: blur(22px);
+  --glass-bg: rgba(32, 42, 28, 0.72);
+  --glass-bg-subtle: rgba(32, 42, 28, 0.45);
+  --glass-bg-deep: rgba(13, 15, 11, 0.82);
+  --glass-border: 1px solid rgba(201, 169, 110, 0.22);
+  --glass-border-strong: 1px solid rgba(201, 169, 110, 0.4);
+  --glass-shadow: 0 20px 48px rgba(13, 15, 11, 0.65);
+  --glass-shadow-sm: 0 10px 24px rgba(13, 15, 11, 0.4);
+  --glass-fallback-bg: #1a2317;
+
+  /* --- MOTION & EASING --- */
+  --ease-luxury: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 220ms;
+  --duration-normal: 400ms;
+  --duration-slow: 750ms;
+
+  /* --- RADIUS --- */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+  --radius-pill: 9999px;
+
+  /* --- SPACING SCALE --- */
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.25rem;
+  --space-2xl: 3.5rem;
+  --space-3xl: 5.5rem;
+}
+
+/* Solid fallbacks for non-backdrop-filter browsers */
+@supports not (backdrop-filter: blur(1px)) {
+  :root {
+    --glass-bg: var(--glass-fallback-bg);
+    --glass-bg-deep: #0d0f0b;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
