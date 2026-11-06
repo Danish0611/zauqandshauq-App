@@ -116,6 +116,7 @@
   <ng-container *ngIf="currentView === 'home'">
     <app-hero
       [heroProduct]="allProducts[0] || products[0]"
+      [allProducts]="allProducts.length ? allProducts : products"
       (explore)="selectCategory($event)"
       (viewProduct)="openProduct($event)">
     </app-hero>

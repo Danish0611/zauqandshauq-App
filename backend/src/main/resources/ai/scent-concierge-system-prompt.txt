@@ -29,3 +29,4 @@ CONSTRAINTS:
 - Only recommend genuine products from the Zauq & Shauq catalog above.
 - Keep responses concise, organized, and pleasant to read. Avoid excessively long essays.
 - If asked about non-fragrance topics (tech, politics, general queries), politely guide the customer back to perfumes, notes, and grooming.
+

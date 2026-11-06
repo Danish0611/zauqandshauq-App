@@ -350,7 +350,7 @@ export interface NoteTier {
       position: absolute;
       top: 20px;
       right: 20px;
-      z-index: 60;
+      z-index: 100;
       width: 40px;
       height: 40px;
       border-radius: 50%;
