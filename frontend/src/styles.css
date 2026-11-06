@@ -6337,13 +6337,315 @@ html, body {
   color: rgba(245, 239, 230, 0.65);
 }
 
-/* Diwali Offers 3-Column Grid */
+/* ==========================================================================
+   FESTIVE DIWALI TORAN GARLAND (बंदनवार)
+   ========================================================================== */
+
+.diwali-toran-strip {
+  background: linear-gradient(90deg, #1b2617 0%, #2f2110 50%, #1b2617 100%);
+  padding: 4px 0 2px;
+  overflow: hidden;
+  border-bottom: 1px dashed rgba(201, 169, 110, 0.3);
+  display: flex;
+  justify-content: center;
+}
+
+.toran-container {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  animation: toranSway 6s infinite ease-in-out;
+  white-space: nowrap;
+}
+
+.toran-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+}
+
+.toran-lamp {
+  filter: drop-shadow(0 0 6px #ffbe3b);
+  animation: diyaPulse 2s infinite ease-in-out;
+}
+
+.toran-flower {
+  filter: drop-shadow(0 0 4px #ff9900);
+}
+
+@keyframes toranSway {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+
+/* ==========================================================================
+   HERO DIWALI FESTIVE PILL
+   ========================================================================== */
+
+.hero-diwali-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  margin-bottom: 14px;
+  background: linear-gradient(135deg, rgba(201, 169, 110, 0.16) 0%, rgba(212, 138, 48, 0.22) 100%);
+  border: 1px solid rgba(255, 216, 117, 0.4);
+  border-radius: 999px;
+  color: #ffdf88;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  box-shadow: 0 4px 18px rgba(201, 169, 110, 0.2);
+}
+
+.hero-diwali-pill strong {
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 1px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.08em;
+}
+
+.diya-twinkle {
+  animation: diyaPulse 1.8s infinite ease-in-out;
+}
+
+/* ==========================================================================
+   INTERACTIVE CEREMONIAL BRASS DIYA LIGHTING STAGE
+   ========================================================================== */
+
+.ceremonial-diya-stage {
+  position: relative;
+  z-index: 2;
+  margin-block: 20px 32px;
+  padding: 28px 32px;
+  background: radial-gradient(circle at 50% 50%, rgba(38, 48, 30, 0.85) 0%, rgba(13, 17, 12, 0.96) 100%);
+  border: 1px solid rgba(201, 169, 110, 0.38);
+  border-radius: 20px;
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: all 0.5s ease;
+  overflow: hidden;
+}
+
+.ceremonial-diya-stage.is-lit {
+  border-color: rgba(255, 216, 117, 0.7);
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.7), 0 0 50px rgba(212, 138, 48, 0.3);
+}
+
+.diya-glow-halo {
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 180, 50, 0.35) 0%, transparent 70%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.diya-glow-halo.halo-active {
+  opacity: 1;
+  animation: diyaHaloBreath 3s infinite ease-in-out;
+}
+
+@keyframes diyaHaloBreath {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+  50% { transform: translate(-50%, -50%) scale(1.25); opacity: 1; }
+}
+
+.diya-centerpiece {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  position: relative;
+  z-index: 2;
+}
+
+.brass-diya-svg-wrap {
+  width: 110px;
+  height: 90px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.6));
+}
+
+.brass-diya-svg {
+  width: 100%;
+  height: auto;
+}
+
+.diya-flame-vector {
+  transform-origin: 50px 44px;
+  animation: diyaFlameFlicker 1.8s infinite ease-in-out;
+}
+
+.diya-flame-vector.flame-lit {
+  animation: diyaFlameBright 1.2s infinite ease-in-out;
+  filter: drop-shadow(0 -4px 12px #ffbb00) drop-shadow(0 -10px 20px #ff5500);
+}
+
+@keyframes diyaFlameFlicker {
+  0%, 100% { transform: scale(0.92) rotate(-1deg); }
+  50% { transform: scale(1.04) rotate(1.5deg); }
+}
+
+@keyframes diyaFlameBright {
+  0%, 100% { transform: scale(1.08) rotate(-2deg); }
+  50% { transform: scale(1.24) rotate(2deg); }
+}
+
+.diya-action-column {
+  flex-grow: 1;
+}
+
+.btn-light-diya {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 26px;
+  background: linear-gradient(135deg, #ffd875 0%, #c89d54 50%, #9e7527 100%);
+  color: #0b0f0b;
+  border: 1px solid #ffe89e;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(201, 169, 110, 0.4);
+  transition: all 0.25s ease;
+  letter-spacing: 0.02em;
+}
+
+.btn-light-diya:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 34px rgba(201, 169, 110, 0.6), 0 0 20px rgba(255, 200, 70, 0.5);
+}
+
+.diya-btn-flame {
+  font-size: 20px;
+}
+
+.diwali-blessing-card {
+  margin-top: 18px;
+  padding: 18px 22px;
+  background: rgba(20, 27, 18, 0.78);
+  border: 1px solid rgba(255, 216, 117, 0.35);
+  border-radius: 14px;
+  animation: fadeUp 0.35s ease;
+}
+
+.shloka-text {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  color: #ffd875;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+.blessing-hindi {
+  font-size: 13px;
+  color: #f7eedb;
+  line-height: 1.6;
+  margin: 0 0 6px;
+}
+
+.blessing-english {
+  display: block;
+  font-size: 12px;
+  font-style: italic;
+  color: rgba(245, 239, 230, 0.75);
+  margin-bottom: 12px;
+}
+
+.blessing-unlock-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  color: #79e39b;
+  background: rgba(46, 125, 50, 0.25);
+  border: 1px solid rgba(121, 227, 155, 0.35);
+  border-radius: 6px;
+  padding: 4px 10px;
+}
+
+/* ==========================================================================
+   DHANTERAS & DIWALI SHUBH MUHURAT BANNER
+   ========================================================================== */
+
+.dhanteras-gold-banner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 24px;
+  margin-bottom: 28px;
+  background: linear-gradient(90deg, rgba(46, 33, 16, 0.85) 0%, rgba(20, 27, 18, 0.9) 100%);
+  border: 1px solid rgba(255, 216, 117, 0.4);
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.dhanteras-coin-icon {
+  font-size: 32px;
+  filter: drop-shadow(0 4px 10px rgba(255, 215, 0, 0.5));
+  flex-shrink: 0;
+}
+
+.dhanteras-content strong {
+  display: block;
+  font-size: 14px;
+  color: #ffdf88;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.dhanteras-content p {
+  font-size: 12px;
+  color: rgba(245, 239, 230, 0.8);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.btn-dhanteras-shop {
+  padding: 9px 18px;
+  background: rgba(255, 216, 117, 0.15);
+  color: #ffd875;
+  border: 1px solid rgba(255, 216, 117, 0.4);
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.btn-dhanteras-shop:hover {
+  background: #ffd875;
+  color: #0b0f0b;
+}
+
+/* ==========================================================================
+   4-COLUMN DIWALI OFFERS GRID
+   ========================================================================== */
+
 .diwali-offers-grid {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 26px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
 }
 
 .diwali-offer-card {
@@ -6388,7 +6690,7 @@ html, body {
 }
 
 .diwali-card-visual {
-  height: 240px;
+  height: 230px;
   position: relative;
   display: flex;
   align-items: center;
@@ -6408,6 +6710,10 @@ html, body {
   background: radial-gradient(circle at 50% 60%, rgba(212, 138, 48, 0.24) 0%, rgba(13, 20, 14, 0.95) 100%);
 }
 
+.visual-trio {
+  background: radial-gradient(circle at 50% 60%, rgba(212, 165, 48, 0.24) 0%, rgba(13, 20, 14, 0.95) 100%) !important;
+}
+
 .diwali-flacon-preview {
   position: relative;
   display: flex;
@@ -6416,7 +6722,7 @@ html, body {
 }
 
 .diwali-flacon-img {
-  height: 170px;
+  height: 160px;
   width: auto;
   object-fit: contain;
   filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.7));
@@ -6438,6 +6744,7 @@ html, body {
   padding: 3px 10px;
   font-weight: 600;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
 }
 
 .diwali-duo-preview {
@@ -6448,7 +6755,7 @@ html, body {
 
 .duo-img-a,
 .duo-img-b {
-  height: 160px;
+  height: 150px;
   width: auto;
   object-fit: contain;
   filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.7));
@@ -6472,7 +6779,7 @@ html, body {
 }
 
 .diwali-card-content {
-  padding: 22px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -6481,7 +6788,7 @@ html, body {
 
 .diwali-card-kicker {
   font-size: 9px;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--color-champagne-gold, #C9A96E);
   font-weight: 600;
@@ -6490,7 +6797,7 @@ html, body {
 
 .diwali-card-content h4 {
   font-family: var(--font-heading, 'Cormorant Garamond', serif);
-  font-size: 22px;
+  font-size: 21px;
   font-weight: 600;
   color: var(--color-warm-ivory, #F5EFE6);
   margin: 0 0 8px;
@@ -6498,7 +6805,7 @@ html, body {
 }
 
 .diwali-card-content p {
-  font-size: 12px;
+  font-size: 11px;
   color: rgba(245, 239, 230, 0.75);
   line-height: 1.55;
   margin: 0 0 14px;
@@ -6508,8 +6815,8 @@ html, body {
 .diwali-card-notes {
   font-size: 11px;
   color: var(--color-champagne-gold, #C9A96E);
-  margin-bottom: 18px;
-  padding-bottom: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
   border-bottom: 1px solid rgba(201, 169, 110, 0.15);
 }
 
@@ -6517,35 +6824,35 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
 }
 
 .diwali-card-pricing strong {
-  font-size: 20px;
+  font-size: 19px;
   color: var(--color-champagne-gold, #C9A96E);
   font-weight: 700;
   display: block;
 }
 
 .diwali-card-pricing s {
-  font-size: 12px;
+  font-size: 11px;
   color: rgba(245, 239, 230, 0.45);
-  margin-right: 6px;
+  margin-right: 4px;
 }
 
 .diwali-save-badge {
-  font-size: 10px;
+  font-size: 9px;
   color: #79e39b;
   font-weight: 600;
 }
 
 .btn-diwali-add {
-  padding: 10px 18px;
+  padding: 9px 15px;
   background: linear-gradient(135deg, #c89d54, #e5c178);
   color: #0b0f0b;
   border: 1px solid #ffd875;
   border-radius: 8px;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   cursor: pointer;
   box-shadow: 0 6px 18px rgba(201, 169, 110, 0.28);
@@ -6556,6 +6863,13 @@ html, body {
 .btn-diwali-add:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(201, 169, 110, 0.45);
+}
+
+@media (max-width: 1200px) {
+  .diwali-offers-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -6570,9 +6884,426 @@ html, body {
     padding-left: 0;
     padding-top: 20px;
   }
+}
+
+@media (max-width: 768px) {
+  .diwali-toran-strip {
+    display: none;
+  }
+  .diya-centerpiece {
+    flex-direction: column;
+    text-align: center;
+    gap: 18px;
+  }
+  .diya-glow-halo {
+    left: 50%;
+  }
+  .dhanteras-gold-banner {
+    flex-direction: column;
+    text-align: center;
+  }
   .diwali-offers-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ==============================================================
+   CIRCULAR CATEGORIES SHOWCASE STRIP (FROM BOARDS 2 & 3)
+   ============================================================== */
+.circular-categories-section {
+  padding: 50px 0 35px;
+  background: var(--color-near-black, #0d0f0b);
+  border-top: 1px solid rgba(201, 169, 110, 0.15);
+  border-bottom: 1px solid rgba(201, 169, 110, 0.15);
+}
+
+.circular-cat-scroller {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 22px;
+  margin-top: 32px;
+  overflow-x: auto;
+  padding: 10px 4px 18px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201, 169, 110, 0.3) transparent;
+}
+
+.circular-cat-scroller::-webkit-scrollbar {
+  height: 4px;
+}
+
+.circular-cat-scroller::-webkit-scrollbar-thumb {
+  background: rgba(201, 169, 110, 0.4);
+  border-radius: 999px;
+}
+
+.circular-cat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  padding: 6px;
+  flex-shrink: 0;
+  width: 108px;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.circular-cat-card:hover {
+  transform: translateY(-5px);
+}
+
+.circular-avatar-ring {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  padding: 3px;
+  background: linear-gradient(135deg, rgba(201, 169, 110, 0.85), rgba(100, 75, 30, 0.4), rgba(201, 169, 110, 0.85));
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+  transition: all 0.35s ease;
+}
+
+.circular-cat-card:hover .circular-avatar-ring {
+  box-shadow: 0 0 22px rgba(201, 169, 110, 0.5), 0 10px 24px rgba(0, 0, 0, 0.6);
+  transform: scale(1.05);
+}
+
+.circular-avatar-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.circular-avatar-flacon {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.6));
+  transition: transform 0.35s ease;
+}
+
+.circular-cat-card:hover .circular-avatar-flacon {
+  transform: scale(1.12);
+}
+
+.circular-cat-name {
+  font-family: var(--font-heading, 'Playfair Display', serif);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-warm-ivory, #F5EFE6) !important;
+  margin-top: 12px;
+  letter-spacing: 0.2px;
+  line-height: 1.25;
+}
+
+.circular-cat-sub {
+  font-size: 9px;
+  color: #b5beb0 !important;
+  letter-spacing: 0.5px;
+  margin-top: 3px;
+  font-weight: 400;
+}
+
+/* ==============================================================
+   DUAL SPLIT SPOTLIGHT BANNERS (BOARDS 1 & 3)
+   ============================================================== */
+.dual-spotlight-section {
+  padding: 60px 0;
+  background: var(--color-near-black, #0d0f0b);
+}
+
+.dual-spotlight-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.spotlight-card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 42px 38px;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  align-items: center;
+  gap: 20px;
+  min-height: 380px;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(201, 169, 110, 0.28);
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease;
+}
+
+.spotlight-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.65), 0 0 30px rgba(201, 169, 110, 0.18);
+}
+
+.spotlight-him {
+  background: linear-gradient(135deg, rgba(20, 32, 20, 0.96) 0%, rgba(9, 14, 9, 0.98) 100%);
+  border-color: rgba(201, 169, 110, 0.35);
+}
+
+.spotlight-her {
+  background: linear-gradient(135deg, rgba(46, 26, 35, 0.96) 0%, rgba(14, 9, 12, 0.98) 100%);
+  border-color: rgba(230, 165, 185, 0.35);
+}
+
+.spotlight-badge {
+  display: inline-block;
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: var(--color-champagne-gold, #C9A96E);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.spotlight-kicker {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 2.2px;
+  color: #dfc796;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.spotlight-content h3 {
+  font-family: var(--font-heading, 'Playfair Display', serif);
+  font-size: clamp(26px, 2.5vw, 36px);
+  line-height: 1.15;
+  color: #ffffff !important;
+  margin: 0 0 14px;
+  font-weight: 400;
+}
+
+.spotlight-content h3 em {
+  color: var(--color-champagne-gold, #C9A96E);
+  font-style: italic;
+}
+
+.spotlight-her .spotlight-content h3 em {
+  color: #f7b8c8;
+}
+
+.spotlight-content p {
+  font-size: 11px;
+  line-height: 1.8;
+  color: #c8cdbf !important;
+  margin: 0 0 20px;
+}
+
+.spotlight-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 24px;
+}
+
+.spotlight-chips span {
+  font-size: 8.5px;
+  letter-spacing: 0.5px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(201, 169, 110, 0.25);
+  color: #e2e8da;
+}
+
+.spotlight-her .spotlight-chips span {
+  border-color: rgba(230, 165, 185, 0.25);
+}
+
+.btn-spotlight-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-size: 10.5px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-him-cta {
+  background: var(--color-champagne-gold, #C9A96E);
+  color: #0d0f0b;
+  border: 1px solid #ffd875;
+  box-shadow: 0 6px 18px rgba(201, 169, 110, 0.35);
+}
+
+.btn-him-cta:hover {
+  background: #dfc796;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(201, 169, 110, 0.5);
+}
+
+.btn-her-cta {
+  background: linear-gradient(135deg, #d88fa5, #c96b82);
+  color: #ffffff;
+  border: 1px solid #ffccd9;
+  box-shadow: 0 6px 18px rgba(201, 107, 130, 0.35);
+}
+
+.btn-her-cta:hover {
+  background: linear-gradient(135deg, #e3a2b6, #d47a91);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(201, 107, 130, 0.5);
+}
+
+.spotlight-visual {
+  display: grid;
+  place-items: center;
+  height: 100%;
+}
+
+.spotlight-flacon-img {
+  max-height: 280px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.65));
+  transition: transform 0.5s ease;
+}
+
+.spotlight-card:hover .spotlight-flacon-img {
+  transform: scale(1.06) rotate(-2deg);
+}
+
+/* ==============================================================
+   DARK LUXURY SECTION STYLING & BULLETPROOF CONTRAST FIX
+   ============================================================== */
+.dark-luxury-section {
+  background: var(--color-near-black, #0d0f0b) !important;
+  color: var(--color-warm-ivory, #F5EFE6) !important;
+  padding-block: 70px 55px;
+}
+
+.dark-luxury-section .section-heading h2 {
+  color: #ffffff !important;
+  font-family: var(--font-heading, 'Playfair Display', serif);
+}
+
+.dark-luxury-section .section-heading h2 em {
+  color: var(--color-champagne-gold, #C9A96E) !important;
+}
+
+.dark-luxury-section .section-heading .eyebrow {
+  color: var(--color-champagne-gold, #C9A96E) !important;
+}
+
+.dark-luxury-section .section-heading .section-intro {
+  color: #c2c9bc !important;
+}
+
+.dark-luxury-section .section-heading .text-link {
+  color: var(--color-champagne-gold, #C9A96E) !important;
+}
+
+.dark-luxury-section .section-heading .text-link:hover {
+  color: #ffffff !important;
+}
+
+/* Category wardrobe filter pills in collection section */
+.collection-section {
+  background: linear-gradient(180deg, var(--color-olive-base, #202a1c) 0%, var(--color-near-black, #0d0f0b) 100%) !important;
+  color: var(--color-warm-ivory, #F5EFE6) !important;
+}
+
+.collection-section .section-heading h2 {
+  color: #ffffff !important;
+}
+
+.collection-section .section-heading h2 em {
+  color: var(--color-champagne-gold, #C9A96E) !important;
+}
+
+.collection-section .section-intro {
+  color: #c2c9bc !important;
+}
+
+.category-pills button {
+  background: rgba(255, 255, 255, 0.07) !important;
+  border: 1px solid rgba(201, 169, 110, 0.3) !important;
+  color: var(--color-warm-ivory, #F5EFE6) !important;
+  font-weight: 500;
+  transition: all 0.22s ease !important;
+}
+
+.category-pills button:hover {
+  border-color: #ffd875 !important;
+  background: rgba(201, 169, 110, 0.15) !important;
+  color: #ffffff !important;
+}
+
+.category-pills button.active {
+  background: var(--color-champagne-gold, #C9A96E) !important;
+  color: #0d0f0b !important;
+  border-color: #ffd875 !important;
+  font-weight: 700 !important;
+  box-shadow: 0 0 16px rgba(201, 169, 110, 0.5) !important;
+}
+
+/* Poetic marquee ribbon */
+.poetry-marquee-strip {
+  width: 100%;
+  overflow: hidden;
+  margin-top: 35px;
+  padding: 14px 0;
+  background: rgba(14, 22, 14, 0.85);
+  border-top: 1px solid rgba(201, 169, 110, 0.22);
+  border-bottom: 1px solid rgba(201, 169, 110, 0.22);
+}
+
+.poetry-marquee-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  white-space: nowrap;
+  font-family: var(--font-heading, 'Playfair Display', serif);
+  font-size: 13.5px;
+  font-style: italic;
+  color: #e5c178;
+  letter-spacing: 0.5px;
+}
+
+.poetry-marquee-content .marquee-star {
+  font-size: 11px;
+  color: var(--color-champagne-gold, #C9A96E);
+  font-style: normal;
+}
+
+@media (max-width: 900px) {
+  .dual-spotlight-grid {
+    grid-template-columns: 1fr;
     gap: 20px;
+  }
+  .spotlight-card {
+    grid-template-columns: 1fr;
+    padding: 30px 24px;
+    min-height: auto;
+  }
+  .spotlight-visual {
+    order: -1;
+  }
+  .spotlight-flacon-img {
+    max-height: 200px;
+  }
+  .circular-cat-scroller {
+    justify-content: flex-start;
+  }
+  .poetry-marquee-content {
+    font-size: 11px;
+    gap: 15px;
   }
 }
 

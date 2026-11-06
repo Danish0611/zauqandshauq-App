@@ -87,6 +87,100 @@ export class AppComponent implements OnInit, OnDestroy {
   newsletterEmail = '';
   newsletterMessage = '';
   newsletterBusy = false;
+  diyaLit = false;
+  diyaWishesVisible = false;
+
+  circularCategories = [
+    {
+      id: 'for-him',
+      name: 'For Him',
+      sub: 'Bold & Classy',
+      category: 'For Him',
+      icon: '/assets/products/noir-oud.svg',
+      gradient: 'radial-gradient(circle, #22301f 0%, #0d130b 100%)'
+    },
+    {
+      id: 'for-her',
+      name: 'For Her',
+      sub: 'Elegant & Graceful',
+      category: 'For Her',
+      icon: '/assets/products/rose-eclat.svg',
+      gradient: 'radial-gradient(circle, #3d1f2b 0%, #12090e 100%)'
+    },
+    {
+      id: 'unisex',
+      name: 'Unisex',
+      sub: 'For Every Soul',
+      category: 'Unisex',
+      icon: '/assets/hero-fragrance.svg',
+      gradient: 'radial-gradient(circle, #38301d 0%, #110e08 100%)'
+    },
+    {
+      id: 'attar',
+      name: 'Attar & Pure Oils',
+      sub: 'Pure Tradition',
+      category: 'Attar',
+      note: 'Oud',
+      icon: '/assets/products/saffron-smoke.svg',
+      gradient: 'radial-gradient(circle, #3f2e14 0%, #140e05 100%)'
+    },
+    {
+      id: 'floral',
+      name: 'Floral Symphony',
+      sub: 'Bloom with Grace',
+      category: 'Floral',
+      note: 'Rose',
+      icon: '/assets/products/jasmine-veil.svg',
+      gradient: 'radial-gradient(circle, #382436 0%, #110a11 100%)'
+    },
+    {
+      id: 'woody',
+      name: 'Woody & Resins',
+      sub: 'Earthy & Rich',
+      category: 'Woody',
+      note: 'Sandalwood',
+      icon: '/assets/products/azure-coast.svg',
+      gradient: 'radial-gradient(circle, #253322 0%, #0d120b 100%)'
+    },
+    {
+      id: 'citrus',
+      name: 'Citrus & Fresh',
+      sub: 'Fresh & Energetic',
+      category: 'Citrus',
+      note: 'Bergamot',
+      icon: '/assets/products/citrus-drift.svg',
+      gradient: 'radial-gradient(circle, #24352b 0%, #0b130f 100%)'
+    },
+    {
+      id: 'oriental',
+      name: 'Oriental Spices',
+      sub: 'Exotic & Mysterious',
+      category: 'Oriental',
+      note: 'Saffron',
+      icon: '/assets/products/velvet-amber.svg',
+      gradient: 'radial-gradient(circle, #3f2716 0%, #140c06 100%)'
+    },
+    {
+      id: 'gift-sets',
+      name: 'Festive Coffrets',
+      sub: 'Royal Gifting',
+      category: 'Gift Sets',
+      isDiscovery: true,
+      icon: '/assets/products/green-reverie.svg',
+      gradient: 'radial-gradient(circle, #362c16 0%, #120e06 100%)'
+    }
+  ];
+
+  onCircularCategoryClick(item: any): void {
+    if (item.isDiscovery) {
+      this.setView('discovery');
+    } else if (item.note) {
+      this.filterByNote(item.note);
+    } else {
+      this.selectCategory(item.category);
+    }
+  }
+
   couponInput = '';
   appliedCoupon = '';
 
@@ -607,9 +701,13 @@ export class AppComponent implements OnInit, OnDestroy {
   loadInitialCatalog(): void {
     this.productService.getProducts().subscribe(items => {
       this.allProducts = items;
+      if (!this.products.length) {
+        this.products = [...items];
+      }
     });
     this.productService.getCategories().subscribe(items => {
-      this.categories = items;
+      const clean = items.filter(c => c && c.trim().toLowerCase() !== 'all fragrances');
+      this.categories = ['All Fragrances', ...clean];
     });
   }
 
@@ -642,10 +740,17 @@ export class AppComponent implements OnInit, OnDestroy {
     let list = [...source];
     if (this.activeCategory && this.activeCategory !== 'All Fragrances') {
       const cat = this.activeCategory.trim().toLowerCase();
-      const filtered = list.filter(p => p.category && p.category.trim().toLowerCase() === cat);
-      if (filtered.length > 0) {
-        list = filtered;
-      }
+      list = list.filter(p => {
+        if (!p.category) return false;
+        const pCat = p.category.trim().toLowerCase();
+        if (pCat === cat) return true;
+        if ((cat === 'for him' || cat === 'men' || cat === 'him') && 
+            (pCat === 'for him' || pCat === 'men' || pCat === 'him')) return true;
+        if ((cat === 'for her' || cat === 'women' || cat === 'her') && 
+            (pCat === 'for her' || pCat === 'women' || pCat === 'her')) return true;
+        if (cat === 'unisex' && pCat === 'unisex') return true;
+        return pCat.includes(cat) || cat.includes(pCat);
+      });
     }
     if (this.searchTerm && this.searchTerm.trim()) {
       const q = this.searchTerm.trim().toLowerCase();
@@ -1041,6 +1146,31 @@ export class AppComponent implements OnInit, OnDestroy {
     if (rose) this.addToCart(rose);
     this.claimDiwaliCode();
     this.notify('🪔 Celebration Duo (Noir Oud + Rose Éclat) added with DIWALI25 discount!');
+  }
+
+  lightDiya(): void {
+    this.diyaLit = true;
+    this.diyaWishesVisible = true;
+    this.claimDiwaliCode();
+    this.notify('🪔 शुभ दीपावली! Sacred Diya has been illuminated. Flat 25% Diwali discount unlocked!');
+  }
+
+  addDiwaliLakshmiPujan(): void {
+    const saff = (this.allProducts.length ? this.allProducts : this.products).find(p => p.productCode === 'ZS-SAFF-07');
+    if (saff) {
+      this.addToCart(saff);
+    }
+    this.claimDiwaliCode();
+    this.notify('🪔 Sacred Saffron Smoke (Lakshmi Pujan Edition) added to bag!');
+  }
+
+  addDiwaliTrio(): void {
+    const amber = (this.allProducts.length ? this.allProducts : this.products).find(p => p.productCode === 'ZS-AMBER-04');
+    const citrus = (this.allProducts.length ? this.allProducts : this.products).find(p => p.productCode === 'ZS-CITRUS-03');
+    if (amber) this.addToCart(amber);
+    if (citrus) this.addToCart(citrus);
+    this.claimDiwaliCode();
+    this.notify('🪔 Mithai & Saffron Festive Trio added with 25% discount!');
   }
 
   setPaymentMethod(method: 'RAZORPAY' | 'UPI' | 'COD' | 'DEMO'): void {
