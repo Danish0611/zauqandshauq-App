@@ -27,7 +27,7 @@ import { Product } from '../../product.model';
           <span class="product-rating">★ {{ product.rating }}</span>
         </div>
         <button class="product-name-button" type="button" (click)="open.emit(product)">{{ product.name }}</button>
-        <p class="product-notes">{{ product.notes.join(' · ') }}</p>
+        <p class="product-notes">{{ (product.notes || []).join(' · ') }}</p>
         <div class="product-bottom-row">
           <span class="product-size">{{ product.size }} <i>·</i> {{ product.concentration }}</span>
           <span class="product-price">{{ product.price | currency:'INR':'symbol':'1.0-0' }}</span>
