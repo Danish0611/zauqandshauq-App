@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { OrderReceipt } from '../../product.model';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-order-lookup-modal',
@@ -15,7 +16,7 @@ import { OrderReceipt } from '../../product.model';
         <div class="eyebrow"><span class="eyebrow-line"></span> ORDER CONCIERGE</div>
         <h2 style="font-family: 'Playfair Display', serif; font-weight: 400; font-size: 32px; margin: 12px 0;">Track your <em>order.</em></h2>
         <p style="font-size: 11px; color: #707666; line-height: 1.8; margin-bottom: 20px;">
-          Enter your order reference (e.g. <code>ZS-20261013-A1B2C3</code>) or your email address to view your persistent order status from our PostgreSQL database.
+          Enter your order reference (e.g. <code>ZS-20261013-A1B2C3</code>) or your email address to track your order in real time.
         </p>
 
         <form (submit)="$event.preventDefault(); searchOrder()" style="display: flex; gap: 10px; margin-bottom: 20px;">
@@ -54,7 +55,7 @@ import { OrderReceipt } from '../../product.model';
 })
 export class OrderLookupModalComponent {
   @Input() open = false;
-  @Input() apiBase = 'http://localhost:8080/api';
+  @Input() apiBase = environment.apiUrl;
   @Input() set initialQuery(q: string) {
     if (q) {
       this.query = q;

@@ -76,7 +76,7 @@ import { CartItem } from '../../product.model';
         </button>
         <button type="button" class="continue-shopping" (click)="close.emit()">Continue Exploring</button>
         <div class="drawer-secure">
-          <span>🔒 256-Bit SSL Encrypted · Razorpay &amp; PostgreSQL Persistence</span>
+          <span>🔒 256-Bit SSL Encrypted · Instant Order Confirmation</span>
         </div>
       </div>
     </aside>
