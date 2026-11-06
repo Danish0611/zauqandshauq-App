@@ -59,6 +59,16 @@ export interface HeroSlide {
 
       <!-- Ambient Background Video & Liquid Gold Particle Sillage Canvas -->
       <div class="slider-backdrop" [style.background]="currentSlide.spotlightGradient"></div>
+      <video 
+        class="hero-ambient-video" 
+        src="/assets/hero-scent-video.mp4" 
+        autoplay 
+        muted 
+        loop 
+        playsinline 
+        preload="auto"
+        aria-hidden="true">
+      </video>
       <canvas #mistCanvas class="hero-ambient-canvas" aria-hidden="true"></canvas>
       <div class="slider-grain"></div>
       
@@ -317,14 +327,50 @@ export interface HeroSlide {
                   <div class="diffuser-floating-note">✦ {{ currentSlide.notes.top }}</div>
                 </div>
 
-                <!-- Main Illuminated Flacon -->
+                <!-- Main Illuminated Flacon (Real Studio Photography) -->
                 <img 
-                  class="flacon-hero-image" 
-                  [src]="currentSlide.image" 
+                  class="flacon-hero-image real-flacon-photo" 
+                  [src]="getDisplayedImage()" 
                   [alt]="currentSlide.name + ' luxury perfume flacon'"
                   (click)="onShopFlacon()"
                   loading="eager">
                 <div class="flacon-pedestal-shadow" aria-hidden="true"></div>
+
+                <!-- Real Flacon Multi-Angle Studio Gallery Selector -->
+                <div class="flacon-multi-gallery-nav" aria-label="Inspect Bottle Angles">
+                  <button 
+                    type="button" 
+                    class="gallery-thumb-btn" 
+                    [class.is-active]="selectedGalleryView === 0"
+                    (click)="selectedGalleryView = 0; $event.stopPropagation()"
+                    title="Main Flacon View">
+                    <span>Flacon</span>
+                  </button>
+                  <button 
+                    type="button" 
+                    class="gallery-thumb-btn" 
+                    [class.is-active]="selectedGalleryView === 1"
+                    (click)="selectedGalleryView = 1; $event.stopPropagation()"
+                    title="Velvet Presentation Gift Box">
+                    <span>Coffret Box</span>
+                  </button>
+                  <button 
+                    type="button" 
+                    class="gallery-thumb-btn" 
+                    [class.is-active]="selectedGalleryView === 2"
+                    (click)="selectedGalleryView = 2; $event.stopPropagation()"
+                    title="Macro Sculptural Cap & Gold Collar">
+                    <span>Marble Cap</span>
+                  </button>
+                  <button 
+                    type="button" 
+                    class="gallery-thumb-btn" 
+                    [class.is-active]="selectedGalleryView === 3"
+                    (click)="selectedGalleryView = 3; $event.stopPropagation()"
+                    title="Full Bottle on Marble Pedestal">
+                    <span>Pedestal</span>
+                  </button>
+                </div>
 
                 <!-- Interactive Spritz Tester Mist Action Button -->
                 <button 
@@ -443,7 +489,7 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
       originalPrice: 4299,
       size: '100 ml',
       concentration: 'Extrait de Parfum',
-      image: '/assets/hero-fragrance.svg',
+      image: '/assets/products/real-flacon-signature.jpg',
       notes: {
         top: 'Assam Bergamot · Smoked Leather',
         heart: 'Aged Agarwood · Damask Rose',
@@ -480,7 +526,7 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
       originalPrice: 3499,
       size: '75 ml',
       concentration: 'Eau de Parfum',
-      image: '/assets/products/rose-eclat.svg',
+      image: '/assets/products/real-flacon-rose-eclat.jpg',
       notes: {
         top: 'French Pear · Pink Pepper',
         heart: 'Damask Rose Otto · Peony',
@@ -517,7 +563,7 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
       originalPrice: 4699,
       size: '50 ml',
       concentration: 'Extrait de Parfum',
-      image: '/assets/products/velvet-amber.svg',
+      image: '/assets/products/real-flacon-velvet-amber.jpg',
       notes: {
         top: 'Green Cardamom · Bitter Almond',
         heart: 'Bourbon Vanilla · Benzoin Resins',
@@ -554,7 +600,7 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
       originalPrice: 5299,
       size: '50 ml',
       concentration: 'Extrait de Parfum',
-      image: '/assets/products/saffron-smoke.svg',
+      image: '/assets/products/real-flacon-saffron-smoke.jpg',
       notes: {
         top: 'Kashmiri Saffron · Wild Thyme',
         heart: 'Temple Incense · Black Leather',
@@ -591,7 +637,7 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
       originalPrice: 3299,
       size: '100 ml',
       concentration: 'Extrait de Parfum',
-      image: '/assets/products/azure-coast.svg',
+      image: '/assets/products/real-flacon-azure-coast.jpg',
       notes: {
         top: 'Calabrian Bergamot · Sea Salt',
         heart: 'Neroli Petals · White Tea',
@@ -619,11 +665,23 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
   ];
 
   currentSlideIndex = 0;
+  selectedGalleryView = 0;
   isPaused = false;
   isTransitioning = false;
   isSpritzing = false;
   progressPercent = 0;
   wardrobeDoorsOpen = true;
+
+  getDisplayedImage(): string {
+    if (this.selectedGalleryView === 1) {
+      return '/assets/products/real-flacon-unboxing.jpg';
+    } else if (this.selectedGalleryView === 2) {
+      return '/assets/products/real-flacon-macro.jpg';
+    } else if (this.selectedGalleryView === 3) {
+      return '/assets/products/real-flacon-hero-scene.jpg';
+    }
+    return this.currentSlide.image;
+  }
 
   getRoman(i: number): string {
     const romans = ['I', 'II', 'III', 'IV', 'V', 'VI'];
@@ -755,6 +813,7 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     this.triggerTransition();
     this.currentSlideIndex = index;
+    this.selectedGalleryView = 0;
     this.resetProgress();
     this.triggerSpritz();
   }

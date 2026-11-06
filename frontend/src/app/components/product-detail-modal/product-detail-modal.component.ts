@@ -46,7 +46,7 @@ export interface NoteTier {
               </span>
             </div>
 
-            <!-- Multi-angle Thumbnails -->
+            <!-- Multi-angle Real Studio Thumbnails -->
             <div class="pdp-thumbnails">
               <button
                 type="button"
@@ -61,20 +61,24 @@ export interface NoteTier {
                 class="thumb-btn"
                 [class.active]="selectedView === 'packaging'"
                 (click)="setView('packaging')">
-                <div class="thumb-placeholder packaging-bg">
-                  <span class="thumb-icon">📦</span>
-                </div>
+                <img src="/assets/products/real-flacon-unboxing.jpg" alt="Coffret view" />
                 <span>Coffret</span>
               </button>
               <button
                 type="button"
                 class="thumb-btn"
-                [class.active]="selectedView === 'botanicals'"
-                (click)="setView('botanicals')">
-                <div class="thumb-placeholder botanicals-bg">
-                  <span class="thumb-icon">🌿</span>
-                </div>
-                <span>Botanicals</span>
+                [class.active]="selectedView === 'cap'"
+                (click)="setView('cap')">
+                <img src="/assets/products/real-flacon-macro.jpg" alt="Cap view" />
+                <span>Marble Cap</span>
+              </button>
+              <button
+                type="button"
+                class="thumb-btn"
+                [class.active]="selectedView === 'pedestal'"
+                (click)="setView('pedestal')">
+                <img src="/assets/products/real-flacon-hero-scene.jpg" alt="Art Direction view" />
+                <span>Pedestal</span>
               </button>
             </div>
 
@@ -447,8 +451,8 @@ export interface NoteTier {
 
     .pdp-thumbnails {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.75rem;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.55rem;
     }
 
     .thumb-btn {
@@ -1008,7 +1012,7 @@ export class ProductDetailModalComponent implements OnChanges {
   @Output() toggleWish = new EventEmitter<Product>();
 
   selectedSize: '50ml' | '100ml' = '100ml';
-  selectedView: 'bottle' | 'packaging' | 'botanicals' = 'bottle';
+  selectedView: 'bottle' | 'packaging' | 'cap' | 'pedestal' = 'bottle';
   quantity = 1;
   activeNoteTab: 'pyramid' | 'limbic' | 'ritual' = 'pyramid';
 
@@ -1023,6 +1027,15 @@ export class ProductDetailModalComponent implements OnChanges {
 
   get activeGalleryImage(): string {
     if (!this.product) return '';
+    if (this.selectedView === 'packaging') {
+      return '/assets/products/real-flacon-unboxing.jpg';
+    }
+    if (this.selectedView === 'cap') {
+      return '/assets/products/real-flacon-macro.jpg';
+    }
+    if (this.selectedView === 'pedestal') {
+      return '/assets/products/real-flacon-hero-scene.jpg';
+    }
     return this.product.image;
   }
 
@@ -1071,7 +1084,7 @@ export class ProductDetailModalComponent implements OnChanges {
     this.selectedSize = size;
   }
 
-  setView(view: 'bottle' | 'packaging' | 'botanicals'): void {
+  setView(view: 'bottle' | 'packaging' | 'cap' | 'pedestal'): void {
     this.selectedView = view;
   }
 

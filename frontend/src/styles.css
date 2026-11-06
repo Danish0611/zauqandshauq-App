@@ -69,46 +69,46 @@
 }
 
 /* ==========================================================================
-   MAISON ZAUQ & SHAUQ - SEAMLESS IMPERIAL FROSTED GLASS HEADER
+   MAISON ZAUQ & SHAUQ - FLOATING APPLE LIQUID GLASS ROUND NAVBAR
    ========================================================================== */
+
+.royal-header-wrapper {
+  background: linear-gradient(180deg, #02100b 0%, #03160f 70%, #05241b 100%);
+  position: relative;
+  z-index: 1000;
+  padding-bottom: 14px;
+}
 
 .site-header {
   position: sticky !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
+  top: 12px !important;
   z-index: 1000 !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  margin: 0 !important;
-  background: rgba(4, 24, 18, 0.95) !important;
-  backdrop-filter: blur(28px) saturate(190%) !important;
-  -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.28) !important;
-  border-top: none !important;
-  border-left: none !important;
-  border-right: none !important;
-  border-radius: 0 !important;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.55), inset 0 -1px 0 rgba(212, 175, 55, 0.12) !important;
+  max-width: 1360px !important;
+  width: calc(100% - 32px) !important;
+  margin: 10px auto 0 !important;
+  background: rgba(4, 24, 18, 0.78) !important;
+  backdrop-filter: blur(28px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(200%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.32) !important;
+  border-radius: 999px !important;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.16) !important;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
   padding: 0 !important;
   box-sizing: border-box !important;
 }
 
 .site-header.is-open {
-  border-radius: 0 !important;
+  border-radius: 24px 24px 0 0 !important;
 }
 
 .header-main {
-  height: 66px !important;
-  min-height: 66px !important;
-  max-width: 1440px !important;
-  margin: 0 auto !important;
-  padding: 0 24px !important;
+  height: 60px !important;
+  min-height: 60px !important;
+  padding: 0 22px 0 20px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
-  gap: 16px !important;
+  gap: 14px !important;
   width: 100% !important;
   box-sizing: border-box !important;
   position: relative !important;
@@ -614,9 +614,9 @@
 /* Breakpoint 2: Tablet & Small Laptops (Switch to Mobile Drawer <= 1080px) */
 @media (max-width: 1080px) {
   .site-header {
-    width: 100% !important;
-    top: 0 !important;
-    border-radius: 0 !important;
+    width: calc(100% - 24px) !important;
+    top: 10px !important;
+    border-radius: 999px !important;
   }
   .desktop-nav {
     display: none !important;
@@ -652,14 +652,14 @@
     display: none !important;
   }
   .site-header {
-    width: 100% !important;
-    top: 0 !important;
-    border-radius: 0 !important;
+    width: calc(100% - 16px) !important;
+    top: 8px !important;
+    border-radius: 999px !important;
   }
   .header-main {
-    height: 54px !important;
-    min-height: 54px !important;
-    padding: 0 14px !important;
+    height: 52px !important;
+    min-height: 52px !important;
+    padding: 0 12px !important;
     gap: 8px !important;
   }
   .brand-mark {
@@ -1645,6 +1645,108 @@ html, body {
 @keyframes flaconHover {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-13px); }
+}
+
+/* Ambient Video Background */
+.hero-ambient-video {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  opacity: 0.38 !important;
+  mix-blend-mode: screen !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
+}
+
+/* Real Flacon Studio Photography in Hero */
+.flacon-hero-image.real-flacon-photo {
+  max-height: 380px !important;
+  max-width: 340px !important;
+  border-radius: 20px !important;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(212, 175, 55, 0.3) !important;
+  object-fit: cover !important;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.flacon-holder:hover .flacon-hero-image.real-flacon-photo {
+  transform: scale(1.04) translateY(-4px) !important;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.85), 0 0 25px rgba(212, 175, 55, 0.4) !important;
+}
+
+/* Multi-Angle Real Flacon Gallery Selector */
+.flacon-multi-gallery-nav {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  margin-top: 14px !important;
+  z-index: 15 !important;
+  position: relative !important;
+  flex-wrap: wrap !important;
+}
+
+.gallery-thumb-btn {
+  padding: 5px 13px !important;
+  border-radius: 999px !important;
+  font-size: 10.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.8px !important;
+  text-transform: uppercase !important;
+  background: rgba(4, 24, 18, 0.72) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(212, 175, 55, 0.35) !important;
+  color: #c8aea2 !important;
+  cursor: pointer !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.gallery-thumb-btn:hover,
+.gallery-thumb-btn.is-active {
+  background: rgba(212, 175, 55, 0.26) !important;
+  border-color: #e5c178 !important;
+  color: #ffffff !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.25) !important;
+}
+
+/* Spritz Mist Trigger Button */
+.spritz-mist-trigger-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin-top: 12px !important;
+  padding: 7px 18px !important;
+  border-radius: 999px !important;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(10, 63, 53, 0.85)) !important;
+  border: 1px solid rgba(212, 175, 55, 0.55) !important;
+  color: #e5d4be !important;
+  font-size: 11.5px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.5px !important;
+  cursor: pointer !important;
+  transition: all 0.25s ease !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+}
+
+.spritz-mist-trigger-btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 22px rgba(212, 175, 55, 0.4) !important;
+  color: #ffffff !important;
+  border-color: #ffd700 !important;
+}
+
+.spritz-icon {
+  font-size: 14px !important;
+}
+
+.spritz-star {
+  color: #ffd700 !important;
+  font-size: 11px !important;
 }
 
 /* ==========================================================================
