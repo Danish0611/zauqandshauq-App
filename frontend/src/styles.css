@@ -1647,69 +1647,20 @@ html, body {
   50% { transform: translateY(-13px); }
 }
 
-/* Ambient Video Background */
-.hero-ambient-video {
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  opacity: 0.38 !important;
-  mix-blend-mode: screen !important;
-  pointer-events: none !important;
-  z-index: 1 !important;
+
+
+/* Haute Parfumerie Flacon in Hero */
+.flacon-hero-image {
+  max-height: 420px !important;
+  width: auto !important;
+  object-fit: contain !important;
+  filter: drop-shadow(0 26px 40px rgba(0, 0, 0, 0.85)) !important;
+  animation: flaconHover 6s ease-in-out infinite !important;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-/* Real Flacon Studio Photography in Hero */
-.flacon-hero-image.real-flacon-photo {
-  max-height: 380px !important;
-  max-width: 340px !important;
-  border-radius: 20px !important;
-  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(212, 175, 55, 0.3) !important;
-  object-fit: cover !important;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-
-.flacon-holder:hover .flacon-hero-image.real-flacon-photo {
-  transform: scale(1.04) translateY(-4px) !important;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.85), 0 0 25px rgba(212, 175, 55, 0.4) !important;
-}
-
-/* Multi-Angle Real Flacon Gallery Selector */
-.flacon-multi-gallery-nav {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 8px !important;
-  margin-top: 14px !important;
-  z-index: 15 !important;
-  position: relative !important;
-  flex-wrap: wrap !important;
-}
-
-.gallery-thumb-btn {
-  padding: 5px 13px !important;
-  border-radius: 999px !important;
-  font-size: 10.5px !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.8px !important;
-  text-transform: uppercase !important;
-  background: rgba(4, 24, 18, 0.72) !important;
-  backdrop-filter: blur(10px) !important;
-  -webkit-backdrop-filter: blur(10px) !important;
-  border: 1px solid rgba(212, 175, 55, 0.35) !important;
-  color: #c8aea2 !important;
-  cursor: pointer !important;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-
-.gallery-thumb-btn:hover,
-.gallery-thumb-btn.is-active {
-  background: rgba(212, 175, 55, 0.26) !important;
-  border-color: #e5c178 !important;
-  color: #ffffff !important;
-  transform: translateY(-2px) !important;
-  box-shadow: 0 4px 14px rgba(212, 175, 55, 0.25) !important;
+.flacon-holder:hover .flacon-hero-image {
+  transform: scale(1.05) translateY(-6px) !important;
 }
 
 /* Spritz Mist Trigger Button */

@@ -46,39 +46,23 @@ export interface NoteTier {
               </span>
             </div>
 
-            <!-- Multi-angle Real Studio Thumbnails -->
+            <!-- Authentic Flacon & Royal Seal Thumbnails -->
             <div class="pdp-thumbnails">
               <button
                 type="button"
                 class="thumb-btn"
                 [class.active]="selectedView === 'bottle'"
                 (click)="setView('bottle')">
-                <img [src]="product.image" alt="Bottle view" />
+                <img [src]="product.image" [alt]="product.name + ' Flacon'" />
                 <span>Flacon</span>
               </button>
               <button
                 type="button"
                 class="thumb-btn"
-                [class.active]="selectedView === 'packaging'"
-                (click)="setView('packaging')">
-                <img src="/assets/products/real-flacon-unboxing.jpg" alt="Coffret view" />
-                <span>Coffret</span>
-              </button>
-              <button
-                type="button"
-                class="thumb-btn"
-                [class.active]="selectedView === 'cap'"
-                (click)="setView('cap')">
-                <img src="/assets/products/real-flacon-macro.jpg" alt="Cap view" />
-                <span>Marble Cap</span>
-              </button>
-              <button
-                type="button"
-                class="thumb-btn"
-                [class.active]="selectedView === 'pedestal'"
-                (click)="setView('pedestal')">
-                <img src="/assets/products/real-flacon-hero-scene.jpg" alt="Art Direction view" />
-                <span>Pedestal</span>
+                [class.active]="selectedView === 'seal'"
+                (click)="setView('seal')">
+                <img src="/assets/logo.png" alt="Royal Crest Seal" />
+                <span>Royal Seal</span>
               </button>
             </div>
 
@@ -450,12 +434,11 @@ export interface NoteTier {
     }
 
     .pdp-thumbnails {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0.55rem;
+      display: flex;
+      gap: 0.75rem;
     }
-
     .thumb-btn {
+      width: 76px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -1012,7 +995,7 @@ export class ProductDetailModalComponent implements OnChanges {
   @Output() toggleWish = new EventEmitter<Product>();
 
   selectedSize: '50ml' | '100ml' = '100ml';
-  selectedView: 'bottle' | 'packaging' | 'cap' | 'pedestal' = 'bottle';
+  selectedView: 'bottle' | 'seal' = 'bottle';
   quantity = 1;
   activeNoteTab: 'pyramid' | 'limbic' | 'ritual' = 'pyramid';
 
@@ -1027,14 +1010,8 @@ export class ProductDetailModalComponent implements OnChanges {
 
   get activeGalleryImage(): string {
     if (!this.product) return '';
-    if (this.selectedView === 'packaging') {
-      return '/assets/products/real-flacon-unboxing.jpg';
-    }
-    if (this.selectedView === 'cap') {
-      return '/assets/products/real-flacon-macro.jpg';
-    }
-    if (this.selectedView === 'pedestal') {
-      return '/assets/products/real-flacon-hero-scene.jpg';
+    if (this.selectedView === 'seal') {
+      return '/assets/logo.png';
     }
     return this.product.image;
   }
@@ -1084,7 +1061,7 @@ export class ProductDetailModalComponent implements OnChanges {
     this.selectedSize = size;
   }
 
-  setView(view: 'bottle' | 'packaging' | 'cap' | 'pedestal'): void {
+  setView(view: 'bottle' | 'seal'): void {
     this.selectedView = view;
   }
 

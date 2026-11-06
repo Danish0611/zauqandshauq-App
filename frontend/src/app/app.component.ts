@@ -1049,7 +1049,7 @@ export class AppComponent implements OnInit, OnDestroy {
         name: 'Zauq & Shauq Haute Parfumerie',
         description: 'Luxury Fragrance Order',
         order_id: paymentOrder.orderId,
-        image: `${window.location.origin}/assets/logo.svg`,
+        image: `${window.location.origin}/assets/logo.png`,
         prefill: { name: request.name, email: request.email, contact: request.phone },
         notes: { shipping_city: request.city, postal_code: request.postalCode },
         theme: { color: '#c89d54', backdrop_color: '#060b09' },

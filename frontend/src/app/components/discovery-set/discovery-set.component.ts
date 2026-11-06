@@ -507,7 +507,7 @@ export class DiscoverySetComponent {
     description: 'An intimate 5-piece wardrobe of our most celebrated creations. Includes a 100% redeemable ₹999 voucher code inside.',
     ingredients: 'Natural botanical absolutes, aged oud resins, Mysore sandalwood oil, grain alcohol, distilled water.',
     notes: ['Aged Oud', 'Damask Rose', 'Mysore Sandalwood', 'Kashmiri Saffron', 'Bergamot'],
-    image: '/assets/logo.svg',
+    image: '/assets/logo.png',
     rating: 5.0,
     reviews: 148,
     stockQuantity: 50,
