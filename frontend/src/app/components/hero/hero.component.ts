@@ -154,7 +154,7 @@ export interface HeroSlide {
 
         </div>
 
-        <!-- RIGHT COLUMN: ILLUMINATED FLACON STAGE (SLIDER REVOLUTION / CANVA BENCHMARK) -->
+        <!-- RIGHT COLUMN: ILLUMINATED FLACON STAGE WITH SCENT DIFFUSER ATOMIZER SPRAY -->
         <div class="slider-stage-col">
           
           <div class="flacon-cinematic-stage" [class.stage-transitioning]="isTransitioning">
@@ -186,14 +186,49 @@ export interface HeroSlide {
               <span>{{ currentSlide.concentration }}</span>
             </div>
 
-            <!-- Central Floating Bottle with Dynamic Keyframe Physics -->
-            <div class="flacon-holder" (click)="onShopFlacon()" title="Inspect {{ currentSlide.name }} Profile">
+            <!-- Central Floating Bottle with Scent Diffuser Mist Atomizer -->
+            <div class="flacon-holder" [class.is-spritzing]="isSpritzing">
+              
+              <!-- SCENT BOTTLE DIFFUSER MIST ATOMIZER SPRAY ANIMATION -->
+              <div class="scent-diffuser-atomizer" [class.spray-active]="isSpritzing || isTransitioning" aria-hidden="true">
+                <div class="diffuser-nozzle-flare"></div>
+                <div class="diffuser-mist-cone"></div>
+                <div class="diffuser-mist-plume-left"></div>
+                <div class="diffuser-mist-plume-right"></div>
+                <div class="diffuser-particles">
+                  <span class="diffuser-drop d1"></span>
+                  <span class="diffuser-drop d2"></span>
+                  <span class="diffuser-drop d3"></span>
+                  <span class="diffuser-drop d4"></span>
+                  <span class="diffuser-drop d5"></span>
+                  <span class="diffuser-drop d6"></span>
+                  <span class="diffuser-drop d7"></span>
+                  <span class="diffuser-drop d8"></span>
+                </div>
+                <div class="diffuser-aroma-ring ring-1"></div>
+                <div class="diffuser-aroma-ring ring-2"></div>
+                <div class="diffuser-floating-note">✦ {{ currentSlide.notes.top }}</div>
+              </div>
+
+              <!-- Main Illuminated Flacon -->
               <img 
                 class="flacon-hero-image" 
                 [src]="currentSlide.image" 
                 [alt]="currentSlide.name + ' luxury perfume flacon'"
+                (click)="onShopFlacon()"
                 loading="eager">
               <div class="flacon-pedestal-shadow" aria-hidden="true"></div>
+
+              <!-- Interactive Spritz Tester Mist Action Button -->
+              <button 
+                type="button" 
+                class="spritz-mist-trigger-btn"
+                (click)="triggerSpritz($event)"
+                [title]="'Spritz ' + currentSlide.name + ' aroma mist'">
+                <span class="spritz-icon">💨</span>
+                <span class="spritz-label">Spritz Tester Mist</span>
+                <span class="spritz-star">✦</span>
+              </button>
             </div>
 
             <!-- Flacon Pedestal Label / Vintage Crest -->
@@ -390,10 +425,12 @@ export class HeroComponent implements OnInit, OnDestroy {
   currentSlideIndex = 0;
   isPaused = false;
   isTransitioning = false;
+  isSpritzing = false;
   progressPercent = 0;
 
   private autoplayTimer?: ReturnType<typeof setInterval>;
   private progressInterval?: ReturnType<typeof setInterval>;
+  private spritzTimeout?: ReturnType<typeof setTimeout>;
   private touchStartX = 0;
   private touchEndX = 0;
   private readonly SLIDE_DURATION_MS = 6000;
@@ -405,11 +442,15 @@ export class HeroComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.startProgress();
-    this.startAutoplay();
+    // Trigger initial welcoming aroma spritz
+    setTimeout(() => this.triggerSpritz(), 800);
   }
 
   ngOnDestroy(): void {
     this.stopAutoplay();
+    if (this.spritzTimeout) {
+      clearTimeout(this.spritzTimeout);
+    }
   }
 
   @HostListener('window:keydown', ['$event'])
@@ -438,6 +479,20 @@ export class HeroComponent implements OnInit, OnDestroy {
     this.triggerTransition();
     this.currentSlideIndex = index;
     this.resetProgress();
+    this.triggerSpritz();
+  }
+
+  triggerSpritz(event?: Event): void {
+    if (event) {
+      event.stopPropagation();
+    }
+    if (this.spritzTimeout) {
+      clearTimeout(this.spritzTimeout);
+    }
+    this.isSpritzing = true;
+    this.spritzTimeout = setTimeout(() => {
+      this.isSpritzing = false;
+    }, 2400);
   }
 
   pauseAutoplay(): void {
@@ -494,10 +549,6 @@ export class HeroComponent implements OnInit, OnDestroy {
     this.progressPercent = 0;
   }
 
-  private startAutoplay(): void {
-    // Progress interval drives slide advancing accurately
-  }
-
   private stopAutoplay(): void {
     if (this.progressInterval) {
       clearInterval(this.progressInterval);
@@ -509,7 +560,6 @@ export class HeroComponent implements OnInit, OnDestroy {
 
   onShopFlacon(): void {
     const slide = this.currentSlide;
-    // Look up live product from allProducts or heroProduct
     const matched = this.allProducts.find(p => 
       p.productCode === slide.productCode || 
       p.name.toLowerCase() === slide.name.toLowerCase()
@@ -518,7 +568,6 @@ export class HeroComponent implements OnInit, OnDestroy {
     if (matched) {
       this.viewProduct.emit(matched);
     } else {
-      // Fallback synthetic Product instance for modal
       const fallbackProduct: Product = {
         id: slide.id,
         productCode: slide.productCode,

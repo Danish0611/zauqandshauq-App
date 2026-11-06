@@ -1226,6 +1226,580 @@ html, body {
   50% { transform: translateY(-13px); }
 }
 
+/* ==========================================================================
+   SCENT BOTTLE DIFFUSER MIST ATOMIZER SPRAY ANIMATION
+   ========================================================================== */
+
+.flacon-holder.is-spritzing .flacon-hero-image {
+  animation: bottleSpritzRecoil 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) !important;
+}
+
+@keyframes bottleSpritzRecoil {
+  0% { transform: translateY(0) scale(1); }
+  25% { transform: translateY(7px) scale(0.97); }
+  60% { transform: translateY(-4px) scale(1.02); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+.scent-diffuser-atomizer {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 280px;
+  height: 260px;
+  pointer-events: none;
+  z-index: 30;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.scent-diffuser-atomizer.spray-active {
+  opacity: 1;
+}
+
+/* 1. Optical Lens Flare at the Nozzle */
+.diffuser-nozzle-flare {
+  position: absolute;
+  top: 72px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 20px 8px #ffd700, 0 0 35px 14px #e5c178;
+  opacity: 0;
+}
+
+.spray-active .diffuser-nozzle-flare {
+  animation: nozzleFlash 0.5s ease-out forwards;
+}
+
+@keyframes nozzleFlash {
+  0% { transform: translateX(-50%) scale(0.2); opacity: 0; }
+  20% { transform: translateX(-50%) scale(1.8); opacity: 1; }
+  100% { transform: translateX(-50%) scale(0); opacity: 0; }
+}
+
+/* 2. Expanding Conical Volumetric Mist Cloud */
+.diffuser-mist-cone {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  width: 120px;
+  height: 130px;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at 50% 100%, rgba(250, 238, 212, 0.85) 0%, rgba(229, 193, 120, 0.5) 45%, rgba(101, 34, 14, 0.2) 75%, transparent 100%);
+  clip-path: polygon(44% 100%, 56% 100%, 100% 0%, 0% 0%);
+  filter: blur(10px);
+  opacity: 0;
+}
+
+.spray-active .diffuser-mist-cone {
+  animation: mistConeBurst 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes mistConeBurst {
+  0% { transform: translateX(-50%) scaleY(0.1) scaleX(0.2); opacity: 0; }
+  15% { opacity: 0.9; transform: translateX(-50%) scaleY(0.8) scaleX(0.8); }
+  50% { opacity: 0.75; transform: translateX(-50%) scaleY(1.3) scaleX(1.4) translateY(-15px); }
+  100% { opacity: 0; transform: translateX(-50%) scaleY(1.8) scaleX(1.9) translateY(-40px); }
+}
+
+/* 3. Billowing Left & Right Vapor Plumes */
+.diffuser-mist-plume-left,
+.diffuser-mist-plume-right {
+  position: absolute;
+  top: 30px;
+  width: 80px;
+  height: 90px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(229, 193, 120, 0.55) 0%, rgba(200, 157, 84, 0.25) 55%, transparent 75%);
+  filter: blur(12px);
+  opacity: 0;
+}
+
+.diffuser-mist-plume-left { left: 30px; }
+.diffuser-mist-plume-right { right: 30px; }
+
+.spray-active .diffuser-mist-plume-left {
+  animation: plumeLeft 1.8s ease-out forwards;
+}
+
+.spray-active .diffuser-mist-plume-right {
+  animation: plumeRight 1.8s ease-out forwards;
+}
+
+@keyframes plumeLeft {
+  0% { transform: translate(30px, 30px) scale(0.2); opacity: 0; }
+  25% { opacity: 0.8; }
+  100% { transform: translate(-35px, -50px) scale(1.6); opacity: 0; }
+}
+
+@keyframes plumeRight {
+  0% { transform: translate(-30px, 30px) scale(0.2); opacity: 0; }
+  25% { opacity: 0.8; }
+  100% { transform: translate(35px, -50px) scale(1.6); opacity: 0; }
+}
+
+/* 4. Fine Golden Scent Mist Droplets */
+.diffuser-particles {
+  position: absolute;
+  inset: 0;
+}
+
+.diffuser-drop {
+  position: absolute;
+  top: 75px;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 0%, #ffd700 60%, #c4a15d 100%);
+  box-shadow: 0 0 6px #ffd700;
+  opacity: 0;
+}
+
+.spray-active .diffuser-drop.d1 { animation: dropSpray1 1.4s ease-out forwards; }
+.spray-active .diffuser-drop.d2 { animation: dropSpray2 1.5s ease-out forwards; }
+.spray-active .diffuser-drop.d3 { animation: dropSpray3 1.3s ease-out forwards; }
+.spray-active .diffuser-drop.d4 { animation: dropSpray4 1.6s ease-out forwards; }
+.spray-active .diffuser-drop.d5 { animation: dropSpray5 1.4s ease-out forwards; }
+.spray-active .diffuser-drop.d6 { animation: dropSpray6 1.7s ease-out forwards; }
+.spray-active .diffuser-drop.d7 { animation: dropSpray7 1.5s ease-out forwards; }
+.spray-active .diffuser-drop.d8 { animation: dropSpray8 1.6s ease-out forwards; }
+
+@keyframes dropSpray1 { 0% { opacity: 0; transform: translate(0, 0); } 15% { opacity: 1; } 100% { opacity: 0; transform: translate(-75px, -85px) scale(0.4); } }
+@keyframes dropSpray2 { 0% { opacity: 0; transform: translate(0, 0); } 15% { opacity: 1; } 100% { opacity: 0; transform: translate(70px, -90px) scale(0.4); } }
+@keyframes dropSpray3 { 0% { opacity: 0; transform: translate(0, 0); } 15% { opacity: 1; } 100% { opacity: 0; transform: translate(-40px, -110px) scale(0.3); } }
+@keyframes dropSpray4 { 0% { opacity: 0; transform: translate(0, 0); } 15% { opacity: 1; } 100% { opacity: 0; transform: translate(45px, -115px) scale(0.3); } }
+@keyframes dropSpray5 { 0% { opacity: 0; transform: translate(0, 0); } 15% { opacity: 1; } 100% { opacity: 0; transform: translate(-95px, -60px) scale(0.5); } }
+@keyframes dropSpray6 { 0% { opacity: 0; transform: translate(0, 0); } 15% { opacity: 1; } 100% { opacity: 0; transform: translate(90px, -65px) scale(0.5); } }
+@keyframes dropSpray7 { 0% { opacity: 0; transform: translate(0, 0); } 15% { opacity: 1; } 100% { opacity: 0; transform: translate(-15px, -135px) scale(0.2); } }
+@keyframes dropSpray8 { 0% { opacity: 0; transform: translate(0, 0); } 15% { opacity: 1; } 100% { opacity: 0; transform: translate(18px, -130px) scale(0.2); } }
+
+/* 5. Expanding Harmonic Aroma Rings */
+.diffuser-aroma-ring {
+  position: absolute;
+  top: 65px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 1px solid rgba(229, 193, 120, 0.7);
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.spray-active .diffuser-aroma-ring.ring-1 {
+  animation: aromaExpand 1.5s ease-out forwards;
+}
+
+.spray-active .diffuser-aroma-ring.ring-2 {
+  animation: aromaExpand 1.8s 0.25s ease-out forwards;
+}
+
+@keyframes aromaExpand {
+  0% { width: 10px; height: 10px; opacity: 0.9; }
+  100% { width: 220px; height: 160px; opacity: 0; transform: translateX(-50%) translateY(-50px); }
+}
+
+/* 6. Scent Tag Floating from Diffuser */
+.diffuser-floating-note {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(23, 18, 17, 0.9);
+  border: 1px solid rgba(229, 193, 120, 0.5);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 9.5px;
+  color: #ffd700;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+}
+
+.spray-active .diffuser-floating-note {
+  animation: floatNoteBloom 2s ease-out forwards;
+}
+
+@keyframes floatNoteBloom {
+  0% { opacity: 0; transform: translateX(-50%) translateY(20px) scale(0.7); }
+  25% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+  80% { opacity: 0.9; transform: translateX(-50%) translateY(-25px) scale(1); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-45px) scale(0.9); }
+}
+
+/* Interactive Spritz Trigger Button on Bottle Stage */
+.spritz-mist-trigger-btn {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  background: linear-gradient(135deg, rgba(101, 34, 14, 0.85) 0%, rgba(23, 18, 17, 0.95) 100%);
+  border: 1px solid rgba(229, 193, 120, 0.45);
+  border-radius: 999px;
+  padding: 7px 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #e5c178;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6), 0 0 12px rgba(229, 193, 120, 0.2);
+  transition: all 0.25s ease;
+}
+
+.spritz-mist-trigger-btn:hover {
+  transform: translateX(-50%) translateY(-2px);
+  border-color: #ffd700;
+  background: linear-gradient(135deg, rgba(141, 96, 79, 0.9) 0%, rgba(35, 20, 16, 0.98) 100%);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.75), 0 0 20px rgba(229, 193, 120, 0.4);
+  color: #ffffff;
+}
+
+.spritz-icon {
+  font-size: 13px;
+}
+
+.spritz-star {
+  font-size: 9px;
+  color: #ffd700;
+}
+
+/* ==========================================================================
+   SCROLL-MORPH SCENT EVOLUTION (Changes image and aroma on website scroll)
+   ========================================================================== */
+
+.scroll-scent-showcase {
+  position: relative;
+  min-height: 640px;
+  padding: 85px 0 80px;
+  background: #171211;
+  color: #f7ede2;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.scroll-showcase-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  transition: background 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+.scroll-showcase-shell {
+  position: relative;
+  z-index: 5;
+}
+
+.scroll-showcase-header {
+  text-align: center;
+  max-width: 780px;
+  margin: 0 auto 36px;
+}
+
+.scroll-showcase-header .eyebrow {
+  justify-content: center;
+}
+
+.scroll-showcase-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(34px, 4.2vw, 56px);
+  margin: 16px 0 14px;
+  color: #ffffff;
+}
+
+.scroll-showcase-header h2 em {
+  color: #e5c178;
+}
+
+.scroll-showcase-desc {
+  font-size: 12.5px;
+  line-height: 1.85;
+  color: #c8aea2;
+  margin: 0 auto 28px;
+  max-width: 640px;
+}
+
+/* Timeline Step Buttons */
+.scroll-timeline-nav {
+  display: flex;
+  gap: 9px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.timeline-step-btn {
+  position: relative;
+  background: rgba(23, 18, 17, 0.8);
+  border: 1px solid rgba(229, 193, 120, 0.22);
+  border-radius: 999px;
+  padding: 8px 18px;
+  color: #99847A;
+  font-size: 11px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s ease;
+}
+
+.timeline-step-btn:hover {
+  border-color: rgba(229, 193, 120, 0.5);
+  color: #e5c178;
+}
+
+.timeline-step-btn.is-active {
+  background: rgba(101, 34, 14, 0.65);
+  border-color: #e5c178;
+  color: #ffffff;
+  box-shadow: 0 4px 18px rgba(101, 34, 14, 0.6);
+}
+
+.timeline-step-btn .step-num {
+  font-weight: 700;
+  color: #e5c178;
+}
+
+/* Showcase Split Stage */
+.scroll-showcase-stage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 48px;
+  margin-top: 36px;
+}
+
+/* Flacon Center Podium */
+.scroll-flacon-podium {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  height: 480px;
+  margin: 0 auto;
+  display: grid;
+  place-items: center;
+}
+
+.podium-aura-ring {
+  position: absolute;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  border: 1px dashed rgba(229, 193, 120, 0.25);
+  animation: goldRingRotate 70s linear infinite;
+  pointer-events: none;
+}
+
+.podium-halo-core {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(229, 193, 120, 0.3) 0%, rgba(101, 34, 14, 0.35) 60%, transparent 80%);
+  filter: blur(28px);
+  pointer-events: none;
+}
+
+.podium-image-wrap {
+  position: relative;
+  z-index: 10;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.podium-flacon-img {
+  max-height: 380px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 26px 36px rgba(0, 0, 0, 0.85));
+  animation: flaconHover 6s ease-in-out infinite;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.podium-image-wrap:hover .podium-flacon-img {
+  transform: scale(1.05);
+}
+
+.podium-shadow {
+  width: 200px;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.85) 0%, transparent 70%);
+  filter: blur(8px);
+  margin-top: -12px;
+}
+
+.podium-spritz-btn {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  background: rgba(23, 18, 17, 0.9);
+  border: 1px solid rgba(229, 193, 120, 0.45);
+  border-radius: 999px;
+  padding: 7px 16px;
+  color: #e5c178;
+  font-size: 10.5px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+}
+
+.podium-spritz-btn:hover {
+  background: #e5c178;
+  color: #171211;
+  transform: translateX(-50%) translateY(-2px);
+}
+
+/* Scent Profile Card */
+.scroll-profile-card {
+  background: rgba(26, 20, 18, 0.92);
+  border: 1px solid rgba(229, 193, 120, 0.28);
+  border-left: 4px solid #e5c178;
+  border-radius: 20px;
+  padding: 36px 32px;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.7);
+  box-sizing: border-box;
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.profile-step-tag {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  color: #e5c178;
+  text-transform: uppercase;
+}
+
+.profile-size-tag {
+  font-size: 9px;
+  color: #99847A;
+  letter-spacing: 0.5px;
+}
+
+.profile-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 3.6vw, 48px);
+  color: #ffffff;
+  margin: 0 0 6px 0;
+  line-height: 1.1;
+}
+
+.profile-family {
+  font-size: 11.5px;
+  color: #e5c178;
+  letter-spacing: 0.5px;
+  margin: 0 0 14px 0;
+}
+
+.profile-quote {
+  font-style: italic;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #c8aea2;
+  margin: 0 0 24px 0;
+  padding-left: 14px;
+  border-left: 2px solid rgba(229, 193, 120, 0.35);
+}
+
+.profile-notes-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 26px;
+  padding: 16px 18px;
+  background: rgba(18, 12, 10, 0.65);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.note-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+}
+
+.note-lbl {
+  font-size: 8.5px;
+  letter-spacing: 1.3px;
+  color: #e5c178;
+  font-weight: 600;
+}
+
+.note-val {
+  color: #f7ede2;
+  font-weight: 500;
+}
+
+.profile-cta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 20px;
+}
+
+.profile-price span {
+  display: block;
+  font-size: 8.5px;
+  color: #99847A;
+  text-transform: uppercase;
+}
+
+.profile-price strong {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  color: #e5c178;
+}
+
+.profile-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+@media (max-width: 900px) {
+  .scroll-showcase-stage {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .scroll-flacon-podium {
+    height: 380px;
+  }
+  .podium-flacon-img {
+    max-height: 290px;
+  }
+  .podium-aura-ring {
+    width: 300px;
+    height: 300px;
+  }
+  .scroll-profile-card {
+    padding: 24px 20px;
+  }
+}
+
 /* Flacon Vintage Card */
 .flacon-vintage-card {
   position: absolute;

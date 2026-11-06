@@ -106,6 +106,142 @@ export class AppComponent implements OnInit, OnDestroy {
   fieldErrors: Record<string, string> = {};
   orderLookupQuery = '';
 
+  // Interactive Scroll-Driven Scent Morph Gallery
+  scrollScentIndex = 0;
+  scrollScentSpritzing = false;
+  private scrollScentSpritzTimer?: ReturnType<typeof setTimeout>;
+
+  readonly scrollScents = [
+    {
+      id: 1,
+      code: 'ZS-OUD-01',
+      name: 'Noir Oud',
+      family: 'Woody Oriental · Extrait de Parfum',
+      aura: 'Assam Agarwood · Ambergris · Mysore Sandalwood',
+      quote: '“The Sovereign Scent — Deep, resinous, magnetic.”',
+      price: 3499,
+      size: '100 ml',
+      concentration: 'Extrait de Parfum',
+      image: '/assets/hero-fragrance.svg',
+      gradient: 'radial-gradient(circle at 60% 50%, rgba(101, 34, 14, 0.75) 0%, rgba(23, 18, 17, 0.95) 65%, #171211 100%)',
+      accent: '#e5c178',
+      meters: { top: 'Assam Bergamot', heart: 'Aged Agarwood', base: 'Ambergris & Sandal' }
+    },
+    {
+      id: 2,
+      code: 'ZS-ROSE-02',
+      name: 'Rose Éclat',
+      family: 'Luminescent Floral · Eau de Parfum',
+      aura: 'Damask Rose Otto · French Pear · White Musk',
+      quote: '“Sunlit petals kissed with morning dew.”',
+      price: 2899,
+      size: '75 ml',
+      concentration: 'Eau de Parfum',
+      image: '/assets/products/rose-eclat.svg',
+      gradient: 'radial-gradient(circle at 60% 50%, rgba(141, 96, 79, 0.65) 0%, rgba(23, 18, 17, 0.95) 65%, #171211 100%)',
+      accent: '#e9d5cc',
+      meters: { top: 'French Pear', heart: 'Damask Rose Otto', base: 'Cashmere White Musk' }
+    },
+    {
+      id: 4,
+      code: 'ZS-AMBER-04',
+      name: 'Velvet Amber',
+      family: 'Sensual Resin · Extrait de Parfum',
+      aura: 'Madagascar Vanilla · Benzoin · Warm Woods',
+      quote: '“Liquid gold that melts onto skin like silk.”',
+      price: 3999,
+      size: '50 ml',
+      concentration: 'Extrait de Parfum',
+      image: '/assets/products/velvet-amber.svg',
+      gradient: 'radial-gradient(circle at 60% 50%, rgba(101, 34, 14, 0.8) 0%, rgba(61, 28, 6, 0.5) 60%, #171211 100%)',
+      accent: '#c8aea2',
+      meters: { top: 'Green Cardamom', heart: 'Bourbon Vanilla', base: 'Benzoin & Sandal' }
+    },
+    {
+      id: 7,
+      code: 'ZS-SAFF-07',
+      name: 'Saffron Smoke',
+      family: 'Smoky Leather · Extrait de Parfum',
+      aura: 'Kashmiri Saffron · Temple Incense · Smoked Birch',
+      quote: '“The sacred flame smoldering in quiet reverence.”',
+      price: 4499,
+      size: '50 ml',
+      concentration: 'Extrait de Parfum',
+      image: '/assets/products/saffron-smoke.svg',
+      gradient: 'radial-gradient(circle at 60% 50%, rgba(101, 34, 14, 0.9) 0%, rgba(80, 22, 8, 0.55) 60%, #171211 100%)',
+      accent: '#e5c178',
+      meters: { top: 'Kashmiri Saffron', heart: 'Temple Incense', base: 'Smoked Birch & Labdanum' }
+    },
+    {
+      id: 5,
+      code: 'ZS-AZURE-05',
+      name: 'Azure Coast',
+      family: 'Aquatic Woods · Eau de Parfum',
+      aura: 'Marine Salt · Crisp Bergamot · Sunlit Driftwood',
+      quote: '“Mediterranean sea air and sun-bleached coastal woods.”',
+      price: 2599,
+      size: '100 ml',
+      concentration: 'Eau de Parfum',
+      image: '/assets/products/azure-coast.svg',
+      gradient: 'radial-gradient(circle at 60% 50%, rgba(20, 65, 80, 0.65) 0%, rgba(23, 18, 17, 0.95) 65%, #171211 100%)',
+      accent: '#a0d2db',
+      meters: { top: 'Marine Salt & Lemon', heart: 'Crisp Neroli', base: 'Sunlit Driftwood' }
+    }
+  ];
+
+  get currentScrollScent() {
+    return this.scrollScents[this.scrollScentIndex] || this.scrollScents[0];
+  }
+
+  setScrollScent(index: number): void {
+    if (index >= 0 && index < this.scrollScents.length && index !== this.scrollScentIndex) {
+      this.scrollScentIndex = index;
+      this.triggerScrollScentSpritz();
+    }
+  }
+
+  triggerScrollScentSpritz(): void {
+    if (this.scrollScentSpritzTimer) {
+      clearTimeout(this.scrollScentSpritzTimer);
+    }
+    this.scrollScentSpritzing = true;
+    this.scrollScentSpritzTimer = setTimeout(() => {
+      this.scrollScentSpritzing = false;
+    }, 2200);
+  }
+
+  inspectScrollScent(item: typeof this.scrollScents[0]): void {
+    const found = this.allProducts.find(p => p.productCode === item.code) ||
+      this.products.find(p => p.productCode === item.code);
+    if (found) {
+      this.openProduct(found);
+    } else {
+      const synthetic: Product = {
+        id: item.id,
+        productCode: item.code,
+        name: item.name,
+        brand: 'Zauq & Shauq Atelier',
+        category: 'Unisex',
+        concentration: item.concentration,
+        size: item.size,
+        price: item.price,
+        originalPrice: item.price + 700,
+        rating: 4.8,
+        reviews: 95,
+        description: item.aura,
+        ingredients: 'Pure Botanical Distillates, Alcohol Denat., Parfum (Natural Essential Oils).',
+        notes: [item.meters.top, item.meters.heart, item.meters.base],
+        image: item.image,
+        badge: 'ROYAL EDIT',
+        featured: true,
+        bestseller: true,
+        newArrival: false,
+        stockQuantity: 40
+      };
+      this.openProduct(synthetic);
+    }
+  }
+
   readonly reviews = [
     { initials: 'AM', name: 'Aarav M.', title: 'A scent that feels personal', body: 'Noir Oud has the depth I was looking for. It opens beautifully and settles into a warm, polished scent that lasts through the evening.', product: 'Noir Oud' },
     { initials: 'SR', name: 'Sana R.', title: 'Beautifully considered', body: 'Rose Éclat feels soft without being too sweet. The packaging and the whole experience feel thoughtful and genuinely premium.', product: 'Rose Éclat' },
@@ -800,6 +936,24 @@ export class AppComponent implements OnInit, OnDestroy {
 
   @HostListener('window:scroll') onScroll(): void {
     this.showTop = window.scrollY > 420;
+
+    // Track scroll-morph scent section
+    if (typeof document !== 'undefined') {
+      const el = document.getElementById('scroll-scent-section');
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        const windowHeight = window.innerHeight || 800;
+        if (rect.top <= windowHeight * 0.65 && rect.bottom >= windowHeight * 0.2) {
+          const totalHeight = rect.height;
+          const scrolledIn = Math.max(0, (windowHeight * 0.5) - rect.top);
+          const progress = Math.min(1, Math.max(0, scrolledIn / totalHeight));
+          const index = Math.min(this.scrollScents.length - 1, Math.floor(progress * this.scrollScents.length));
+          if (index !== this.scrollScentIndex) {
+            this.setScrollScent(index);
+          }
+        }
+      }
+    }
   }
 
   @HostListener('document:keydown.escape') onEscape(): void {

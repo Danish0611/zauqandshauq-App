@@ -171,6 +171,134 @@
       </div>
     </section>
 
+    <!-- SCROLL-MORPH SCENT EVOLUTION (Changes image and aroma notes dynamically on website scrolling) -->
+    <section class="scroll-scent-showcase" id="scroll-scent-section" aria-label="Living Scent Scroll Evolution">
+      <div class="scroll-showcase-backdrop" [style.background]="currentScrollScent.gradient"></div>
+      
+      <div class="page-shell scroll-showcase-shell">
+        
+        <!-- Section Top Headline -->
+        <div class="scroll-showcase-header">
+          <div class="eyebrow eyebrow-light">
+            <span class="eyebrow-line"></span> THE LIVING SCENT ARCHITECTURE · SCROLL TO EXPERIENCE
+          </div>
+          <h2>Five Signatures. <em>One Continuous Journey.</em></h2>
+          <p class="scroll-showcase-desc">
+            As you scroll through our boutique, witness the flacon transform and disperse rare botanicals—from 20-year aged wild Assam agarwood to luminescent dawn Damask rose, warm molten vanilla benzoin, and holy Kashmiri saffron.
+          </p>
+
+          <!-- Interactive Scent Timeline Tabs (Clickable & Active on Scroll) -->
+          <div class="scroll-timeline-nav" role="tablist">
+            <button 
+              *ngFor="let s of scrollScents; let i = index"
+              type="button"
+              class="timeline-step-btn"
+              [class.is-active]="i === scrollScentIndex"
+              (click)="setScrollScent(i)"
+              [attr.aria-selected]="i === scrollScentIndex">
+              <span class="step-num">0{{ i + 1 }}</span>
+              <span class="step-title">{{ s.name }}</span>
+              <span class="step-active-glow" *ngIf="i === scrollScentIndex"></span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Split Stage: Flacon Display + Scent Notes Details -->
+        <div class="scroll-showcase-stage">
+          
+          <!-- Flacon Center Stage with Scent Diffuser Mist Spray -->
+          <div class="scroll-flacon-podium">
+            
+            <!-- Scent Diffuser Mist Atomizer Spray Animation on Scroll -->
+            <div class="scent-diffuser-atomizer scroll-diffuser" [class.spray-active]="scrollScentSpritzing" aria-hidden="true">
+              <div class="diffuser-nozzle-flare"></div>
+              <div class="diffuser-mist-cone"></div>
+              <div class="diffuser-mist-plume-left"></div>
+              <div class="diffuser-mist-plume-right"></div>
+              <div class="diffuser-particles">
+                <span class="diffuser-drop d1"></span>
+                <span class="diffuser-drop d2"></span>
+                <span class="diffuser-drop d3"></span>
+                <span class="diffuser-drop d4"></span>
+                <span class="diffuser-drop d5"></span>
+                <span class="diffuser-drop d6"></span>
+              </div>
+              <div class="diffuser-aroma-ring ring-1"></div>
+              <div class="diffuser-floating-note">✦ Diffusing {{ currentScrollScent.name }}</div>
+            </div>
+
+            <!-- Morphing Flacon Image with Golden Halo Ring -->
+            <div class="podium-aura-ring"></div>
+            <div class="podium-halo-core"></div>
+            
+            <div class="podium-image-wrap" (click)="inspectScrollScent(currentScrollScent)">
+              <img 
+                class="podium-flacon-img" 
+                [src]="currentScrollScent.image" 
+                [alt]="currentScrollScent.name + ' bottle in scroll exhibition'" />
+              <div class="podium-shadow"></div>
+            </div>
+
+            <!-- Manual Spritz Aroma Button -->
+            <button 
+              type="button" 
+              class="podium-spritz-btn" 
+              (click)="triggerScrollScentSpritz()"
+              title="Spritz aroma mist">
+              <span>💨 Spritz Scent Atomizer</span>
+              <span class="spritz-star">✦</span>
+            </button>
+          </div>
+
+          <!-- Active Scent Profile Card -->
+          <div class="scroll-profile-card">
+            <div class="profile-header">
+              <span class="profile-step-tag">SCENT 0{{ scrollScentIndex + 1 }} OF 0{{ scrollScents.length }}</span>
+              <span class="profile-size-tag">{{ currentScrollScent.size }} · {{ currentScrollScent.concentration }}</span>
+            </div>
+
+            <h3 class="profile-name">{{ currentScrollScent.name }}</h3>
+            <p class="profile-family">{{ currentScrollScent.family }}</p>
+            <blockquote class="profile-quote">{{ currentScrollScent.quote }}</blockquote>
+
+            <!-- Olfactory Notes Architecture -->
+            <div class="profile-notes-breakdown">
+              <div class="note-row">
+                <span class="note-lbl">TOP NOTE</span>
+                <strong class="note-val">{{ currentScrollScent.meters.top }}</strong>
+              </div>
+              <div class="note-row">
+                <span class="note-lbl">HEART ACCORD</span>
+                <strong class="note-val">{{ currentScrollScent.meters.heart }}</strong>
+              </div>
+              <div class="note-row">
+                <span class="note-lbl">BASE SILLAGE</span>
+                <strong class="note-val">{{ currentScrollScent.meters.base }}</strong>
+              </div>
+            </div>
+
+            <!-- Price & Actions -->
+            <div class="profile-cta-row">
+              <div class="profile-price">
+                <span>Price</span>
+                <strong>₹{{ currentScrollScent.price | number }}</strong>
+              </div>
+              <div class="profile-buttons">
+                <button type="button" class="btn-royal-gold" (click)="inspectScrollScent(currentScrollScent)">
+                  Inspect Flacon <span>↗</span>
+                </button>
+                <button type="button" class="btn-royal-outline" (click)="setView('shop')">
+                  Full Wardrobe →
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
     <!-- Mood Portals (From Image 2 Moodboard) -->
     <section class="mood-portals-section page-shell">
       <div class="section-heading">

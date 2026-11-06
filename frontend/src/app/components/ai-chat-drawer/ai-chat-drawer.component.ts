@@ -139,7 +139,7 @@ import { Product } from '../../product.model';
                     <strong class="mini-name" (click)="onViewProduct(prod)">{{ prod.name }}</strong>
                     <div class="mini-price-row">
                       <span class="mini-price">{{ prod.price | currency:'INR':'symbol':'1.0-0' }}</span>
-                      <small class="mini-conc">{{ prod.concentration || 'Eau de Parfum' }}</small>
+                      <small class="mini-conc">{{ prod.concentration || 'Extrait de Parfum' }}</small>
                     </div>
                     <div class="mini-notes-row" *ngIf="prod.notes && prod.notes.length > 0">
                       <span class="mini-note-chip" *ngFor="let note of prod.notes.slice(0, 3)">{{ note }}</span>
@@ -157,16 +157,18 @@ import { Product } from '../../product.model';
           </div>
         </div>
 
-        <!-- Typing Indicator -->
+        <!-- Typing Indicator with Scent Diffuser Mist Pulse -->
         <div class="chat-bubble-row model-row typing-row" *ngIf="loading">
           <div class="bubble-avatar">
             <span>Z&amp;S</span>
           </div>
           <div class="chat-bubble model-bubble typing-bubble">
-            <span class="typing-dot"></span>
-            <span class="typing-dot"></span>
-            <span class="typing-dot"></span>
-            <span class="typing-label">Nadir is selecting your fragrance recommendation...</span>
+            <div class="diffuser-pulse-wrap">
+              <span class="pulse-mist-ring ring-1"></span>
+              <span class="pulse-mist-ring ring-2"></span>
+              <span class="pulse-core-dot">✦</span>
+            </div>
+            <span class="typing-label">Nadir is consulting our botanical vault...</span>
           </div>
         </div>
       </div>
@@ -212,12 +214,12 @@ import { Product } from '../../product.model';
       gap: 12px;
       padding: 10px 18px 10px 14px;
       border-radius: 999px;
-      background: linear-gradient(135deg, rgba(14, 32, 26, 0.96) 0%, rgba(6, 18, 14, 0.98) 100%);
+      background: linear-gradient(135deg, #241b18 0%, #171211 100%);
       backdrop-filter: blur(20px) saturate(180%);
       -webkit-backdrop-filter: blur(20px) saturate(180%);
       border: 1px solid rgba(229, 193, 120, 0.45);
       color: #fffbf5;
-      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5), 0 0 20px rgba(196, 161, 93, 0.2);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7), 0 0 20px rgba(229, 193, 120, 0.25);
       cursor: pointer;
       transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
@@ -225,7 +227,7 @@ import { Product } from '../../product.model';
     .ai-concierge-launcher:hover {
       transform: translateY(-3px) scale(1.03);
       border-color: #e5c178;
-      box-shadow: 0 16px 44px rgba(0, 0, 0, 0.6), 0 0 28px rgba(229, 193, 120, 0.35);
+      box-shadow: 0 16px 44px rgba(0, 0, 0, 0.8), 0 0 28px rgba(229, 193, 120, 0.45);
     }
 
     .launcher-pulse {
@@ -235,8 +237,8 @@ import { Product } from '../../product.model';
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      background: #8ed0b5;
-      box-shadow: 0 0 10px #8ed0b5;
+      background: #e5c178;
+      box-shadow: 0 0 12px #e5c178;
       animation: pulseGlow 2s infinite;
     }
 
@@ -267,7 +269,7 @@ import { Product } from '../../product.model';
 
     .launcher-sub {
       font-size: 10px;
-      color: #d8bfa7;
+      color: #c8aea2;
       letter-spacing: 0.03em;
     }
 
@@ -276,13 +278,13 @@ import { Product } from '../../product.model';
       position: fixed;
       inset: 0;
       z-index: 2500;
-      background: rgba(3, 8, 6, 0.7);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+      background: rgba(18, 12, 10, 0.78);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       animation: fadeIn 0.25s ease;
     }
 
-    /* Drawer / Window Container */
+    /* Drawer / Window Container (Haute Parfumerie Obsidian & Amber) */
     .ai-chat-drawer {
       position: fixed;
       top: 0;
@@ -290,17 +292,17 @@ import { Product } from '../../product.model';
       bottom: 0;
       width: min(520px, 100%);
       z-index: 2600;
-      background: linear-gradient(165deg, rgba(14, 28, 23, 0.98) 0%, rgba(6, 14, 11, 0.99) 100%);
+      background: linear-gradient(165deg, #1f1614 0%, #171211 50%, #0d0908 100%);
       backdrop-filter: blur(36px) saturate(200%);
       -webkit-backdrop-filter: blur(36px) saturate(200%);
-      border-left: 1px solid rgba(229, 193, 120, 0.3);
-      box-shadow: -20px 0 60px rgba(0, 0, 0, 0.75);
+      border-left: 1px solid rgba(229, 193, 120, 0.35);
+      box-shadow: -20px 0 60px rgba(0, 0, 0, 0.85);
       display: flex;
       flex-direction: column;
       transform: translateX(105%);
       transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
       box-sizing: border-box;
-      color: #f7f2ea;
+      color: #f7ede2;
     }
 
     .ai-chat-drawer.is-open {
@@ -313,8 +315,8 @@ import { Product } from '../../product.model';
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid rgba(229, 193, 120, 0.2);
-      background: rgba(9, 21, 17, 0.6);
+      border-bottom: 1px solid rgba(229, 193, 120, 0.22);
+      background: rgba(23, 18, 17, 0.9);
       flex-shrink: 0;
     }
 
@@ -328,13 +330,13 @@ import { Product } from '../../product.model';
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background: rgba(229, 193, 120, 0.15);
-      border: 1px solid rgba(229, 193, 120, 0.4);
+      background: rgba(101, 34, 14, 0.45);
+      border: 1px solid rgba(229, 193, 120, 0.45);
       display: grid;
       place-items: center;
-      font-size: 20px;
+      font-size: 18px;
       color: #e5c178;
-      box-shadow: 0 0 14px rgba(229, 193, 120, 0.25);
+      box-shadow: 0 0 16px rgba(229, 193, 120, 0.3);
     }
 
     .header-titles {
@@ -351,10 +353,10 @@ import { Product } from '../../product.model';
 
     .concierge-brand-lockup h3 {
       margin: 0;
-      font-family: var(--font-display, 'Cormorant Garamond', Georgia, serif);
+      font-family: 'Playfair Display', Georgia, serif;
       font-size: 19px;
       font-weight: 600;
-      color: #fffbf5;
+      color: #ffffff;
       letter-spacing: -0.2px;
     }
 
@@ -362,14 +364,14 @@ import { Product } from '../../product.model';
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: #8ed0b5;
-      box-shadow: 0 0 8px #8ed0b5;
+      background: #e5c178;
+      box-shadow: 0 0 10px #e5c178;
     }
 
     .concierge-subtitle {
       margin: 0;
       font-size: 10px;
-      color: #d8bfa7;
+      color: #c8aea2;
       letter-spacing: 0.04em;
     }
 
@@ -384,8 +386,8 @@ import { Product } from '../../product.model';
       height: 34px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #d8bfa7;
+      border: 1px solid rgba(229, 193, 120, 0.25);
+      color: #c8aea2;
       display: grid;
       place-items: center;
       cursor: pointer;
@@ -402,14 +404,14 @@ import { Product } from '../../product.model';
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      background: rgba(14, 28, 24, 0.9);
+      background: rgba(23, 18, 17, 0.95);
       border: 1px solid rgba(229, 193, 120, 0.4);
       color: #fffdf7;
       display: grid;
       place-items: center;
       cursor: pointer;
       transition: all 0.25s ease;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
     }
 
     .chat-close-btn:hover {
@@ -421,21 +423,21 @@ import { Product } from '../../product.model';
 
     /* Philosophy Strip */
     .chat-philosophy-strip {
-      padding: 7px 18px;
-      background: rgba(229, 193, 120, 0.08);
-      border-bottom: 1px solid rgba(229, 193, 120, 0.15);
+      padding: 8px 18px;
+      background: rgba(101, 34, 14, 0.28);
+      border-bottom: 1px solid rgba(229, 193, 120, 0.2);
       text-align: center;
       font-size: 11px;
       color: #e5c178;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
       flex-shrink: 0;
     }
 
     /* Starter Pills */
     .chat-starter-pills {
       padding: 12px 18px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-      background: rgba(0, 0, 0, 0.2);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.25);
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -446,7 +448,7 @@ import { Product } from '../../product.model';
       font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      color: #d8bfa7;
+      color: #c8aea2;
       font-weight: 600;
     }
 
@@ -464,20 +466,20 @@ import { Product } from '../../product.model';
 
     .starter-pill {
       white-space: nowrap;
-      padding: 6px 12px;
+      padding: 6px 13px;
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(229, 193, 120, 0.3);
-      color: #f7f2ea;
+      color: #f7ede2;
       font-size: 11px;
       cursor: pointer;
       transition: all 0.2s ease;
     }
 
     .starter-pill:hover {
-      background: rgba(229, 193, 120, 0.18);
+      background: rgba(229, 193, 120, 0.22);
       border-color: #e5c178;
-      color: #e5c178;
+      color: #ffffff;
       transform: translateY(-1px);
     }
 
@@ -489,7 +491,7 @@ import { Product } from '../../product.model';
       display: flex;
       flex-direction: column;
       gap: 18px;
-      background: radial-gradient(circle at 80% 20%, rgba(9, 61, 53, 0.15) 0%, transparent 60%);
+      background: radial-gradient(circle at 75% 15%, rgba(101, 34, 14, 0.22) 0%, rgba(23, 18, 17, 0.98) 70%);
     }
 
     .chat-bubble-row {
@@ -511,7 +513,7 @@ import { Product } from '../../product.model';
       width: 32px;
       height: 32px;
       border-radius: 50%;
-      background: rgba(229, 193, 120, 0.2);
+      background: rgba(101, 34, 14, 0.6);
       border: 1px solid rgba(229, 193, 120, 0.45);
       display: grid;
       place-items: center;
@@ -534,25 +536,29 @@ import { Product } from '../../product.model';
     }
 
     .chat-bubble {
-      padding: 12px 16px;
+      padding: 13px 17px;
       border-radius: 18px;
       font-size: 12.5px;
-      line-height: 1.6;
+      line-height: 1.65;
       word-break: break-word;
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 6px 22px rgba(0, 0, 0, 0.45);
     }
 
+    /* USER BUBBLE: WARM COGNAC LEATHER ACCENT */
     .user-bubble {
-      background: linear-gradient(135deg, #0d5e50 0%, #09473d 100%);
-      color: #fffbf5;
-      border: 1px solid rgba(142, 208, 181, 0.35);
+      background: linear-gradient(135deg, #65220E 0%, #8D604F 100%);
+      color: #ffffff;
+      border: 1px solid rgba(229, 193, 120, 0.45);
       border-bottom-right-radius: 4px;
+      box-shadow: 0 4px 18px rgba(101, 34, 14, 0.5);
     }
 
+    /* MODEL BUBBLE: OBSIDIAN SMOKED GLASS WITH GOLD TRIM */
     .model-bubble {
-      background: rgba(18, 36, 29, 0.85);
-      color: #f7f2ea;
-      border: 1px solid rgba(229, 193, 120, 0.25);
+      background: rgba(30, 24, 22, 0.94);
+      color: #f7ede2;
+      border: 1px solid rgba(229, 193, 120, 0.28);
+      border-left: 3px solid #e5c178;
       border-bottom-left-radius: 4px;
     }
 
@@ -570,22 +576,70 @@ import { Product } from '../../product.model';
     }
 
     .bubble-text em {
-      color: #d8bfa7;
+      color: #c8aea2;
     }
 
     .bubble-time {
       font-size: 9px;
-      color: rgba(247, 242, 234, 0.45);
+      color: rgba(247, 237, 226, 0.5);
       margin-top: 4px;
       padding: 0 4px;
     }
 
+    /* Diffuser Mist Pulse in Typing Indicator */
+    .typing-bubble {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 18px;
+    }
+
+    .diffuser-pulse-wrap {
+      position: relative;
+      width: 20px;
+      height: 20px;
+      display: grid;
+      place-items: center;
+    }
+
+    .pulse-core-dot {
+      color: #e5c178;
+      font-size: 13px;
+      animation: pulseCore 1.5s infinite ease-in-out;
+    }
+
+    .pulse-mist-ring {
+      position: absolute;
+      border: 1px solid rgba(229, 193, 120, 0.6);
+      border-radius: 50%;
+      animation: expandMistRing 2s infinite ease-out;
+    }
+
+    .pulse-mist-ring.ring-1 { width: 14px; height: 14px; animation-delay: 0s; }
+    .pulse-mist-ring.ring-2 { width: 14px; height: 14px; animation-delay: 0.8s; }
+
+    @keyframes expandMistRing {
+      0% { transform: scale(0.6); opacity: 0.9; }
+      100% { transform: scale(2.4); opacity: 0; }
+    }
+
+    @keyframes pulseCore {
+      0%, 100% { transform: scale(0.9); opacity: 0.7; }
+      50% { transform: scale(1.2); opacity: 1; }
+    }
+
+    .typing-label {
+      font-size: 11.5px;
+      color: #e5c178;
+      font-style: italic;
+    }
+
     /* Recommended Product Mini Cards Deck */
     .recommended-products-deck {
-      margin-top: 10px;
+      margin-top: 12px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 8px;
       width: 100%;
     }
 
@@ -599,88 +653,79 @@ import { Product } from '../../product.model';
 
     .deck-scroll {
       display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      padding: 4px 2px 8px;
-      scrollbar-width: thin;
-      scrollbar-color: #c4a15d rgba(0,0,0,0.2);
+      flex-direction: column;
+      gap: 8px;
     }
 
     .product-mini-card {
-      min-width: 220px;
-      max-width: 240px;
-      border-radius: 14px;
-      background: rgba(8, 20, 16, 0.95);
-      border: 1px solid rgba(229, 193, 120, 0.35);
-      overflow: hidden;
       display: flex;
-      flex-direction: column;
-      flex-shrink: 0;
-      transition: all 0.25s ease;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      gap: 12px;
+      padding: 10px 12px;
+      background: rgba(23, 18, 17, 0.95);
+      border: 1px solid rgba(229, 193, 120, 0.28);
+      border-radius: 12px;
+      align-items: center;
+      transition: all 0.2s ease;
     }
 
     .product-mini-card:hover {
-      transform: translateY(-2px);
       border-color: #e5c178;
-      box-shadow: 0 10px 24px rgba(229, 193, 120, 0.2);
+      background: rgba(45, 30, 26, 0.95);
+      transform: translateY(-2px);
     }
 
     .mini-img-wrap {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      background: rgba(101, 34, 14, 0.25);
       position: relative;
-      width: 100%;
-      height: 110px;
-      background: radial-gradient(circle at 50% 50%, rgba(9, 61, 53, 0.5) 0%, rgba(4, 18, 15, 0.9) 100%);
-      display: grid;
-      place-items: center;
+      overflow: hidden;
+      flex-shrink: 0;
       cursor: pointer;
     }
 
     .mini-img-wrap img {
-      width: 80px;
-      height: 80px;
-      object-fit: contain;
-      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.6));
-      transition: transform 0.3s ease;
-    }
-
-    .mini-img-wrap:hover img {
-      transform: scale(1.08);
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     .mini-badge {
       position: absolute;
-      top: 6px;
-      left: 6px;
-      background: #c89d54;
-      color: #060b09;
-      font-size: 7.5px;
+      top: 3px;
+      left: 3px;
+      font-size: 7px;
+      background: #e5c178;
+      color: #171211;
+      padding: 2px 4px;
+      border-radius: 3px;
       font-weight: 700;
-      padding: 2px 6px;
-      border-radius: 999px;
-      letter-spacing: 0.05em;
     }
 
     .mini-info {
-      padding: 10px 12px;
+      flex: 1;
+      min-width: 0;
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 2px;
     }
 
     .mini-cat {
       font-size: 8px;
+      color: #c8aea2;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #d8bfa7;
+      letter-spacing: 0.8px;
     }
 
     .mini-name {
-      font-family: var(--font-display, 'Cormorant Garamond', Georgia, serif);
-      font-size: 15px;
-      color: #fffbf5;
+      font-family: 'Playfair Display', serif;
+      font-size: 14px;
+      color: #ffffff;
       cursor: pointer;
-      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .mini-name:hover {
@@ -691,119 +736,76 @@ import { Product } from '../../product.model';
       display: flex;
       align-items: baseline;
       gap: 6px;
-      margin-top: 2px;
     }
 
     .mini-price {
+      font-family: 'Playfair Display', serif;
       font-size: 13px;
-      font-weight: 600;
       color: #e5c178;
+      font-weight: 600;
     }
 
     .mini-conc {
-      font-size: 9px;
-      color: rgba(247, 242, 234, 0.5);
+      font-size: 8px;
+      color: #99847A;
     }
 
     .mini-notes-row {
       display: flex;
-      flex-wrap: wrap;
       gap: 4px;
-      margin-top: 4px;
+      flex-wrap: wrap;
+      margin: 2px 0 4px;
     }
 
     .mini-note-chip {
       font-size: 8px;
-      padding: 1px 5px;
-      border-radius: 999px;
+      padding: 2px 6px;
+      border-radius: 4px;
       background: rgba(255, 255, 255, 0.06);
-      color: #d8bfa7;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #e9d5cc;
     }
 
     .mini-actions {
       display: flex;
       gap: 6px;
-      margin-top: 8px;
+      margin-top: 2px;
+    }
+
+    .btn-mini-view,
+    .btn-mini-add {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 9.5px;
+      cursor: pointer;
+      transition: all 0.2s ease;
     }
 
     .btn-mini-view {
-      flex: 1;
-      padding: 6px 0;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(229, 193, 120, 0.3);
-      color: #f7f2ea;
-      font-size: 10px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s ease;
+      background: transparent;
+      border: 1px solid rgba(229, 193, 120, 0.4);
+      color: #e5c178;
     }
 
     .btn-mini-view:hover {
       background: rgba(229, 193, 120, 0.2);
-      border-color: #e5c178;
-      color: #e5c178;
     }
 
     .btn-mini-add {
-      flex: 1;
-      padding: 6px 0;
-      border-radius: 8px;
-      background: linear-gradient(135deg, #09473d 0%, #0d5e50 100%);
-      border: 1px solid #14806e;
-      color: #fffbf5;
-      font-size: 10px;
+      background: #e5c178;
+      border: 1px solid #e5c178;
+      color: #171211;
       font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s ease;
     }
 
     .btn-mini-add:hover {
-      background: linear-gradient(135deg, #0d5e50 0%, #117866 100%);
-      box-shadow: 0 4px 12px rgba(9, 61, 53, 0.5);
+      background: #faeed4;
     }
 
-    /* Typing Animation */
-    .typing-row {
-      align-items: center;
-    }
-
-    .typing-bubble {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 10px 14px;
-    }
-
-    .typing-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #e5c178;
-      animation: typingBounce 1.4s infinite ease-in-out;
-    }
-
-    .typing-dot:nth-child(2) {
-      animation-delay: 0.2s;
-    }
-
-    .typing-dot:nth-child(3) {
-      animation-delay: 0.4s;
-    }
-
-    .typing-label {
-      margin-left: 6px;
-      font-size: 10.5px;
-      color: #d8bfa7;
-      font-style: italic;
-    }
-
-    /* Chat Footer / Input Form */
+    /* Chat Footer & Input */
     .chat-footer {
       padding: 14px 18px 18px;
-      border-top: 1px solid rgba(229, 193, 120, 0.2);
-      background: rgba(7, 16, 13, 0.95);
+      border-top: 1px solid rgba(229, 193, 120, 0.22);
+      background: #171211;
       flex-shrink: 0;
     }
 
@@ -811,40 +813,38 @@ import { Product } from '../../product.model';
       display: flex;
       align-items: center;
       gap: 8px;
-      position: relative;
+      background: rgba(30, 24, 22, 0.95);
+      border: 1px solid rgba(229, 193, 120, 0.3);
+      border-radius: 999px;
+      padding: 5px 6px 5px 16px;
+      transition: all 0.25s ease;
+    }
+
+    .chat-form:focus-within {
+      border-color: #e5c178;
+      box-shadow: 0 0 16px rgba(229, 193, 120, 0.25);
     }
 
     .chat-input {
       flex: 1;
-      min-width: 0;
-      height: 44px;
-      padding: 0 16px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(229, 193, 120, 0.3);
-      color: #ffffff;
-      font-size: 12.5px;
+      background: transparent;
+      border: none;
       outline: none;
-      transition: all 0.2s ease;
-    }
-
-    .chat-input:focus {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: #e5c178;
-      box-shadow: 0 0 14px rgba(229, 193, 120, 0.2);
+      font-size: 11.5px;
+      color: #f7ede2;
     }
 
     .chat-input::placeholder {
-      color: rgba(247, 242, 234, 0.4);
+      color: #99847A;
     }
 
     .chat-send-btn {
-      width: 44px;
-      height: 44px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #c89d54 0%, #aa8643 100%);
-      border: 1px solid #e5c178;
-      color: #060b09;
+      border: none;
+      background: linear-gradient(135deg, #faeed4 0%, #e5c178 50%, #c4a15d 100%);
+      color: #171211;
       display: grid;
       place-items: center;
       cursor: pointer;
@@ -853,33 +853,21 @@ import { Product } from '../../product.model';
     }
 
     .chat-send-btn:hover:not(:disabled) {
-      transform: scale(1.06);
-      box-shadow: 0 0 16px rgba(229, 193, 120, 0.4);
+      transform: scale(1.08);
+      box-shadow: 0 0 14px rgba(229, 193, 120, 0.6);
     }
 
     .chat-send-btn:disabled {
-      opacity: 0.4;
+      opacity: 0.35;
       cursor: not-allowed;
     }
 
     .chat-footer-note {
       text-align: center;
-      margin-top: 8px;
       font-size: 9px;
-      color: rgba(247, 242, 234, 0.4);
-      letter-spacing: 0.04em;
-    }
-
-    /* Keyframes */
-    @keyframes pulseGlow {
-      0%, 100% {
-        transform: scale(1);
-        opacity: 0.9;
-      }
-      50% {
-        transform: scale(1.4);
-        opacity: 0.4;
-      }
+      color: #99847A;
+      margin-top: 8px;
+      letter-spacing: 0.03em;
     }
 
     @keyframes fadeIn {
@@ -887,41 +875,9 @@ import { Product } from '../../product.model';
       to { opacity: 1; }
     }
 
-    @keyframes typingBounce {
-      0%, 80%, 100% {
-        transform: scale(0.6);
-        opacity: 0.5;
-      }
-      40% {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-
-    /* Mobile Responsive */
-    @media (max-width: 600px) {
-      .ai-concierge-launcher {
-        bottom: 16px;
-        right: 16px;
-        padding: 8px 14px 8px 10px;
-      }
-      .ai-chat-drawer {
-        width: 100%;
-        max-width: 100%;
-        border-left: none;
-      }
-      .chat-header {
-        padding: 14px 16px;
-      }
-      .chat-messages-container {
-        padding: 14px 12px;
-      }
-      .product-mini-card {
-        min-width: 200px;
-      }
-      .chat-footer {
-        padding: 10px 14px 14px;
-      }
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.3); opacity: 1; }
     }
   `]
 })
@@ -1035,10 +991,10 @@ export class AiChatDrawerComponent implements OnInit {
   formatMessage(content: string): string {
     if (!content) return '';
 
-    // Normalize any broken currency symbols or question marks into Indian Rupee symbol ₹
+    // Normalize broken currency
     let formatted = content.replace(/(?:[\uFFFD?]+1?|Rs\.?\s*|INR\s*)(\d[\d,]*)/gi, '₹$1');
 
-    // Remove [Product: Name] tags from raw text to avoid cluttered text, replacing with bold name
+    // Replace [Product: Name] with bold golden title
     formatted = formatted.replace(/\[Product:\s*([^\]]+)\]/gi, '<strong>$1</strong>');
 
     // Parse simple Markdown bold (**text**)
@@ -1047,12 +1003,13 @@ export class AiChatDrawerComponent implements OnInit {
     // Parse Markdown italic (*text*)
     formatted = formatted.replace(/\*(.*?)\*/g, '<em>$1</em>');
 
-    // Convert bullet points
-    formatted = formatted.replace(/^\s*[-•]\s*(.+)$/gm, '• $1<br/>');
+    // Bullet points
+    formatted = formatted.replace(/\n\s*•\s*/g, '<br>&nbsp;&nbsp;• ');
+    formatted = formatted.replace(/\n\s*✦\s*/g, '<br><br>✦ ');
+    formatted = formatted.replace(/\n\n/g, '<br><br>');
+    formatted = formatted.replace(/\n/g, '<br>');
 
-    // Convert line breaks to <p> or <br>
-    const paragraphs = formatted.split(/\n\n+/);
-    return paragraphs.map(p => `<p>${p.replace(/\n/g, '<br/>')}</p>`).join('');
+    return formatted;
   }
 
   private scrollToBottom(): void {
@@ -1069,4 +1026,3 @@ export class AiChatDrawerComponent implements OnInit {
     }
   }
 }
-
