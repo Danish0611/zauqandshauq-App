@@ -1,6 +1,19 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { Product } from '../../product.model';
+
+export interface FragranticaAccord {
+  name: string;
+  percent: number;
+  color: string;
+}
+
+export interface FragranticaScore {
+  longevity: string;
+  sillage: string;
+  season: string;
+  timeOfDay: string;
+}
 
 export interface HeroSlide {
   id: number;
@@ -20,6 +33,8 @@ export interface HeroSlide {
     heart: string;
     base: string;
   };
+  accords: FragranticaAccord[];
+  fragrantica: FragranticaScore;
   quoteScript: string;
   quoteAuthor: string;
   quoteTranslation: string;
@@ -42,17 +57,11 @@ export interface HeroSlide {
       (touchend)="onTouchEnd($event)"
       aria-label="Haute Parfumerie Showcase Slider">
 
-      <!-- Ambient Background Texture & Glow Mesh -->
+      <!-- Ambient Background Video & Liquid Gold Particle Sillage Canvas -->
       <div class="slider-backdrop" [style.background]="currentSlide.spotlightGradient"></div>
+      <canvas #mistCanvas class="hero-ambient-canvas" aria-hidden="true"></canvas>
       <div class="slider-grain"></div>
-      <div class="scent-trail-layer" aria-hidden="true">
-        <span class="scent-particle p1"></span>
-        <span class="scent-particle p2"></span>
-        <span class="scent-particle p3"></span>
-        <span class="scent-particle p4"></span>
-        <span class="scent-particle p5"></span>
-      </div>
-
+      
       <!-- Top Slide Progress Indicator -->
       <div class="slide-progress-bar-wrap" aria-hidden="true">
         <div class="slide-progress-fill" [style.width.%]="progressPercent"></div>
@@ -88,6 +97,33 @@ export interface HeroSlide {
           <p class="slide-narrative">
             {{ currentSlide.description }}
           </p>
+
+          <!-- FRAGRANTICA-INSPIRED MAIN ACCORDS BARS -->
+          <div class="fragrantica-mini-accords" aria-label="Main Fragrantica Olfactory Accords">
+            <div class="accords-header">
+              <span class="accords-kicker">MAIN ACCORDS</span>
+              <span class="accords-source">FRAGRANTICA PROFILE</span>
+            </div>
+            <div class="accords-bars-deck">
+              <div 
+                *ngFor="let acc of currentSlide.accords" 
+                class="accord-bar-row"
+                [title]="acc.name + ': ' + acc.percent + '% prominence'">
+                <span class="accord-title">{{ acc.name }}</span>
+                <div class="accord-meter-track">
+                  <div class="accord-meter-fill" [style.width.%]="acc.percent" [style.background]="acc.color"></div>
+                </div>
+                <span class="accord-percent">{{ acc.percent }}%</span>
+              </div>
+            </div>
+            
+            <!-- Sensory Performance Badges -->
+            <div class="fragrantica-metrics-strip">
+              <span class="f-pill"><i class="f-bullet">⏱</i> {{ currentSlide.fragrantica.longevity }}</span>
+              <span class="f-pill"><i class="f-bullet">✨</i> {{ currentSlide.fragrantica.sillage }}</span>
+              <span class="f-pill"><i class="f-bullet">❄️</i> {{ currentSlide.fragrantica.season }}</span>
+            </div>
+          </div>
 
           <!-- Interactive Olfactory Pyramid Chips -->
           <div class="olfactory-pyramid" aria-label="Olfactory Notes Pyramid">
@@ -290,7 +326,7 @@ export interface HeroSlide {
         <div class="page-shell bar-content">
           <div class="bar-item">
             <span class="bar-star">✦</span>
-            <span>20% Pure Botanical Extraits</span>
+            <span>Pure Botanical Distillates</span>
           </div>
           <span class="bar-dot">·</span>
           <div class="bar-item">
@@ -305,7 +341,7 @@ export interface HeroSlide {
           <span class="bar-dot">·</span>
           <div class="bar-item">
             <span class="bar-star">♡</span>
-            <span>Royal Wax-Sealed Coffret Packaging</span>
+            <span>Royal Wax-Sealed Packaging</span>
           </div>
         </div>
       </div>
@@ -313,11 +349,13 @@ export interface HeroSlide {
     </section>
   `
 })
-export class HeroComponent implements OnInit, OnDestroy {
+export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() heroProduct?: Product;
   @Input() allProducts: Product[] = [];
   @Output() explore = new EventEmitter<string>();
   @Output() viewProduct = new EventEmitter<Product>();
+
+  @ViewChild('mistCanvas') private mistCanvasRef?: ElementRef<HTMLCanvasElement>;
 
   readonly slides: HeroSlide[] = [
     {
@@ -338,12 +376,24 @@ export class HeroComponent implements OnInit, OnDestroy {
         heart: 'Aged Agarwood · Damask Rose',
         base: 'Golden Ambergris · Mysore Sandal'
       },
+      accords: [
+        { name: 'Oud & Woods', percent: 96, color: '#8B5A2B' },
+        { name: 'Warm Amber', percent: 85, color: '#D49B35' },
+        { name: 'Warm Spicy', percent: 74, color: '#9C3D28' },
+        { name: 'Smoky Incense', percent: 66, color: '#3A3238' }
+      ],
+      fragrantica: {
+        longevity: 'Eternal (14+ hrs)',
+        sillage: 'Royal Projection',
+        season: 'Fall · Winter',
+        timeOfDay: 'Evening Gala'
+      },
       quoteScript: 'خوشبو وہ خاموش زبان ہے جو دل سے دل تک بات کرتی ہے',
       quoteAuthor: 'Urdu Literary Tradition',
       quoteTranslation: '“Fragrance is the silent tongue that speaks from heart to heart.”',
       badges: ['24h Extrait Longevity', 'Assam Agarwood', 'Royal House Fav.'],
-      spotlightGradient: 'radial-gradient(circle at 65% 45%, rgba(101, 34, 14, 0.65) 0%, rgba(23, 18, 17, 0.95) 60%, #171211 100%)',
-      accentColor: '#e5c178'
+      spotlightGradient: 'radial-gradient(circle at 65% 45%, rgba(13, 56, 41, 0.78) 0%, rgba(5, 26, 19, 0.96) 60%, #03120c 100%)',
+      accentColor: '#e5c875'
     },
     {
       id: 2,
@@ -363,11 +413,23 @@ export class HeroComponent implements OnInit, OnDestroy {
         heart: 'Damask Rose Otto · Peony',
         base: 'Cashmere Musk · Golden Amber'
       },
+      accords: [
+        { name: 'Damask Rose', percent: 98, color: '#C96B82' },
+        { name: 'Crisp Pear', percent: 82, color: '#8DAA4A' },
+        { name: 'White Musk', percent: 75, color: '#D4C4B5' },
+        { name: 'Soft Floral', percent: 64, color: '#E5A5B5' }
+      ],
+      fragrantica: {
+        longevity: 'Long Lasting (10+ hrs)',
+        sillage: 'Alluring Aura',
+        season: 'Spring · Summer',
+        timeOfDay: 'Day & Evening'
+      },
       quoteScript: 'بوی گل و ریحان همه از لطف حبیب است',
       quoteAuthor: 'Hafez Shirazi',
       quoteTranslation: '“The perfume of rose and sweet basil flows from the grace of the Beloved.”',
       badges: ['Luminescent Sillage', 'Grasse Rose Otto', 'Solar Romance'],
-      spotlightGradient: 'radial-gradient(circle at 65% 45%, rgba(141, 96, 79, 0.55) 0%, rgba(23, 18, 17, 0.95) 60%, #171211 100%)',
+      spotlightGradient: 'radial-gradient(circle at 65% 45%, rgba(89, 28, 52, 0.65) 0%, rgba(6, 26, 19, 0.96) 60%, #03120c 100%)',
       accentColor: '#e9d5cc'
     },
     {
@@ -388,11 +450,23 @@ export class HeroComponent implements OnInit, OnDestroy {
         heart: 'Bourbon Vanilla · Benzoin Resins',
         base: 'Dark Amber · Creamy Sandalwood'
       },
+      accords: [
+        { name: 'Amber Resins', percent: 95, color: '#D49B35' },
+        { name: 'Bourbon Vanilla', percent: 88, color: '#C58F48' },
+        { name: 'Mysore Sandal', percent: 78, color: '#A07242' },
+        { name: 'Sweet Balsamic', percent: 65, color: '#8F6543' }
+      ],
+      fragrantica: {
+        longevity: 'Eternal (14+ hrs)',
+        sillage: 'Royal Sillage',
+        season: 'Autumn · Winter',
+        timeOfDay: 'Intimate Night'
+      },
       quoteScript: 'ز شوق روی تو دل در برم فغان دارد',
       quoteAuthor: 'Jalal al-Din Rumi',
       quoteTranslation: '“From yearning for your presence, my heart sings within my chest.”',
       badges: ['30% Concentration', 'Bourbon Vanilla', 'Sensual Warmth'],
-      spotlightGradient: 'radial-gradient(circle at 65% 45%, rgba(101, 34, 14, 0.7) 0%, rgba(94, 85, 81, 0.35) 55%, #171211 100%)',
+      spotlightGradient: 'radial-gradient(circle at 65% 45%, rgba(138, 92, 33, 0.72) 0%, rgba(6, 26, 19, 0.96) 60%, #03120c 100%)',
       accentColor: '#c8aea2'
     },
     {
@@ -413,11 +487,23 @@ export class HeroComponent implements OnInit, OnDestroy {
         heart: 'Temple Incense · Black Leather',
         base: 'Smoked Birch · Labdanum Resin'
       },
+      accords: [
+        { name: 'Mongra Saffron', percent: 94, color: '#B34A26' },
+        { name: 'Temple Incense', percent: 86, color: '#4D3B43' },
+        { name: 'Antique Leather', percent: 78, color: '#6E452B' },
+        { name: 'Smoked Woods', percent: 68, color: '#544136' }
+      ],
+      fragrantica: {
+        longevity: 'Eternal (16+ hrs)',
+        sillage: 'Commanding Wake',
+        season: 'Winter · Grand Galas',
+        timeOfDay: 'Nocturnal'
+      },
       quoteScript: 'عطرِ تو می آید و جان تازه می شود',
       quoteAuthor: 'Classical Persian Verse',
       quoteTranslation: '“Your fragrance arrives, and the soul is born anew.”',
       badges: ['Mongra Saffron', 'Ancient Incense', 'Limited Batch'],
-      spotlightGradient: 'radial-gradient(circle at 65% 45%, rgba(101, 34, 14, 0.75) 0%, rgba(141, 96, 79, 0.45) 55%, #171211 100%)',
+      spotlightGradient: 'radial-gradient(circle at 65% 45%, rgba(115, 48, 22, 0.75) 0%, rgba(6, 26, 19, 0.96) 60%, #03120c 100%)',
       accentColor: '#e5c178'
     }
   ];
@@ -436,14 +522,21 @@ export class HeroComponent implements OnInit, OnDestroy {
   private readonly SLIDE_DURATION_MS = 6000;
   private readonly PROGRESS_STEP_MS = 50;
 
+  // Particle Canvas Simulator
+  private animFrameId?: number;
+  private particles: Array<{ x: number; y: number; r: number; vy: number; vx: number; alpha: number; maxAlpha: number }> = [];
+
   get currentSlide(): HeroSlide {
     return this.slides[this.currentSlideIndex];
   }
 
   ngOnInit(): void {
     this.startProgress();
-    // Trigger initial welcoming aroma spritz
     setTimeout(() => this.triggerSpritz(), 800);
+  }
+
+  ngAfterViewInit(): void {
+    this.initMistCanvas();
   }
 
   ngOnDestroy(): void {
@@ -451,6 +544,67 @@ export class HeroComponent implements OnInit, OnDestroy {
     if (this.spritzTimeout) {
       clearTimeout(this.spritzTimeout);
     }
+    if (this.animFrameId) {
+      cancelAnimationFrame(this.animFrameId);
+    }
+  }
+
+  private initMistCanvas(): void {
+    if (!this.mistCanvasRef) return;
+    const canvas = this.mistCanvasRef.nativeElement;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const resize = () => {
+      canvas.width = canvas.parentElement?.clientWidth || window.innerWidth;
+      canvas.height = canvas.parentElement?.clientHeight || 650;
+    };
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
+
+    // Seed 40 ambient floating scent particles
+    this.particles = [];
+    for (let i = 0; i < 40; i++) {
+      this.particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 2.2 + 0.8,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: -(Math.random() * 0.5 + 0.25),
+        alpha: Math.random() * 0.6,
+        maxAlpha: Math.random() * 0.5 + 0.2
+      });
+    }
+
+    const render = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      for (const p of this.particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.alpha += 0.005;
+        if (p.alpha > p.maxAlpha) {
+          p.alpha = 0.05;
+        }
+
+        if (p.y < -10) {
+          p.y = canvas.height + 10;
+          p.x = Math.random() * canvas.width;
+        }
+        if (p.x < 0) p.x = canvas.width;
+        if (p.x > canvas.width) p.x = 0;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(229, 200, 117, ${p.alpha})`;
+        ctx.shadowColor = '#d4af37';
+        ctx.shadowBlur = 6;
+        ctx.fill();
+      }
+
+      this.animFrameId = requestAnimationFrame(render);
+    };
+    render();
   }
 
   @HostListener('window:keydown', ['$event'])

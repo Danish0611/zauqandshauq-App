@@ -128,6 +128,21 @@ export class AppComponent implements OnInit, OnDestroy {
       meters: { top: 'Assam Bergamot', heart: 'Aged Agarwood', base: 'Ambergris & Sandal' }
     },
     {
+      id: 1,
+      code: 'ZS-OUD-01',
+      name: 'Noir Oud',
+      family: 'Extrait de Parfum · Resinous Woods',
+      aura: 'Assam Agarwood · Ambergris · Smoked Leather',
+      quote: '“The sovereign fragrance of kings, distilled from wild 20-year agarwood.”',
+      price: 3499,
+      size: '100 ml',
+      concentration: 'Extrait de Parfum',
+      image: '/assets/hero-fragrance.svg',
+      gradient: 'radial-gradient(circle at 60% 50%, rgba(13, 56, 41, 0.8) 0%, rgba(5, 26, 19, 0.6) 60%, #03120c 100%)',
+      accent: '#e5c875',
+      meters: { top: 'Assam Bergamot', heart: 'Wild Agarwood', base: 'Ambergris & Mysore Sandal' }
+    },
+    {
       id: 2,
       code: 'ZS-ROSE-02',
       name: 'Rose Éclat',
@@ -138,7 +153,7 @@ export class AppComponent implements OnInit, OnDestroy {
       size: '75 ml',
       concentration: 'Eau de Parfum',
       image: '/assets/products/rose-eclat.svg',
-      gradient: 'radial-gradient(circle at 60% 50%, rgba(141, 96, 79, 0.65) 0%, rgba(23, 18, 17, 0.95) 65%, #171211 100%)',
+      gradient: 'radial-gradient(circle at 60% 50%, rgba(89, 28, 52, 0.7) 0%, rgba(6, 26, 19, 0.6) 60%, #03120c 100%)',
       accent: '#e9d5cc',
       meters: { top: 'French Pear', heart: 'Damask Rose Otto', base: 'Cashmere White Musk' }
     },
@@ -153,7 +168,7 @@ export class AppComponent implements OnInit, OnDestroy {
       size: '50 ml',
       concentration: 'Extrait de Parfum',
       image: '/assets/products/velvet-amber.svg',
-      gradient: 'radial-gradient(circle at 60% 50%, rgba(101, 34, 14, 0.8) 0%, rgba(61, 28, 6, 0.5) 60%, #171211 100%)',
+      gradient: 'radial-gradient(circle at 60% 50%, rgba(138, 92, 33, 0.75) 0%, rgba(6, 26, 19, 0.6) 60%, #03120c 100%)',
       accent: '#c8aea2',
       meters: { top: 'Green Cardamom', heart: 'Bourbon Vanilla', base: 'Benzoin & Sandal' }
     },
@@ -168,7 +183,7 @@ export class AppComponent implements OnInit, OnDestroy {
       size: '50 ml',
       concentration: 'Extrait de Parfum',
       image: '/assets/products/saffron-smoke.svg',
-      gradient: 'radial-gradient(circle at 60% 50%, rgba(101, 34, 14, 0.9) 0%, rgba(80, 22, 8, 0.55) 60%, #171211 100%)',
+      gradient: 'radial-gradient(circle at 60% 50%, rgba(115, 48, 22, 0.75) 0%, rgba(6, 26, 19, 0.6) 60%, #03120c 100%)',
       accent: '#e5c178',
       meters: { top: 'Kashmiri Saffron', heart: 'Temple Incense', base: 'Smoked Birch & Labdanum' }
     },
@@ -183,11 +198,220 @@ export class AppComponent implements OnInit, OnDestroy {
       size: '100 ml',
       concentration: 'Eau de Parfum',
       image: '/assets/products/azure-coast.svg',
-      gradient: 'radial-gradient(circle at 60% 50%, rgba(20, 65, 80, 0.65) 0%, rgba(23, 18, 17, 0.95) 65%, #171211 100%)',
+      gradient: 'radial-gradient(circle at 60% 50%, rgba(20, 65, 80, 0.75) 0%, rgba(6, 26, 19, 0.6) 60%, #03120c 100%)',
       accent: '#a0d2db',
       meters: { top: 'Marine Salt & Lemon', heart: 'Crisp Neroli', base: 'Sunlit Driftwood' }
     }
   ];
+
+  // FRAGRANTICA OLFACTORY ACCORD MATRIX BENCHMARK
+  fragranticaMatrix = [
+    {
+      id: 1,
+      code: 'ZS-OUD-01',
+      name: 'Noir Oud',
+      brand: 'Z&S Atelier',
+      concentration: 'Extrait de Parfum (32%)',
+      price: 3499,
+      image: '/assets/hero-fragrance.svg',
+      perfumerNose: 'Assam Distillers & Grasse Atelier',
+      origin: '20-Year Aged Assam Agarwood · Mysore',
+      accords: [
+        { name: 'Oud & Rich Woods', percent: 96, color: '#8B5A2B' },
+        { name: 'Warm Amber', percent: 85, color: '#D49B35' },
+        { name: 'Warm Spicy', percent: 74, color: '#9C3D28' },
+        { name: 'Smoky Incense', percent: 66, color: '#3A3238' },
+        { name: 'Leather Accord', percent: 52, color: '#6A432D' }
+      ],
+      pyramid: {
+        top: ['Assam Bergamot', 'Smoked Saffron', 'Pink Pepper'],
+        heart: ['Wild Assam Agarwood', 'Taif Damask Rose', 'Cistus Labdanum'],
+        base: ['Golden Ambergris', 'Mysore Sandalwood', 'Smoked Birch', 'Bourbon Vanilla']
+      },
+      ratings: {
+        longevity: 'Eternal · 14+ Hours',
+        longevityPercent: 96,
+        sillage: 'Royal Projection · 6-Foot Wake',
+        sillagePercent: 90,
+        gender: 'Unisex · Commanding Prestige',
+        season: 'Fall · Winter · Festive Evenings',
+        dayNight: 'Evening Gala (85% Night)'
+      }
+    },
+    {
+      id: 2,
+      code: 'ZS-ROSE-02',
+      name: 'Rose Éclat',
+      brand: 'Maison Aurore',
+      concentration: 'Eau de Parfum (22%)',
+      price: 2899,
+      image: '/assets/products/rose-eclat.svg',
+      perfumerNose: 'Maison Aurore · Grasse',
+      origin: 'Dawn Harvested Damask Rose · Kannauj',
+      accords: [
+        { name: 'Damask Rose Otto', percent: 98, color: '#C96B82' },
+        { name: 'Crisp French Pear', percent: 82, color: '#8DAA4A' },
+        { name: 'Cashmere White Musk', percent: 75, color: '#D4C4B5' },
+        { name: 'Dewy Fresh Floral', percent: 64, color: '#E5A5B5' },
+        { name: 'Soft Ambergris', percent: 45, color: '#D4AF37' }
+      ],
+      pyramid: {
+        top: ['French Pear', 'Italian Mandarin', 'Pink Peppercorn'],
+        heart: ['Dawn Damask Rose', 'White Peony', 'Jasmine Sambac'],
+        base: ['Cashmere Musk', 'White Cedar', 'Golden Amber']
+      },
+      ratings: {
+        longevity: 'Long Lasting · 10+ Hours',
+        longevityPercent: 82,
+        sillage: 'Alluring Aura · 4-Foot Wake',
+        sillagePercent: 72,
+        gender: 'Feminine · Luminous Poise',
+        season: 'Spring · Summer · Autumn',
+        dayNight: 'Versatile (60% Day / 40% Night)'
+      }
+    },
+    {
+      id: 4,
+      code: 'ZS-AMBER-04',
+      name: 'Velvet Amber',
+      brand: 'Z&S Atelier',
+      concentration: 'Extrait de Parfum (30%)',
+      price: 3999,
+      image: '/assets/products/velvet-amber.svg',
+      perfumerNose: 'Haute Parfumerie Laboratory',
+      origin: 'Madagascar Bourbon Vanilla & Benzoin',
+      accords: [
+        { name: 'Amber Resins', percent: 95, color: '#D49B35' },
+        { name: 'Bourbon Vanilla', percent: 88, color: '#C58F48' },
+        { name: 'Mysore Sandalwood', percent: 78, color: '#A07242' },
+        { name: 'Sweet Balsamic', percent: 65, color: '#8F6543' },
+        { name: 'Warm Cashmere', percent: 48, color: '#BFA287' }
+      ],
+      pyramid: {
+        top: ['Green Cardamom', 'Bitter Almond', 'Bergamot Zest'],
+        heart: ['Bourbon Vanilla Orchid', 'Benzoin Tear Resins', 'Heliotrope'],
+        base: ['Dark Amber Resin', 'Creamy Sandalwood', 'Tonka Bean', 'White Musk']
+      },
+      ratings: {
+        longevity: 'Eternal · 14+ Hours',
+        longevityPercent: 94,
+        sillage: 'Royal Sillage · Enveloping',
+        sillagePercent: 88,
+        gender: 'Unisex · Sensual Warmth',
+        season: 'Autumn · Winter · Cold Nights',
+        dayNight: 'Intimate Evening (80% Night)'
+      }
+    },
+    {
+      id: 7,
+      code: 'ZS-SAFF-07',
+      name: 'Saffron Smoke',
+      brand: 'Oud & Earth',
+      concentration: 'Extrait de Parfum (30%)',
+      price: 4499,
+      image: '/assets/products/saffron-smoke.svg',
+      perfumerNose: 'Kashmiri Heritage Alchemists',
+      origin: 'Kashmiri Mongra Saffron & Temple Incense',
+      accords: [
+        { name: 'Mongra Saffron', percent: 94, color: '#B34A26' },
+        { name: 'Temple Incense', percent: 86, color: '#4D3B43' },
+        { name: 'Antique Leather', percent: 78, color: '#6E452B' },
+        { name: 'Smoked Woods', percent: 68, color: '#544136' },
+        { name: 'Labdanum Resin', percent: 54, color: '#8C5E3B' }
+      ],
+      pyramid: {
+        top: ['Kashmiri Mongra Saffron', 'Wild Mountain Thyme', 'Davana'],
+        heart: ['Temple Incense Resin', 'Black Saddle Leather', 'Smoked Birch'],
+        base: ['Atlas Cedarwood', 'Labdanum', 'Styrax Resin', 'Dark Patchouli']
+      },
+      ratings: {
+        longevity: 'Eternal · 16+ Hours',
+        longevityPercent: 98,
+        sillage: 'Commanding Wake · Noticeable',
+        sillagePercent: 92,
+        gender: 'Unisex · Regal Adab',
+        season: 'Winter · Autumn · Grand Evenings',
+        dayNight: 'Nocturnal (90% Night)'
+      }
+    },
+    {
+      id: 3,
+      code: 'ZS-CITRUS-03',
+      name: 'Citrus Drift',
+      brand: 'Verde Parfums',
+      concentration: 'Eau de Toilette (15%)',
+      price: 2199,
+      image: '/assets/products/citrus-drift.svg',
+      perfumerNose: 'Verde Parfums · Mediterranean',
+      origin: 'Calabrian Bergamot & Haitian Vetiver',
+      accords: [
+        { name: 'Sparkling Citrus', percent: 97, color: '#5B8A3C' },
+        { name: 'Neroli Blossom', percent: 84, color: '#A4C639' },
+        { name: 'Earthy Vetiver', percent: 72, color: '#4A6B3D' },
+        { name: 'Fresh Spicy', percent: 58, color: '#D4AF37' },
+        { name: 'Aquatic Woods', percent: 46, color: '#2B6E8B' }
+      ],
+      pyramid: {
+        top: ['Calabrian Bergamot', 'Italian Mandarin', 'Bitter Orange'],
+        heart: ['Neroli Blossom', 'Petitgrain', 'Crushed Basil Leaves'],
+        base: ['Haitian Vetiver', 'White Cedarwood', 'Clean Musks']
+      },
+      ratings: {
+        longevity: 'Moderate · 7+ Hours',
+        longevityPercent: 70,
+        sillage: 'Fresh Aura · 3-Foot Wake',
+        sillagePercent: 65,
+        gender: 'Unisex · Crisp Vitality',
+        season: 'Spring · Summer · Sunlit Days',
+        dayNight: 'Sunlit Mornings (85% Day)'
+      }
+    }
+  ];
+
+  selectedMatrixIndex = 0;
+
+  get currentMatrixScent() {
+    return this.fragranticaMatrix[this.selectedMatrixIndex] || this.fragranticaMatrix[0];
+  }
+
+  selectMatrixScent(index: number): void {
+    if (index >= 0 && index < this.fragranticaMatrix.length) {
+      this.selectedMatrixIndex = index;
+    }
+  }
+
+  inspectMatrixScent(): void {
+    const cur = this.currentMatrixScent;
+    const found = this.allProducts.find(p => p.productCode === cur.code) ||
+      this.products.find(p => p.productCode === cur.code);
+    if (found) {
+      this.openProduct(found);
+    } else {
+      const syn: Product = {
+        id: cur.id,
+        productCode: cur.code,
+        name: cur.name,
+        brand: cur.brand,
+        category: 'Unisex',
+        concentration: cur.concentration,
+        size: '100 ml',
+        price: cur.price,
+        originalPrice: cur.price + 800,
+        rating: 4.9,
+        reviews: 138,
+        description: `${cur.name} — ${cur.origin}. Accords: ${cur.accords.map(a => a.name).join(', ')}.`,
+        ingredients: 'Pure Botanical Distillates, Alcohol Denat., Parfum (Natural Essential Oils).',
+        notes: [cur.pyramid.top[0], cur.pyramid.heart[0], cur.pyramid.base[0]],
+        image: cur.image,
+        badge: 'FRAGRANTICA EDIT',
+        featured: true,
+        bestseller: true,
+        newArrival: false,
+        stockQuantity: 50
+      };
+      this.openProduct(syn);
+    }
+  }
 
   get currentScrollScent() {
     return this.scrollScents[this.scrollScentIndex] || this.scrollScents[0];

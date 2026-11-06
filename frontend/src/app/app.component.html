@@ -171,6 +171,148 @@
       </div>
     </section>
 
+    <!-- SECTION: FRAGRANTICA OLFACTORY ACCORD MATRIX & PYRAMID ARCHITECTURE -->
+    <section class="fragrantica-master-section page-shell" id="olfactory-matrix" aria-label="Fragrantica Scent Accord Matrix">
+      <div class="matrix-header-row">
+        <div>
+          <div class="eyebrow"><span class="eyebrow-line"></span> OLFACTORY ARCHITECTURE · FRAGRANTICA MATRIX</div>
+          <h2>The Science of Sillage. <em>Deconstructed.</em></h2>
+          <p class="section-intro">Explore precise molecular accord percentages, volatile 3-tier pyramids, and verified longevity profiles.</p>
+        </div>
+        
+        <!-- Fragrance Selector Tabs -->
+        <div class="matrix-selector-tabs" role="tablist">
+          <button 
+            *ngFor="let m of fragranticaMatrix; let idx = index"
+            type="button"
+            class="matrix-tab-pill"
+            [class.is-active]="idx === selectedMatrixIndex"
+            (click)="selectMatrixScent(idx)"
+            role="tab"
+            [attr.aria-selected]="idx === selectedMatrixIndex">
+            <span class="m-num">0{{ idx + 1 }}</span>
+            <span class="m-name">{{ m.name }}</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="matrix-cockpit-grid">
+        
+        <!-- COLUMN 1: FRAGRANTICA ACCORD BARS & BOTTLE SHOWCASE -->
+        <div class="matrix-bottle-card">
+          <div class="matrix-flacon-preview" (click)="inspectMatrixScent()">
+            <img [src]="currentMatrixScent.image" [alt]="currentMatrixScent.name" class="matrix-bottle-img" />
+            <div class="matrix-bottle-halo"></div>
+            <span class="matrix-conc-badge">{{ currentMatrixScent.concentration }}</span>
+          </div>
+          
+          <div class="matrix-flacon-info">
+            <span class="matrix-origin">ORIGIN: {{ currentMatrixScent.origin }}</span>
+            <h3>{{ currentMatrixScent.name }}</h3>
+            <p class="matrix-nose">Formula by {{ currentMatrixScent.perfumerNose }}</p>
+            
+            <div class="matrix-ctas">
+              <button type="button" class="btn-royal-gold" (click)="inspectMatrixScent()">
+                Inspect Flacon · ₹{{ currentMatrixScent.price | number }} <span>↗</span>
+              </button>
+              <button type="button" class="btn-royal-outline" (click)="setView('discovery')">
+                Sample in Coffret ✦
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- COLUMN 2: MAIN ACCORDS (FRAGRANTICA HORIZONTAL PROPORTION BARS) -->
+        <div class="matrix-accords-card">
+          <div class="card-inner-heading">
+            <span class="card-kicker">MOLECULAR PROMINENCE</span>
+            <h4>Main Accords (Fragrantica Scale)</h4>
+          </div>
+
+          <div class="fragrantica-full-bars">
+            <div *ngFor="let acc of currentMatrixScent.accords" class="f-full-bar-row">
+              <div class="f-bar-labels">
+                <span class="f-accord-name">{{ acc.name }}</span>
+                <span class="f-accord-val">{{ acc.percent }}%</span>
+              </div>
+              <div class="f-track">
+                <div class="f-fill" [style.width.%]="acc.percent" [style.background]="acc.color"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SENSORY COMMUNITY RATINGS GAUGES -->
+          <div class="sensory-gauges-grid">
+            <div class="gauge-box">
+              <span class="gauge-lbl">LONGEVITY</span>
+              <strong>{{ currentMatrixScent.ratings.longevity }}</strong>
+              <div class="gauge-bar"><div class="gauge-fill" [style.width.%]="currentMatrixScent.ratings.longevityPercent"></div></div>
+            </div>
+            <div class="gauge-box">
+              <span class="gauge-lbl">SILLAGE &amp; PROJECTION</span>
+              <strong>{{ currentMatrixScent.ratings.sillage }}</strong>
+              <div class="gauge-bar"><div class="gauge-fill" [style.width.%]="currentMatrixScent.ratings.sillagePercent"></div></div>
+            </div>
+            <div class="gauge-box">
+              <span class="gauge-lbl">SEASON RADAR</span>
+              <strong>{{ currentMatrixScent.ratings.season }}</strong>
+            </div>
+            <div class="gauge-box">
+              <span class="gauge-lbl">DAY / NIGHT</span>
+              <strong>{{ currentMatrixScent.ratings.dayNight }}</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- COLUMN 3: THE 3-TIER VOLATILITY PYRAMID -->
+        <div class="matrix-pyramid-card">
+          <div class="card-inner-heading">
+            <span class="card-kicker">VOLATILITY DECONSTRUCTION</span>
+            <h4>Olfactory Notes Pyramid</h4>
+          </div>
+
+          <div class="pyramid-tiers-stack">
+            <!-- Tier 1: Top -->
+            <div class="pyramid-tier-block tier-top">
+              <div class="tier-badge-row">
+                <span class="tier-tag">🌿 TOP NOTES</span>
+                <span class="tier-time">First 15 – 30 Minutes</span>
+              </div>
+              <p class="tier-desc">Immediate botanical greeting; volatile bright molecules that stimulate the limbic brain.</p>
+              <div class="tier-chips">
+                <span *ngFor="let n of currentMatrixScent.pyramid.top" class="tier-chip">✦ {{ n }}</span>
+              </div>
+            </div>
+
+            <!-- Tier 2: Heart -->
+            <div class="pyramid-tier-block tier-heart">
+              <div class="tier-badge-row">
+                <span class="tier-tag">🌺 HEART ACCORD</span>
+                <span class="tier-time">2 – 4 Hours</span>
+              </div>
+              <p class="tier-desc">The emotional core of the composition; develops intimacy and soulful warmth on warm skin.</p>
+              <div class="tier-chips">
+                <span *ngFor="let n of currentMatrixScent.pyramid.heart" class="tier-chip">◇ {{ n }}</span>
+              </div>
+            </div>
+
+            <!-- Tier 3: Base -->
+            <div class="pyramid-tier-block tier-base">
+              <div class="tier-badge-row">
+                <span class="tier-tag">🪵 BASE SILLAGE</span>
+                <span class="tier-time">12 – 24 Hours</span>
+              </div>
+              <p class="tier-desc">Heavy-molecule resinous fixatives that create the lasting, unforgettable memory trail.</p>
+              <div class="tier-chips">
+                <span *ngFor="let n of currentMatrixScent.pyramid.base" class="tier-chip">♥ {{ n }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
     <!-- SCROLL-MORPH SCENT EVOLUTION (Changes image and aroma notes dynamically on website scrolling) -->
     <section class="scroll-scent-showcase" id="scroll-scent-section" aria-label="Living Scent Scroll Evolution">
       <div class="scroll-showcase-backdrop" [style.background]="currentScrollScent.gradient"></div>

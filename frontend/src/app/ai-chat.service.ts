@@ -31,10 +31,19 @@ const LOCAL_PRODUCTS: Product[] = [
 })
 export class AiChatService {
   private apiUrl = `${environment.apiUrl}/chat`;
+  private responseCache = new Map<string, ChatResponse>();
 
   constructor(private http: HttpClient) {}
 
   sendMessage(message: string, history: ChatMessage[]): Observable<ChatResponse> {
+    const trimmed = (message || '').trim().toLowerCase();
+    
+    // Check instant cache
+    if (this.responseCache.has(trimmed)) {
+      const cached = this.responseCache.get(trimmed)!;
+      return of(cached);
+    }
+
     const payload = {
       message,
       history: history.map(h => ({
@@ -44,12 +53,19 @@ export class AiChatService {
     };
 
     return this.http.post<ChatResponse>(this.apiUrl, payload).pipe(
-      timeout(12000),
+      timeout(4500),
       catchError((err) => {
-        console.warn('Backend chat service unreachable or timed out. Providing instant artisanal sommelier response.', err);
-        return of(this.getInstantClientFallback(message));
+        console.warn('Backend chat service unreachable or slow. Providing instant artisanal sommelier response.', err);
+        const fallback = this.getInstantClientFallback(message);
+        return of(fallback);
       })
     );
+  }
+
+  cacheResponse(query: string, response: ChatResponse): void {
+    if (query && response) {
+      this.responseCache.set(query.trim().toLowerCase(), response);
+    }
   }
 
   private getInstantClientFallback(userQuery: string): ChatResponse {

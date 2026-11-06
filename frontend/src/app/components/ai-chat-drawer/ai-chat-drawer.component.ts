@@ -1,5 +1,5 @@
 import { CommonModule, CurrencyPipe } from '@angular/common';
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AiChatService, ChatMessage, ChatResponse } from '../../ai-chat.service';
 import { Product } from '../../product.model';
@@ -212,22 +212,22 @@ import { Product } from '../../product.model';
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      padding: 10px 18px 10px 14px;
+      padding: 11px 19px 11px 15px;
       border-radius: 999px;
-      background: linear-gradient(135deg, #241b18 0%, #171211 100%);
+      background: linear-gradient(135deg, #0a3a2a 0%, #041b13 100%);
       backdrop-filter: blur(20px) saturate(180%);
       -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border: 1px solid rgba(229, 193, 120, 0.45);
-      color: #fffbf5;
-      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7), 0 0 20px rgba(229, 193, 120, 0.25);
+      border: 1px solid rgba(212, 175, 55, 0.55);
+      color: #fffefb;
+      box-shadow: 0 12px 36px rgba(4, 28, 20, 0.7), 0 0 22px rgba(212, 175, 55, 0.3);
       cursor: pointer;
       transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
     .ai-concierge-launcher:hover {
       transform: translateY(-3px) scale(1.03);
-      border-color: #e5c178;
-      box-shadow: 0 16px 44px rgba(0, 0, 0, 0.8), 0 0 28px rgba(229, 193, 120, 0.45);
+      border-color: #e5c875;
+      box-shadow: 0 16px 44px rgba(4, 28, 20, 0.85), 0 0 30px rgba(212, 175, 55, 0.5);
     }
 
     .launcher-pulse {
@@ -237,8 +237,8 @@ import { Product } from '../../product.model';
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      background: #e5c178;
-      box-shadow: 0 0 12px #e5c178;
+      background: #e5c875;
+      box-shadow: 0 0 12px #e5c875;
       animation: pulseGlow 2s infinite;
     }
 
@@ -246,11 +246,11 @@ import { Product } from '../../product.model';
       width: 34px;
       height: 34px;
       border-radius: 50%;
-      background: rgba(229, 193, 120, 0.15);
-      border: 1px solid rgba(229, 193, 120, 0.35);
+      background: rgba(212, 175, 55, 0.18);
+      border: 1px solid rgba(212, 175, 55, 0.4);
       display: grid;
       place-items: center;
-      color: #e5c178;
+      color: #e5c875;
     }
 
     .launcher-text {
@@ -263,13 +263,13 @@ import { Product } from '../../product.model';
     .launcher-title {
       font-size: 13px;
       font-weight: 600;
-      color: #fffbf5;
+      color: #fffefb;
       letter-spacing: 0.02em;
     }
 
     .launcher-sub {
       font-size: 10px;
-      color: #c8aea2;
+      color: #d6cfc2;
       letter-spacing: 0.03em;
     }
 
@@ -278,13 +278,13 @@ import { Product } from '../../product.model';
       position: fixed;
       inset: 0;
       z-index: 2500;
-      background: rgba(18, 12, 10, 0.78);
+      background: rgba(3, 16, 11, 0.78);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       animation: fadeIn 0.25s ease;
     }
 
-    /* Drawer / Window Container (Haute Parfumerie Obsidian & Amber) */
+    /* Drawer / Window Container (Haute Parfumerie Imperial Emerald & 24K Gold) */
     .ai-chat-drawer {
       position: fixed;
       top: 0;
@@ -292,17 +292,17 @@ import { Product } from '../../product.model';
       bottom: 0;
       width: min(520px, 100%);
       z-index: 2600;
-      background: linear-gradient(165deg, #1f1614 0%, #171211 50%, #0d0908 100%);
+      background: linear-gradient(165deg, #07241b 0%, #041812 50%, #020e09 100%);
       backdrop-filter: blur(36px) saturate(200%);
       -webkit-backdrop-filter: blur(36px) saturate(200%);
-      border-left: 1px solid rgba(229, 193, 120, 0.35);
+      border-left: 1px solid rgba(212, 175, 55, 0.4);
       box-shadow: -20px 0 60px rgba(0, 0, 0, 0.85);
       display: flex;
       flex-direction: column;
       transform: translateX(105%);
       transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
       box-sizing: border-box;
-      color: #f7ede2;
+      color: #faf8f3;
     }
 
     .ai-chat-drawer.is-open {
@@ -315,8 +315,8 @@ import { Product } from '../../product.model';
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid rgba(229, 193, 120, 0.22);
-      background: rgba(23, 18, 17, 0.9);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.25);
+      background: rgba(4, 24, 18, 0.96);
       flex-shrink: 0;
     }
 
@@ -330,13 +330,13 @@ import { Product } from '../../product.model';
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background: rgba(101, 34, 14, 0.45);
-      border: 1px solid rgba(229, 193, 120, 0.45);
+      background: rgba(13, 56, 41, 0.6);
+      border: 1px solid rgba(212, 175, 55, 0.5);
       display: grid;
       place-items: center;
       font-size: 18px;
-      color: #e5c178;
-      box-shadow: 0 0 16px rgba(229, 193, 120, 0.3);
+      color: #e5c875;
+      box-shadow: 0 0 16px rgba(212, 175, 55, 0.3);
     }
 
     .header-titles {
@@ -364,14 +364,14 @@ import { Product } from '../../product.model';
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: #e5c178;
-      box-shadow: 0 0 10px #e5c178;
+      background: #e5c875;
+      box-shadow: 0 0 10px #e5c875;
     }
 
     .concierge-subtitle {
       margin: 0;
       font-size: 10px;
-      color: #c8aea2;
+      color: #d6cfc2;
       letter-spacing: 0.04em;
     }
 
@@ -386,8 +386,8 @@ import { Product } from '../../product.model';
       height: 34px;
       border-radius: 50%;
       background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(229, 193, 120, 0.25);
-      color: #c8aea2;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      color: #d6cfc2;
       display: grid;
       place-items: center;
       cursor: pointer;
@@ -395,18 +395,18 @@ import { Product } from '../../product.model';
     }
 
     .header-action-btn:hover {
-      background: rgba(229, 193, 120, 0.2);
-      color: #e5c178;
-      border-color: #e5c178;
+      background: rgba(212, 175, 55, 0.2);
+      color: #e5c875;
+      border-color: #e5c875;
     }
 
     .chat-close-btn {
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      background: rgba(23, 18, 17, 0.95);
-      border: 1px solid rgba(229, 193, 120, 0.4);
-      color: #fffdf7;
+      background: rgba(4, 24, 18, 0.95);
+      border: 1px solid rgba(212, 175, 55, 0.45);
+      color: #fffefb;
       display: grid;
       place-items: center;
       cursor: pointer;
@@ -415,20 +415,20 @@ import { Product } from '../../product.model';
     }
 
     .chat-close-btn:hover {
-      background: rgba(229, 193, 120, 0.25);
-      color: #e5c178;
+      background: rgba(212, 175, 55, 0.25);
+      color: #e5c875;
       transform: rotate(90deg) scale(1.08);
-      border-color: #e5c178;
+      border-color: #e5c875;
     }
 
     /* Philosophy Strip */
     .chat-philosophy-strip {
       padding: 8px 18px;
-      background: rgba(101, 34, 14, 0.28);
-      border-bottom: 1px solid rgba(229, 193, 120, 0.2);
+      background: rgba(9, 41, 30, 0.55);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
       text-align: center;
       font-size: 11px;
-      color: #e5c178;
+      color: #e5c875;
       letter-spacing: 0.04em;
       flex-shrink: 0;
     }
@@ -448,7 +448,7 @@ import { Product } from '../../product.model';
       font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      color: #c8aea2;
+      color: #d6cfc2;
       font-weight: 600;
     }
 
@@ -469,16 +469,16 @@ import { Product } from '../../product.model';
       padding: 6px 13px;
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(229, 193, 120, 0.3);
-      color: #f7ede2;
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      color: #f7f3ec;
       font-size: 11px;
       cursor: pointer;
       transition: all 0.2s ease;
     }
 
     .starter-pill:hover {
-      background: rgba(229, 193, 120, 0.22);
-      border-color: #e5c178;
+      background: rgba(212, 175, 55, 0.22);
+      border-color: #e5c875;
       color: #ffffff;
       transform: translateY(-1px);
     }
@@ -491,7 +491,7 @@ import { Product } from '../../product.model';
       display: flex;
       flex-direction: column;
       gap: 18px;
-      background: radial-gradient(circle at 75% 15%, rgba(101, 34, 14, 0.22) 0%, rgba(23, 18, 17, 0.98) 70%);
+      background: radial-gradient(circle at 75% 15%, rgba(13, 56, 41, 0.32) 0%, rgba(4, 20, 15, 0.98) 70%);
     }
 
     .chat-bubble-row {
@@ -513,13 +513,13 @@ import { Product } from '../../product.model';
       width: 32px;
       height: 32px;
       border-radius: 50%;
-      background: rgba(101, 34, 14, 0.6);
-      border: 1px solid rgba(229, 193, 120, 0.45);
+      background: rgba(13, 56, 41, 0.7);
+      border: 1px solid rgba(212, 175, 55, 0.5);
       display: grid;
       place-items: center;
       font-size: 10px;
       font-weight: 700;
-      color: #e5c178;
+      color: #e5c875;
       flex-shrink: 0;
       margin-top: 4px;
     }
@@ -544,21 +544,21 @@ import { Product } from '../../product.model';
       box-shadow: 0 6px 22px rgba(0, 0, 0, 0.45);
     }
 
-    /* USER BUBBLE: WARM COGNAC LEATHER ACCENT */
+    /* USER BUBBLE: IMPERIAL EMERALD SILK ACCENT */
     .user-bubble {
-      background: linear-gradient(135deg, #65220E 0%, #8D604F 100%);
+      background: linear-gradient(135deg, #0e4533 0%, #082d21 100%);
       color: #ffffff;
-      border: 1px solid rgba(229, 193, 120, 0.45);
+      border: 1px solid rgba(212, 175, 55, 0.55);
       border-bottom-right-radius: 4px;
-      box-shadow: 0 4px 18px rgba(101, 34, 14, 0.5);
+      box-shadow: 0 4px 18px rgba(4, 28, 20, 0.5);
     }
 
-    /* MODEL BUBBLE: OBSIDIAN SMOKED GLASS WITH GOLD TRIM */
+    /* MODEL BUBBLE: ROYAL MALACHITE GLASS WITH GOLD TRIM */
     .model-bubble {
-      background: rgba(30, 24, 22, 0.94);
-      color: #f7ede2;
-      border: 1px solid rgba(229, 193, 120, 0.28);
-      border-left: 3px solid #e5c178;
+      background: rgba(8, 32, 24, 0.94);
+      color: #fbf9f5;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-left: 3px solid #d4af37;
       border-bottom-left-radius: 4px;
     }
 
@@ -571,12 +571,12 @@ import { Product } from '../../product.model';
     }
 
     .bubble-text strong {
-      color: #e5c178;
+      color: #e5c875;
       font-weight: 600;
     }
 
     .bubble-text em {
-      color: #c8aea2;
+      color: #d6cfc2;
     }
 
     .bubble-time {
@@ -660,25 +660,26 @@ import { Product } from '../../product.model';
     .product-mini-card {
       display: flex;
       gap: 12px;
-      padding: 10px 12px;
-      background: rgba(23, 18, 17, 0.95);
-      border: 1px solid rgba(229, 193, 120, 0.28);
+      padding: 11px 13px;
+      background: rgba(6, 26, 19, 0.95);
+      border: 1px solid rgba(212, 175, 55, 0.32);
       border-radius: 12px;
       align-items: center;
       transition: all 0.2s ease;
     }
 
     .product-mini-card:hover {
-      border-color: #e5c178;
-      background: rgba(45, 30, 26, 0.95);
+      border-color: #e5c875;
+      background: rgba(10, 38, 28, 0.98);
       transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
     }
 
     .mini-img-wrap {
       width: 60px;
       height: 60px;
       border-radius: 8px;
-      background: rgba(101, 34, 14, 0.25);
+      background: rgba(255, 255, 255, 0.08);
       position: relative;
       overflow: hidden;
       flex-shrink: 0;
@@ -696,8 +697,8 @@ import { Product } from '../../product.model';
       top: 3px;
       left: 3px;
       font-size: 7px;
-      background: #e5c178;
-      color: #171211;
+      background: #e5c875;
+      color: #041812;
       padding: 2px 4px;
       border-radius: 3px;
       font-weight: 700;
@@ -713,7 +714,7 @@ import { Product } from '../../product.model';
 
     .mini-cat {
       font-size: 8px;
-      color: #c8aea2;
+      color: #d6cfc2;
       text-transform: uppercase;
       letter-spacing: 0.8px;
     }
@@ -729,7 +730,7 @@ import { Product } from '../../product.model';
     }
 
     .mini-name:hover {
-      color: #e5c178;
+      color: #e5c875;
     }
 
     .mini-price-row {
@@ -741,13 +742,13 @@ import { Product } from '../../product.model';
     .mini-price {
       font-family: 'Playfair Display', serif;
       font-size: 13px;
-      color: #e5c178;
+      color: #e5c875;
       font-weight: 600;
     }
 
     .mini-conc {
       font-size: 8px;
-      color: #99847A;
+      color: #a3b8aa;
     }
 
     .mini-notes-row {
@@ -761,8 +762,9 @@ import { Product } from '../../product.model';
       font-size: 8px;
       padding: 2px 6px;
       border-radius: 4px;
-      background: rgba(255, 255, 255, 0.06);
-      color: #e9d5cc;
+      background: rgba(255, 255, 255, 0.08);
+      color: #faf8f5;
+      border: 1px solid rgba(212, 175, 55, 0.15);
     }
 
     .mini-actions {
@@ -782,18 +784,18 @@ import { Product } from '../../product.model';
 
     .btn-mini-view {
       background: transparent;
-      border: 1px solid rgba(229, 193, 120, 0.4);
-      color: #e5c178;
+      border: 1px solid rgba(212, 175, 55, 0.45);
+      color: #e5c875;
     }
 
     .btn-mini-view:hover {
-      background: rgba(229, 193, 120, 0.2);
+      background: rgba(212, 175, 55, 0.2);
     }
 
     .btn-mini-add {
-      background: #e5c178;
-      border: 1px solid #e5c178;
-      color: #171211;
+      background: #e5c875;
+      border: 1px solid #e5c875;
+      color: #041812;
       font-weight: 600;
     }
 
@@ -804,8 +806,8 @@ import { Product } from '../../product.model';
     /* Chat Footer & Input */
     .chat-footer {
       padding: 14px 18px 18px;
-      border-top: 1px solid rgba(229, 193, 120, 0.22);
-      background: #171211;
+      border-top: 1px solid rgba(212, 175, 55, 0.22);
+      background: #041812;
       flex-shrink: 0;
     }
 
@@ -813,16 +815,16 @@ import { Product } from '../../product.model';
       display: flex;
       align-items: center;
       gap: 8px;
-      background: rgba(30, 24, 22, 0.95);
-      border: 1px solid rgba(229, 193, 120, 0.3);
+      background: rgba(7, 30, 22, 0.95);
+      border: 1px solid rgba(212, 175, 55, 0.35);
       border-radius: 999px;
       padding: 5px 6px 5px 16px;
       transition: all 0.25s ease;
     }
 
     .chat-form:focus-within {
-      border-color: #e5c178;
-      box-shadow: 0 0 16px rgba(229, 193, 120, 0.25);
+      border-color: #e5c875;
+      box-shadow: 0 0 16px rgba(212, 175, 55, 0.28);
     }
 
     .chat-input {
@@ -831,11 +833,11 @@ import { Product } from '../../product.model';
       border: none;
       outline: none;
       font-size: 11.5px;
-      color: #f7ede2;
+      color: #fbf9f5;
     }
 
     .chat-input::placeholder {
-      color: #99847A;
+      color: #8fa89b;
     }
 
     .chat-send-btn {
@@ -843,8 +845,8 @@ import { Product } from '../../product.model';
       height: 36px;
       border-radius: 50%;
       border: none;
-      background: linear-gradient(135deg, #faeed4 0%, #e5c178 50%, #c4a15d 100%);
-      color: #171211;
+      background: linear-gradient(135deg, #faeed4 0%, #e5c875 50%, #c4a15d 100%);
+      color: #041812;
       display: grid;
       place-items: center;
       cursor: pointer;
@@ -902,7 +904,10 @@ export class AiChatDrawerComponent implements OnInit {
     '🎁 Luxury gift set under ₹3,500'
   ];
 
-  constructor(private aiChatService: AiChatService) {}
+  constructor(
+    private aiChatService: AiChatService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     // Initial royal greeting in Indian English
@@ -934,7 +939,7 @@ export class AiChatDrawerComponent implements OnInit {
     const text = this.userInput.trim();
     if (!text || this.loading) return;
 
-    // Add user message to thread
+    // Add user message to thread immediately
     const userMsg: ChatMessage = {
       role: 'user',
       content: text,
@@ -943,6 +948,7 @@ export class AiChatDrawerComponent implements OnInit {
     this.messages.push(userMsg);
     this.userInput = '';
     this.loading = true;
+    this.cdr.detectChanges();
     this.scrollToBottom();
 
     // Call backend AI service
@@ -955,6 +961,8 @@ export class AiChatDrawerComponent implements OnInit {
           timestamp: new Date(),
           recommendedProducts: res.recommendedProducts || []
         });
+        this.aiChatService.cacheResponse(text, res);
+        this.cdr.detectChanges();
         this.scrollToBottom();
       },
       error: (err) => {
@@ -965,6 +973,7 @@ export class AiChatDrawerComponent implements OnInit {
           content: 'I apologize, dear patron. A brief connection delay occurred. Please ask again, and I will be delighted to assist you.',
           timestamp: new Date()
         });
+        this.cdr.detectChanges();
         this.scrollToBottom();
       }
     });
