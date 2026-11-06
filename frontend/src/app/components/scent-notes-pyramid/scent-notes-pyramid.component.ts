@@ -274,3 +274,4 @@ export class ScentNotesPyramidComponent {
     this.activeTier = tier;
   }
 }
+

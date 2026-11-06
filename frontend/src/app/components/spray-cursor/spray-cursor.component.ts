@@ -104,7 +104,7 @@ export class SprayCursorComponent implements AfterViewInit, OnDestroy {
   private isMouseDown = false;
   private particles: CursorParticle[] = [];
   private animId: number | null = null;
-  private visibilityListener?: () => void;
+  private cleanups: (() => void)[] = [];
 
   constructor(
     @Inject(PLATFORM_ID) platformId: object,
@@ -130,9 +130,10 @@ export class SprayCursorComponent implements AfterViewInit, OnDestroy {
     };
     resize();
     window.addEventListener('resize', resize, { passive: true });
+    this.cleanups.push(() => window.removeEventListener('resize', resize));
 
     // Handle tab visibility to pause RAF
-    this.visibilityListener = () => {
+    const visibilityListener = () => {
       if (document.hidden && this.animId) {
         cancelAnimationFrame(this.animId);
         this.animId = null;
@@ -140,12 +141,13 @@ export class SprayCursorComponent implements AfterViewInit, OnDestroy {
         this.startLoop(ctx, canvas);
       }
     };
-    document.addEventListener('visibilitychange', this.visibilityListener);
+    document.addEventListener('visibilitychange', visibilityListener);
+    this.cleanups.push(() => document.removeEventListener('visibilitychange', visibilityListener));
 
     // Run animation outside Angular zone
     this.ngZone.runOutsideAngular(() => {
       // Event listeners for smooth mouse tracking
-      window.addEventListener('mousemove', (e) => {
+      const onMouseMove = (e: MouseEvent) => {
         this.targetX = e.clientX;
         this.targetY = e.clientY;
 
@@ -157,34 +159,43 @@ export class SprayCursorComponent implements AfterViewInit, OnDestroy {
         if (Math.random() > 0.6) {
           this.emitParticle(this.targetX, this.targetY, 1, false);
         }
-      }, { passive: true });
+      };
+      window.addEventListener('mousemove', onMouseMove, { passive: true });
+      this.cleanups.push(() => window.removeEventListener('mousemove', onMouseMove));
 
-      window.addEventListener('mousedown', (e) => {
+      const onMouseDown = (e: MouseEvent) => {
         this.isMouseDown = true;
         this.emitBurst(e.clientX, e.clientY, 18);
-      }, { passive: true });
+      };
+      window.addEventListener('mousedown', onMouseDown, { passive: true });
+      this.cleanups.push(() => window.removeEventListener('mousedown', onMouseDown));
 
-      window.addEventListener('mouseup', () => {
+      const onMouseUp = () => {
         this.isMouseDown = false;
-      }, { passive: true });
+      };
+      window.addEventListener('mouseup', onMouseUp, { passive: true });
+      this.cleanups.push(() => window.removeEventListener('mouseup', onMouseUp));
 
       // Touch tap mist puff
-      window.addEventListener('touchstart', (e) => {
+      const onTouchStart = (e: TouchEvent) => {
         if (e.touches.length > 0) {
           const t = e.touches[0];
           this.emitBurst(t.clientX, t.clientY, 10);
         }
-      }, { passive: true });
+      };
+      window.addEventListener('touchstart', onTouchStart, { passive: true });
+      this.cleanups.push(() => window.removeEventListener('touchstart', onTouchStart));
 
-      // Detect hover over interactive elements
-      document.addEventListener('mouseover', (e) => {
+      // Detect hover over interactive elements with direct DOM update
+      const onMouseOver = (e: MouseEvent) => {
         const target = e.target as HTMLElement | null;
-        if (target && target.closest('a, button, [role="button"], .product-card, .luxury-cat-card, input, select')) {
-          this.isHovering = true;
-        } else {
-          this.isHovering = false;
+        const matches = target && !!target.closest('a, button, [role="button"], .product-card, .luxury-cat-card, input, select');
+        if (this.followerRef?.nativeElement) {
+          this.followerRef.nativeElement.classList.toggle('hover-active', !!matches);
         }
-      }, { passive: true });
+      };
+      document.addEventListener('mouseover', onMouseOver, { passive: true });
+      this.cleanups.push(() => document.removeEventListener('mouseover', onMouseOver));
 
       this.startLoop(ctx, canvas);
     });
@@ -277,8 +288,8 @@ export class SprayCursorComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     if (this.animId) cancelAnimationFrame(this.animId);
-    if (this.visibilityListener) {
-      document.removeEventListener('visibilitychange', this.visibilityListener);
-    }
+    this.cleanups.forEach(cleanup => cleanup());
+    this.cleanups = [];
   }
 }
+

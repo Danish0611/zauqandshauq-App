@@ -527,15 +527,18 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     });
 
-    try {
-      const saved = localStorage.getItem('zs-cart-v1');
-      if (saved) this.cart = JSON.parse(saved) as CartItem[];
-      const liked = localStorage.getItem('zs-wishlist-v1');
-      if (liked) this.wishlist = new Set<number>(JSON.parse(liked) as number[]);
-    } catch { /* Ignore invalid local browser data and start with an empty bag. */ }
+    if (this.isBrowser) {
+      try {
+        const saved = localStorage.getItem('zs-cart-v1');
+        if (saved) this.cart = JSON.parse(saved) as CartItem[];
+        const liked = localStorage.getItem('zs-wishlist-v1');
+        if (liked) this.wishlist = new Set<number>(JSON.parse(liked) as number[]);
+      } catch { /* Ignore invalid local browser data and start with an empty bag. */ }
+    }
   }
 
   private initSmoothScroll(): void {
+    if (!this.isBrowser) return;
     try {
       const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (prefersReduced) return;
@@ -670,11 +673,17 @@ export class AppComponent implements OnInit, OnDestroy {
   setView(view: 'home' | 'shop' | 'quiz' | 'discovery' | 'philosophy'): void {
     this.currentView = view;
     this.mobileMenuOpen = false;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    this.smoothScrollToTop();
   }
 
   scrollToTop(): void {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    this.smoothScrollToTop();
+  }
+
+  private smoothScrollToTop(): void {
+    if (this.isBrowser) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   }
 
   resetOrderAndClose(): void {
@@ -691,7 +700,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.mobileMenuOpen = false;
     this.currentView = 'shop';
     this.loadProducts();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    this.smoothScrollToTop();
   }
 
   onCategoryPillClick(category: string): void {
@@ -706,7 +715,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.showWishlistOnly = false;
     this.currentView = 'shop';
     this.loadProducts();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    this.smoothScrollToTop();
     this.notify(`Showing compositions featuring ${note}`);
   }
 
@@ -718,7 +727,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.showWishlistOnly = false;
     this.currentView = 'shop';
     this.loadProducts();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    this.smoothScrollToTop();
   }
 
   clearFilters(): void {
@@ -1219,10 +1228,13 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   scrollTo(id: string): void {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (this.isBrowser) {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 
   @HostListener('window:scroll') onScroll(): void {
+    if (!this.isBrowser) return;
     this.showTop = window.scrollY > 420;
 
     // Track scroll-morph scent section

@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Inject, NgZone, OnDestroy, OnInit, Output, PLATFORM_ID, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, NgZone, OnDestroy, OnInit, Output, PLATFORM_ID, ViewChild } from '@angular/core';
 import { ProductService } from '../../product.service';
 
 interface Particle {
@@ -20,9 +20,10 @@ interface Particle {
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div
+      *ngIf="!isFinished"
       class="spray-intro-overlay"
+      [class.force-intro]="forceIntro"
       [class.intro-dissolving]="isDissolving"
-      [class.intro-hidden]="isFinished"
       role="dialog"
       aria-modal="true"
       aria-label="Welcome to Zauq & Shauq">
@@ -82,10 +83,6 @@ interface Particle {
       opacity: 0;
       transform: scale(1.08);
       pointer-events: none;
-    }
-
-    .intro-hidden {
-      display: none !important;
     }
 
     .intro-mist-canvas {
@@ -202,7 +199,7 @@ interface Particle {
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .spray-intro-overlay {
+      .spray-intro-overlay:not(.force-intro) {
         display: none !important;
       }
     }
@@ -215,15 +212,18 @@ export class IntroSprayComponent implements OnInit, AfterViewInit, OnDestroy {
   isSpraying = false;
   isDissolving = false;
   isFinished = false;
+  forceIntro = false;
 
   private animFrameId: number | null = null;
   private particles: Particle[] = [];
   private isBrowser: boolean;
+  private timeouts: any[] = [];
 
   constructor(
     @Inject(PLATFORM_ID) platformId: object,
     private ngZone: NgZone,
-    private productService: ProductService
+    private productService: ProductService,
+    private cdr: ChangeDetectorRef
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
@@ -234,14 +234,24 @@ export class IntroSprayComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
 
-    // Check if session has already experienced intro
+    // Check ?intro=1 URL override for testing
     try {
-      const seen = sessionStorage.getItem('zs_intro_seen');
-      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (seen || prefersReduced) {
-        this.isFinished = true;
-        this.completed.emit();
-        return;
+      const urlParams = new URLSearchParams(window.location.search);
+      this.forceIntro = urlParams.get('intro') === '1';
+    } catch {
+      this.forceIntro = false;
+    }
+
+    // Check if session has already experienced intro unless overridden by ?intro=1
+    try {
+      if (!this.forceIntro) {
+        const seen = sessionStorage.getItem('zs_intro_seen');
+        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (seen || prefersReduced) {
+          this.isFinished = true;
+          this.completed.emit();
+          return;
+        }
       }
     } catch {
       // Storage unavailable or disabled
@@ -274,10 +284,12 @@ export class IntroSprayComponent implements OnInit, AfterViewInit, OnDestroy {
     resize();
 
     // Trigger spray after 400ms
-    setTimeout(() => {
+    const sprayTimer = setTimeout(() => {
       this.isSpraying = true;
       this.spawnMistBurst(canvas.width / 2, canvas.height * 0.38);
+      this.cdr.markForCheck();
     }, 400);
+    this.timeouts.push(sprayTimer);
 
     // Run animation outside Angular zone for high performance
     this.ngZone.runOutsideAngular(() => {
@@ -313,13 +325,16 @@ export class IntroSprayComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     // Dissolve overlay at 2.4s and finish at 3.0s
-    setTimeout(() => {
+    const dissolveTimer = setTimeout(() => {
       this.isDissolving = true;
-    }, 2300);
+      this.cdr.markForCheck();
+    }, 2400);
+    this.timeouts.push(dissolveTimer);
 
-    setTimeout(() => {
+    const finishTimer = setTimeout(() => {
       this.finishIntro();
     }, 3100);
+    this.timeouts.push(finishTimer);
   }
 
   private spawnMistBurst(originX: number, originY: number): void {
@@ -353,18 +368,24 @@ export class IntroSprayComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private finishIntro(): void {
     this.isDissolving = true;
-    setTimeout(() => {
+    this.cdr.markForCheck();
+    const t = setTimeout(() => {
       this.isFinished = true;
+      this.cdr.markForCheck();
       try {
         sessionStorage.setItem('zs_intro_seen', 'true');
       } catch {}
       this.completed.emit();
-    }, 300);
+    }, 350);
+    this.timeouts.push(t);
   }
 
   ngOnDestroy(): void {
     if (this.animFrameId) {
       cancelAnimationFrame(this.animFrameId);
     }
+    this.timeouts.forEach(t => clearTimeout(t));
   }
 }
+
+

@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Inject, Input, NgZone, OnDestroy, OnInit, Output, PLATFORM_ID, ViewChild } from '@angular/core';
 import { Product } from '../../product.model';
 
 export interface FragranticaAccord {
@@ -528,13 +528,25 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
   private touchEndX = 0;
   private animFrameId?: number;
 
+  private isBrowser: boolean;
+  private resizeListener?: () => void;
+
+  constructor(
+    @Inject(PLATFORM_ID) platformId: object,
+    private ngZone: NgZone
+  ) {
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
+
   ngOnInit(): void {
+    if (!this.isBrowser) return;
     this.startProgress();
     // Auto-spritz the initial flacon lightly
     setTimeout(() => this.triggerSpritz(), 800);
   }
 
   ngAfterViewInit(): void {
+    if (!this.isBrowser) return;
     this.initMistCanvas();
   }
 
@@ -542,6 +554,9 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
     this.stopAutoplay();
     if (this.spritzTimeout) clearTimeout(this.spritzTimeout);
     if (this.animFrameId) cancelAnimationFrame(this.animFrameId);
+    if (this.resizeListener && this.isBrowser) {
+      window.removeEventListener('resize', this.resizeListener);
+    }
   }
 
   get currentSlide(): HeroSlide {
@@ -704,7 +719,7 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   private initMistCanvas(): void {
-    if (!this.mistCanvasRef) return;
+    if (!this.isBrowser || !this.mistCanvasRef) return;
     const canvas = this.mistCanvasRef.nativeElement;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
@@ -714,7 +729,8 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
       canvas.height = canvas.parentElement?.clientHeight || 650;
     };
     resize();
-    window.addEventListener('resize', resize);
+    this.resizeListener = resize;
+    window.addEventListener('resize', resize, { passive: true });
 
     const particles: Array<{
       x: number;
@@ -740,30 +756,32 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
       });
     }
 
-    const render = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    this.ngZone.runOutsideAngular(() => {
+      const render = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      for (const p of particles) {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.y < -10) {
-          p.y = canvas.height + 10;
-          p.x = Math.random() * canvas.width;
+        for (const p of particles) {
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.y < -10) {
+            p.y = canvas.height + 10;
+            p.x = Math.random() * canvas.width;
+          }
+          if (p.x < -10) p.x = canvas.width + 10;
+          if (p.x > canvas.width + 10) p.x = -10;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.globalAlpha = p.alpha;
+          ctx.fill();
         }
-        if (p.x < -10) p.x = canvas.width + 10;
-        if (p.x > canvas.width + 10) p.x = -10;
 
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = p.alpha;
-        ctx.fill();
-      }
+        ctx.globalAlpha = 1.0;
+        this.animFrameId = requestAnimationFrame(render);
+      };
 
-      ctx.globalAlpha = 1.0;
       this.animFrameId = requestAnimationFrame(render);
-    };
-
-    render();
+    });
   }
 }
