@@ -27,3 +27,4 @@ public class ChatMessageDto {
         this.content = content;
     }
 }
+

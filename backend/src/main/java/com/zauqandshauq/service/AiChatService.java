@@ -86,8 +86,8 @@ public class AiChatService {
         String fullSystemPrompt = String.format(systemPromptTemplate, catalogSummary);
 
         // 3. Ultra-fast Gemini AI call with instant offline fallback
-        if (apiKey != null && apiKey.startsWith("AIza") && apiKey.length() > 25) {
-            String[] modelsToTry = new String[]{"gemini-1.5-flash", "gemini-2.0-flash"};
+        if (apiKey != null && !apiKey.isBlank() && apiKey.length() > 15) {
+            String[] modelsToTry = new String[]{"gemini-flash-lite-latest", "gemini-3.5-flash", "gemini-3.8-flash", "gemini-flash-latest"};
             for (String model : modelsToTry) {
                 try {
                     String reply = callGemini(model, fullSystemPrompt, request.getHistory(), userPrompt);
@@ -96,8 +96,7 @@ public class AiChatService {
                         return new ChatResponse(reply, recommendedProducts, model, false);
                     }
                 } catch (Exception e) {
-                    log.warn("Gemini model [{}] fast call skipped: {}. Falling back.", model, e.getMessage());
-                    break; // Fail fast so user never waits!
+                    log.warn("Gemini model [{}] fast call skipped: {}. Trying next model.", model, e.getMessage());
                 }
             }
         }
@@ -147,7 +146,7 @@ public class AiChatService {
         HttpRequest httpRequest = HttpRequest.newBuilder()
                 .uri(URI.create(endpoint))
                 .header("Content-Type", "application/json")
-                .timeout(Duration.ofSeconds(3))
+                .timeout(Duration.ofSeconds(6))
                 .POST(HttpRequest.BodyPublishers.ofString(jsonPayload, StandardCharsets.UTF_8))
                 .build();
 

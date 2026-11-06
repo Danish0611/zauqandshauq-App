@@ -34,3 +34,4 @@ public class ChatRequest {
         this.history = history != null ? history : new ArrayList<>();
     }
 }
+

@@ -52,3 +52,4 @@ public class ChatResponse {
         this.fallbackUsed = fallbackUsed;
     }
 }
+

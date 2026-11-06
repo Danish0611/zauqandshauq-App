@@ -55,7 +55,7 @@ export interface HeroSlide {
       (mouseleave)="resumeAutoplay()"
       (touchstart)="onTouchStart($event)"
       (touchend)="onTouchEnd($event)"
-      aria-label="Haute Parfumerie Showcase Slider">
+      aria-label="Haute Parfumerie Luxury Wardrobe">
 
       <!-- Ambient Background Video & Liquid Gold Particle Sillage Canvas -->
       <div class="slider-backdrop" [style.background]="currentSlide.spotlightGradient"></div>
@@ -67,252 +67,325 @@ export interface HeroSlide {
         <div class="slide-progress-fill" [style.width.%]="progressPercent"></div>
       </div>
 
-      <div class="slider-inner page-shell">
-        
-        <!-- LEFT COLUMN: CINEMATIC EDITORIAL COPY -->
-        <div class="slider-copy-col" [class.slide-transitioning]="isTransitioning">
-          
-          <!-- Edition Badge & Live Counter -->
-          <div class="slide-badge-row">
-            <span class="edition-pill">
-              <span class="pill-sparkle">✦</span>
-              {{ currentSlide.edition }}
-            </span>
-            <div class="slide-counter">
-              <span class="current-num">0{{ currentSlideIndex + 1 }}</span>
-              <span class="counter-slash">/</span>
-              <span class="total-num">0{{ slides.length }}</span>
-            </div>
+      <!-- ==========================================================
+           1. MAISON BRAND REVEAL & ROYAL WARDROBE ENTRANCE PORTAL
+           ========================================================== -->
+      <div class="wardrobe-portal-header page-shell">
+        <div class="portal-brand-lockup">
+          <div class="portal-crest-wrap">
+            <div class="portal-crest-halo"></div>
+            <img src="/assets/logo.svg" alt="Maison Zauq and Shauq Crest" class="portal-crest-img">
           </div>
-
-          <!-- Main Grand Title with Golden Italic Accent -->
-          <h1 class="slide-title">
-            <span class="slide-title-name">{{ currentSlide.name }}</span>
-            <span class="slide-title-sub">
-              <em>{{ currentSlide.headline }}</em>
-            </span>
-          </h1>
-
-          <!-- Sensory Narrative Description -->
-          <p class="slide-narrative">
-            {{ currentSlide.description }}
-          </p>
-
-          <!-- FRAGRANTICA-INSPIRED MAIN ACCORDS BARS -->
-          <div class="fragrantica-mini-accords" aria-label="Main Fragrantica Olfactory Accords">
-            <div class="accords-header">
-              <span class="accords-kicker">MAIN ACCORDS</span>
-              <span class="accords-source">FRAGRANTICA PROFILE</span>
-            </div>
-            <div class="accords-bars-deck">
-              <div 
-                *ngFor="let acc of currentSlide.accords" 
-                class="accord-bar-row"
-                [title]="acc.name + ': ' + acc.percent + '% prominence'">
-                <span class="accord-title">{{ acc.name }}</span>
-                <div class="accord-meter-track">
-                  <div class="accord-meter-fill" [style.width.%]="acc.percent" [style.background]="acc.color"></div>
-                </div>
-                <span class="accord-percent">{{ acc.percent }}%</span>
-              </div>
-            </div>
-            
-            <!-- Sensory Performance Badges -->
-            <div class="fragrantica-metrics-strip">
-              <span class="f-pill"><i class="f-bullet">⏱</i> {{ currentSlide.fragrantica.longevity }}</span>
-              <span class="f-pill"><i class="f-bullet">✨</i> {{ currentSlide.fragrantica.sillage }}</span>
-              <span class="f-pill"><i class="f-bullet">❄️</i> {{ currentSlide.fragrantica.season }}</span>
-            </div>
+          <div class="portal-brand-meta">
+            <span class="portal-kicker">MAISON DE HAUTE PARFUMERIE · PARIS &amp; JAIPUR</span>
+            <h1 class="portal-title">The Royal Fragrance Wardrobe</h1>
+            <p class="portal-persian-quote" dir="rtl">خوشبو وہ خاموش زبان ہے جو دل سے دل تک بات کرتی ہے</p>
+            <p class="portal-tagline">
+              “Fragrance is the silent tongue that speaks from heart to heart.” Step inside our private wardrobe to reveal each numbered extrait one by one.
+            </p>
           </div>
-
-          <!-- Interactive Olfactory Pyramid Chips -->
-          <div class="olfactory-pyramid" aria-label="Olfactory Notes Pyramid">
-            <div class="note-chip">
-              <span class="note-level">TOP</span>
-              <span class="note-scent">{{ currentSlide.notes.top }}</span>
-            </div>
-            <div class="note-chip">
-              <span class="note-level">HEART</span>
-              <span class="note-scent">{{ currentSlide.notes.heart }}</span>
-            </div>
-            <div class="note-chip">
-              <span class="note-level">BASE</span>
-              <span class="note-scent">{{ currentSlide.notes.base }}</span>
-            </div>
-          </div>
-
-          <!-- Persian & Urdu Literary Couplet Card -->
-          <div class="literary-quote-card">
-            <div class="quote-header">
-              <span class="quote-kicker">HERITAGE RESONANCE</span>
-              <span class="quote-author">{{ currentSlide.quoteAuthor }}</span>
-            </div>
-            <div class="quote-persian" dir="rtl">{{ currentSlide.quoteScript }}</div>
-            <p class="quote-translation">{{ currentSlide.quoteTranslation }}</p>
-          </div>
-
-          <!-- Primary Luxury Action Buttons -->
-          <div class="slide-actions-row">
-            <button 
-              type="button" 
-              class="btn-flared-gold" 
-              (click)="onShopFlacon()"
-              [attr.aria-label]="'Shop ' + currentSlide.name + ' for ₹' + currentSlide.price">
-              <span class="btn-text">Shop This Flacon · ₹{{ currentSlide.price | number }}</span>
-              <span class="btn-arrow">↗</span>
-            </button>
-
-            <button 
-              type="button" 
-              class="btn-smoked-glass" 
-              (click)="explore.emit('All Fragrances')"
-              aria-label="Explore Full Fragrance Wardrobe">
-              <span>Explore Wardrobe</span>
-              <span class="btn-arrow">→</span>
-            </button>
-          </div>
-
-          <!-- Slide Selector Navigation Tabs -->
-          <div class="slide-tabs-nav" role="tablist" aria-label="Select Fragrance Slide">
-            <button 
-              *ngFor="let s of slides; let i = index" 
-              type="button" 
-              class="slide-tab-pill" 
-              [class.is-active]="i === currentSlideIndex"
-              (click)="goToSlide(i)"
-              role="tab"
-              [attr.aria-selected]="i === currentSlideIndex">
-              <span class="tab-index">0{{ i + 1 }}</span>
-              <span class="tab-name">{{ s.name }}</span>
-              <span class="tab-active-indicator" *ngIf="i === currentSlideIndex"></span>
-            </button>
-          </div>
-
         </div>
 
-        <!-- RIGHT COLUMN: ILLUMINATED FLACON STAGE WITH SCENT DIFFUSER ATOMIZER SPRAY -->
-        <div class="slider-stage-col">
+        <!-- Sequential Wardrobe Alcove Selectors (One-by-One Switcher) -->
+        <div class="wardrobe-alcove-tabs" role="tablist" aria-label="Fragrance Wardrobe Flacons">
+          <button 
+            *ngFor="let s of slides; let i = index" 
+            type="button" 
+            class="alcove-tab-pill" 
+            [class.is-active]="i === currentSlideIndex"
+            (click)="goToSlide(i)"
+            role="tab"
+            [attr.aria-selected]="i === currentSlideIndex">
+            <span class="alcove-roman">{{ getRoman(i) }}</span>
+            <span class="alcove-name">{{ s.name }}</span>
+            <span class="alcove-tag" *ngIf="i === currentSlideIndex">Selected</span>
+          </button>
+
+          <button 
+            type="button" 
+            class="wardrobe-doors-toggle-btn"
+            (click)="toggleWardrobeDoors()"
+            [title]="wardrobeDoorsOpen ? 'Close Wardrobe Doors' : 'Open Wardrobe Doors'">
+            <span>{{ wardrobeDoorsOpen ? '✦ Wardrobe Open' : '◇ Step Inside Wardrobe' }}</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ==========================================================
+           2. INTERACTIVE LUXURY WARDROBE INTERIOR (BOTTLES ONE BY ONE)
+           ========================================================== -->
+      <div class="wardrobe-cabinet-wrapper" [class.doors-closed]="!wardrobeDoorsOpen">
+        
+        <!-- Left & Right Animated Wardrobe Doors with Gold Trim -->
+        <div class="wardrobe-door door-left" aria-hidden="true" (click)="toggleWardrobeDoors()">
+          <div class="door-panel">
+            <div class="door-brass-crest">
+              <img src="/assets/logo.svg" alt="Z&amp;S" class="door-crest-mini">
+              <span>ZAUQ</span>
+            </div>
+            <div class="door-handle handle-left"></div>
+          </div>
+        </div>
+
+        <div class="wardrobe-door door-right" aria-hidden="true" (click)="toggleWardrobeDoors()">
+          <div class="door-panel">
+            <div class="door-brass-crest">
+              <img src="/assets/logo.svg" alt="Z&amp;S" class="door-crest-mini">
+              <span>SHAUQ</span>
+            </div>
+            <div class="door-handle handle-right"></div>
+          </div>
+        </div>
+
+        <!-- WARDROBE INTERIOR: ACTIVE FLACON ALCOVE -->
+        <div class="slider-inner page-shell">
           
-          <div class="flacon-cinematic-stage" [class.stage-transitioning]="isTransitioning">
+          <!-- LEFT COLUMN: CINEMATIC EDITORIAL COPY -->
+          <div class="slider-copy-col" [class.slide-transitioning]="isTransitioning">
             
-            <!-- Canva-style Luxury Gold Frame Accents -->
-            <div class="stage-frame-corner top-left" aria-hidden="true"></div>
-            <div class="stage-frame-corner top-right" aria-hidden="true"></div>
-            <div class="stage-frame-corner bottom-left" aria-hidden="true"></div>
-            <div class="stage-frame-corner bottom-right" aria-hidden="true"></div>
-
-            <!-- Rotating Gold Orbit Rings & Halos -->
-            <div class="gold-halo-core" aria-hidden="true"></div>
-            <div class="gold-orbit-ring ring-outer" aria-hidden="true"></div>
-            <div class="gold-orbit-ring ring-inner" aria-hidden="true"></div>
-
-            <!-- Floating Olfactory Feature Badges -->
-            <div class="floating-badge badge-top-left">
-              <span class="badge-icon">✦</span>
-              <span>{{ currentSlide.badges[0] }}</span>
-            </div>
-
-            <div class="floating-badge badge-bottom-right">
-              <span class="badge-icon">◇</span>
-              <span>{{ currentSlide.badges[1] }}</span>
-            </div>
-
-            <div class="floating-badge badge-top-right">
-              <span class="badge-icon">♥</span>
-              <span>{{ currentSlide.concentration }}</span>
-            </div>
-
-            <!-- Central Floating Bottle with Scent Diffuser Mist Atomizer -->
-            <div class="flacon-holder" [class.is-spritzing]="isSpritzing">
-              
-              <!-- SCENT BOTTLE DIFFUSER MIST ATOMIZER SPRAY ANIMATION -->
-              <div class="scent-diffuser-atomizer" [class.spray-active]="isSpritzing || isTransitioning" aria-hidden="true">
-                <div class="diffuser-nozzle-flare"></div>
-                <div class="diffuser-mist-cone"></div>
-                <div class="diffuser-mist-plume-left"></div>
-                <div class="diffuser-mist-plume-right"></div>
-                <div class="diffuser-particles">
-                  <span class="diffuser-drop d1"></span>
-                  <span class="diffuser-drop d2"></span>
-                  <span class="diffuser-drop d3"></span>
-                  <span class="diffuser-drop d4"></span>
-                  <span class="diffuser-drop d5"></span>
-                  <span class="diffuser-drop d6"></span>
-                  <span class="diffuser-drop d7"></span>
-                  <span class="diffuser-drop d8"></span>
-                </div>
-                <div class="diffuser-aroma-ring ring-1"></div>
-                <div class="diffuser-aroma-ring ring-2"></div>
-                <div class="diffuser-floating-note">✦ {{ currentSlide.notes.top }}</div>
+            <!-- Edition Badge & Live Counter -->
+            <div class="slide-badge-row">
+              <span class="edition-pill">
+                <span class="pill-sparkle">✦</span>
+                {{ currentSlide.edition }}
+              </span>
+              <div class="slide-counter">
+                <span class="current-num">0{{ currentSlideIndex + 1 }}</span>
+                <span class="counter-slash">/</span>
+                <span class="total-num">0{{ slides.length }}</span>
               </div>
+            </div>
 
-              <!-- Main Illuminated Flacon -->
-              <img 
-                class="flacon-hero-image" 
-                [src]="currentSlide.image" 
-                [alt]="currentSlide.name + ' luxury perfume flacon'"
-                (click)="onShopFlacon()"
-                loading="eager">
-              <div class="flacon-pedestal-shadow" aria-hidden="true"></div>
+            <!-- Main Grand Title with Golden Italic Accent -->
+            <h2 class="slide-title">
+              <span class="slide-title-name">{{ currentSlide.name }}</span>
+              <span class="slide-title-sub">
+                <em>{{ currentSlide.headline }}</em>
+              </span>
+            </h2>
 
-              <!-- Interactive Spritz Tester Mist Action Button -->
+            <!-- Sensory Narrative Description -->
+            <p class="slide-narrative">
+              {{ currentSlide.description }}
+            </p>
+
+            <!-- FRAGRANTICA-INSPIRED MAIN ACCORDS BARS -->
+            <div class="fragrantica-mini-accords" aria-label="Main Fragrantica Olfactory Accords">
+              <div class="accords-header">
+                <span class="accords-kicker">MAIN ACCORDS</span>
+                <span class="accords-source">FRAGRANTICA PROFILE</span>
+              </div>
+              <div class="accords-bars-deck">
+                <div 
+                  *ngFor="let acc of currentSlide.accords" 
+                  class="accord-bar-row"
+                  [title]="acc.name + ': ' + acc.percent + '% prominence'">
+                  <span class="accord-title">{{ acc.name }}</span>
+                  <div class="accord-meter-track">
+                    <div class="accord-meter-fill" [style.width.%]="acc.percent" [style.background]="acc.color"></div>
+                  </div>
+                  <span class="accord-percent">{{ acc.percent }}%</span>
+                </div>
+              </div>
+              
+              <!-- Sensory Performance Badges -->
+              <div class="fragrantica-metrics-strip">
+                <span class="f-pill"><i class="f-bullet">⏱</i> {{ currentSlide.fragrantica.longevity }}</span>
+                <span class="f-pill"><i class="f-bullet">✨</i> {{ currentSlide.fragrantica.sillage }}</span>
+                <span class="f-pill"><i class="f-bullet">❄️</i> {{ currentSlide.fragrantica.season }}</span>
+              </div>
+            </div>
+
+            <!-- Interactive Olfactory Pyramid Chips -->
+            <div class="olfactory-pyramid" aria-label="Olfactory Notes Pyramid">
+              <div class="note-chip">
+                <span class="note-level">TOP</span>
+                <span class="note-scent">{{ currentSlide.notes.top }}</span>
+              </div>
+              <div class="note-chip">
+                <span class="note-level">HEART</span>
+                <span class="note-scent">{{ currentSlide.notes.heart }}</span>
+              </div>
+              <div class="note-chip">
+                <span class="note-level">BASE</span>
+                <span class="note-scent">{{ currentSlide.notes.base }}</span>
+              </div>
+            </div>
+
+            <!-- Persian & Urdu Literary Couplet Card -->
+            <div class="literary-quote-card">
+              <div class="quote-header">
+                <span class="quote-kicker">HERITAGE RESONANCE</span>
+                <span class="quote-author">{{ currentSlide.quoteAuthor }}</span>
+              </div>
+              <div class="quote-persian" dir="rtl">{{ currentSlide.quoteScript }}</div>
+              <p class="quote-translation">{{ currentSlide.quoteTranslation }}</p>
+            </div>
+
+            <!-- Primary Luxury Action Buttons -->
+            <div class="slide-actions-row">
               <button 
                 type="button" 
-                class="spritz-mist-trigger-btn"
-                (click)="triggerSpritz($event)"
-                [title]="'Spritz ' + currentSlide.name + ' aroma mist'">
-                <span class="spritz-icon">💨</span>
-                <span class="spritz-label">Spritz Tester Mist</span>
-                <span class="spritz-star">✦</span>
+                class="btn-flared-gold" 
+                (click)="onShopFlacon()"
+                [attr.aria-label]="'Shop ' + currentSlide.name + ' for ₹' + currentSlide.price">
+                <span class="btn-text">Acquire Flacon · ₹{{ currentSlide.price | number }}</span>
+                <span class="btn-arrow">↗</span>
+              </button>
+
+              <button 
+                type="button" 
+                class="btn-smoked-glass" 
+                (click)="explore.emit('All Fragrances')"
+                aria-label="Explore Full Fragrance Wardrobe">
+                <span>View Full Wardrobe</span>
+                <span class="btn-arrow">→</span>
               </button>
             </div>
 
-            <!-- Flacon Pedestal Label / Vintage Crest -->
-            <div class="flacon-vintage-card">
-              <div class="vintage-stamp">
-                <span class="vintage-est">MAISON</span>
-                <strong class="vintage-logo">Z&amp;S</strong>
-                <span class="vintage-city">PARIS · JAIPUR</span>
+            <!-- Slide Selector Navigation Tabs -->
+            <div class="slide-tabs-nav" role="tablist" aria-label="Select Fragrance Slide">
+              <button 
+                *ngFor="let s of slides; let i = index" 
+                type="button" 
+                class="slide-tab-pill" 
+                [class.is-active]="i === currentSlideIndex"
+                (click)="goToSlide(i)"
+                role="tab"
+                [attr.aria-selected]="i === currentSlideIndex">
+                <span class="tab-index">0{{ i + 1 }}</span>
+                <span class="tab-name">{{ s.name }}</span>
+                <span class="tab-active-indicator" *ngIf="i === currentSlideIndex"></span>
+              </button>
+            </div>
+
+          </div>
+
+          <!-- RIGHT COLUMN: ILLUMINATED FLACON STAGE WITH SCENT DIFFUSER ATOMIZER SPRAY -->
+          <div class="slider-stage-col">
+            
+            <div class="flacon-cinematic-stage" [class.stage-transitioning]="isTransitioning">
+              
+              <!-- Canva-style Luxury Gold Frame Accents -->
+              <div class="stage-frame-corner top-left" aria-hidden="true"></div>
+              <div class="stage-frame-corner top-right" aria-hidden="true"></div>
+              <div class="stage-frame-corner bottom-left" aria-hidden="true"></div>
+              <div class="stage-frame-corner bottom-right" aria-hidden="true"></div>
+
+              <!-- Rotating Gold Orbit Rings & Halos -->
+              <div class="gold-halo-core" aria-hidden="true"></div>
+              <div class="gold-orbit-ring ring-outer" aria-hidden="true"></div>
+              <div class="gold-orbit-ring ring-inner" aria-hidden="true"></div>
+
+              <!-- Floating Olfactory Feature Badges -->
+              <div class="floating-badge badge-top-left">
+                <span class="badge-icon">✦</span>
+                <span>{{ currentSlide.badges[0] }}</span>
               </div>
-              <div class="vintage-details">
-                <span class="vintage-cat">{{ currentSlide.concentration }} · {{ currentSlide.size }}</span>
-                <strong class="vintage-title">{{ currentSlide.name }}</strong>
-                <button type="button" class="vintage-inspect-btn" (click)="onShopFlacon()">
-                  <span>Inspect Scent Profile</span>
-                  <span class="arrow-glyph">↗</span>
+
+              <div class="floating-badge badge-bottom-right">
+                <span class="badge-icon">◇</span>
+                <span>{{ currentSlide.badges[1] }}</span>
+              </div>
+
+              <div class="floating-badge badge-top-right">
+                <span class="badge-icon">♥</span>
+                <span>{{ currentSlide.concentration }}</span>
+              </div>
+
+              <!-- Central Floating Bottle with Scent Diffuser Mist Atomizer -->
+              <div class="flacon-holder" [class.is-spritzing]="isSpritzing">
+                
+                <!-- SCENT BOTTLE DIFFUSER MIST ATOMIZER SPRAY ANIMATION -->
+                <div class="scent-diffuser-atomizer" [class.spray-active]="isSpritzing || isTransitioning" aria-hidden="true">
+                  <div class="diffuser-nozzle-flare"></div>
+                  <div class="diffuser-mist-cone"></div>
+                  <div class="diffuser-mist-plume-left"></div>
+                  <div class="diffuser-mist-plume-right"></div>
+                  <div class="diffuser-particles">
+                    <span class="diffuser-drop d1"></span>
+                    <span class="diffuser-drop d2"></span>
+                    <span class="diffuser-drop d3"></span>
+                    <span class="diffuser-drop d4"></span>
+                    <span class="diffuser-drop d5"></span>
+                    <span class="diffuser-drop d6"></span>
+                    <span class="diffuser-drop d7"></span>
+                    <span class="diffuser-drop d8"></span>
+                  </div>
+                  <div class="diffuser-aroma-ring ring-1"></div>
+                  <div class="diffuser-aroma-ring ring-2"></div>
+                  <div class="diffuser-floating-note">✦ {{ currentSlide.notes.top }}</div>
+                </div>
+
+                <!-- Main Illuminated Flacon -->
+                <img 
+                  class="flacon-hero-image" 
+                  [src]="currentSlide.image" 
+                  [alt]="currentSlide.name + ' luxury perfume flacon'"
+                  (click)="onShopFlacon()"
+                  loading="eager">
+                <div class="flacon-pedestal-shadow" aria-hidden="true"></div>
+
+                <!-- Interactive Spritz Tester Mist Action Button -->
+                <button 
+                  type="button" 
+                  class="spritz-mist-trigger-btn"
+                  (click)="triggerSpritz($event)"
+                  [title]="'Spritz ' + currentSlide.name + ' aroma mist'">
+                  <span class="spritz-icon">💨</span>
+                  <span class="spritz-label">Spray Flacon Scent Mist</span>
+                  <span class="spritz-star">✦</span>
                 </button>
               </div>
-            </div>
 
-            <!-- Stage Navigation Arrows -->
-            <div class="stage-controls">
-              <button 
-                type="button" 
-                class="nav-arrow-btn prev-btn" 
-                (click)="prevSlide()" 
-                aria-label="Previous Fragrance Flacon">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-              </button>
-              
-              <div class="stage-slide-indicator">
-                <span>0{{ currentSlideIndex + 1 }}</span>
-                <div class="indicator-bar">
-                  <div class="indicator-fill" [style.width.%]="((currentSlideIndex + 1) / slides.length) * 100"></div>
+              <!-- Flacon Pedestal Label / Vintage Crest -->
+              <div class="flacon-vintage-card">
+                <div class="vintage-stamp">
+                  <span class="vintage-est">MAISON</span>
+                  <strong class="vintage-logo">Z&amp;S</strong>
+                  <span class="vintage-city">PARIS · JAIPUR</span>
                 </div>
-                <span>0{{ slides.length }}</span>
+                <div class="vintage-details">
+                  <span class="vintage-cat">{{ currentSlide.concentration }} · {{ currentSlide.size }}</span>
+                  <strong class="vintage-title">{{ currentSlide.name }}</strong>
+                  <button type="button" class="vintage-inspect-btn" (click)="onShopFlacon()">
+                    <span>Inspect Scent Profile</span>
+                    <span class="arrow-glyph">↗</span>
+                  </button>
+                </div>
               </div>
 
-              <button 
-                type="button" 
-                class="nav-arrow-btn next-btn" 
-                (click)="nextSlide()" 
-                aria-label="Next Fragrance Flacon">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M9 18l6-6-6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-              </button>
+              <!-- Stage Navigation Arrows -->
+              <div class="stage-controls">
+                <button 
+                  type="button" 
+                  class="nav-arrow-btn prev-btn" 
+                  (click)="prevSlide()" 
+                  aria-label="Previous Fragrance Flacon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </button>
+                
+                <div class="stage-slide-indicator">
+                  <span>0{{ currentSlideIndex + 1 }}</span>
+                  <div class="indicator-bar">
+                    <div class="indicator-fill" [style.width.%]="((currentSlideIndex + 1) / slides.length) * 100"></div>
+                  </div>
+                  <span>0{{ slides.length }}</span>
+                </div>
+
+                <button 
+                  type="button" 
+                  class="nav-arrow-btn next-btn" 
+                  (click)="nextSlide()" 
+                  aria-label="Next Fragrance Flacon">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M9 18l6-6-6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </button>
+              </div>
+
             </div>
 
           </div>
@@ -505,6 +578,43 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
       badges: ['Mongra Saffron', 'Ancient Incense', 'Limited Batch'],
       spotlightGradient: 'radial-gradient(circle at 65% 45%, rgba(115, 48, 22, 0.75) 0%, rgba(6, 26, 19, 0.96) 60%, #03120c 100%)',
       accentColor: '#e5c178'
+    },
+    {
+      id: 3,
+      productCode: 'ZS-AZUR-03',
+      name: 'Azure Coast',
+      subname: 'The Mediterranean Silk',
+      edition: 'RIVIERA PRIVATE EDIT · CASQUE NO. 05',
+      headline: 'Sunlit Coastal Driftwood. Sparkling Bergamot & Sea Salt.',
+      description: 'Hand-harvested Calabrian bergamot infused with sea salt crystals, sun-drenched cedar driftwood, and crisp white tea. Refreshing, oceanic, and effortlessly magnetic.',
+      price: 2699,
+      originalPrice: 3299,
+      size: '100 ml',
+      concentration: 'Extrait de Parfum',
+      image: '/assets/products/azure-coast.svg',
+      notes: {
+        top: 'Calabrian Bergamot · Sea Salt',
+        heart: 'Neroli Petals · White Tea',
+        base: 'Sunlit Driftwood · Ocean Amber'
+      },
+      accords: [
+        { name: 'Citrus Fresh', percent: 94, color: '#3A9BB7' },
+        { name: 'Aquatic Marine', percent: 86, color: '#2B7092' },
+        { name: 'Aromatic Tea', percent: 76, color: '#668F80' },
+        { name: 'Clean Driftwood', percent: 68, color: '#887B6C' }
+      ],
+      fragrantica: {
+        longevity: 'Long Lasting (10+ hrs)',
+        sillage: 'Breezy Radiance',
+        season: 'Spring · Summer',
+        timeOfDay: 'Day & Evening'
+      },
+      quoteScript: 'نسیمِ بادِ صبا بویِ تو دارد',
+      quoteAuthor: 'Saadi Shirazi',
+      quoteTranslation: '“The morning breeze carries the fragrance of your presence.”',
+      badges: ['Riviera Breeze', 'Calabrian Citrus', 'Summer Favorite'],
+      spotlightGradient: 'radial-gradient(circle at 65% 45%, rgba(20, 68, 85, 0.75) 0%, rgba(6, 26, 19, 0.96) 60%, #03120c 100%)',
+      accentColor: '#8ec5d6'
     }
   ];
 
@@ -513,6 +623,19 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
   isTransitioning = false;
   isSpritzing = false;
   progressPercent = 0;
+  wardrobeDoorsOpen = true;
+
+  getRoman(i: number): string {
+    const romans = ['I', 'II', 'III', 'IV', 'V', 'VI'];
+    return romans[i] || (i + 1).toString();
+  }
+
+  toggleWardrobeDoors(): void {
+    this.wardrobeDoorsOpen = !this.wardrobeDoorsOpen;
+    if (this.wardrobeDoorsOpen) {
+      setTimeout(() => this.triggerSpritz(), 300);
+    }
+  }
 
   private autoplayTimer?: ReturnType<typeof setInterval>;
   private progressInterval?: ReturnType<typeof setInterval>;

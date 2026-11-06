@@ -63,10 +63,10 @@ public class OrderController {
 
     @GetMapping("/{orderNumber}")
     public OrderReceipt findOrder(@PathVariable String orderNumber) {
-        String normalized = orderNumber.trim().toUpperCase();
-        if (!normalized.matches("ZS-[0-9]{8}-[A-F0-9]{6}")) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid order reference format (expected ZS-YYYYMMDD-XXXXXX).");
+        if (orderNumber == null || orderNumber.isBlank()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Order reference number is required.");
         }
+        String normalized = orderNumber.trim().toUpperCase();
         return orderService.findOrder(normalized);
     }
 
