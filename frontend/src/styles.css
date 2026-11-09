@@ -2759,6 +2759,22 @@ html, body {
   box-shadow: 0 4px 14px rgba(229, 193, 120, 0.35) !important;
 }
 
+.collection-toolbar {
+  border-bottom: 1px solid rgba(201, 169, 110, 0.25) !important;
+}
+
+.collection-heading .text-link-light {
+  color: var(--color-champagne-gold, #C9A96E) !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  transition: color 0.2s ease, transform 0.2s ease !important;
+}
+
+.collection-heading .text-link-light:hover {
+  color: #ffd875 !important;
+  transform: translateX(4px);
+}
+
 .sort-control span {
   color: #b5beb0 !important;
 }

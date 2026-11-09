@@ -771,7 +771,7 @@
             <h2>Find your <em>signature.</em></h2>
             <p class="section-intro">Considered compositions, handcrafted with rare botanical essences and aged resins.</p>
           </div>
-          <button type="button" class="text-link" (click)="setView('discovery')">Looking for samples? Explore Coffret <span>→</span></button>
+          <button type="button" class="text-link text-link-light" (click)="setView('discovery')">Looking for samples? Explore Coffret <span>→</span></button>
         </div>
 
         <div class="collection-toolbar">
@@ -792,11 +792,11 @@
 
         <div class="filter-search" *ngIf="searchTerm">
           <span>Showing results for <strong>“{{ searchTerm }}”</strong></span>
-          <button type="button" class="text-link" (click)="searchTerm=''; clearFilters()">Clear search ×</button>
+          <button type="button" class="text-link text-link-light" (click)="searchTerm=''; clearFilters()">Clear search ×</button>
         </div>
         <div class="filter-search" *ngIf="showWishlistOnly">
           <span>Your saved fragrances</span>
-          <button type="button" class="text-link" (click)="showWishlistOnly=false">Show all fragrances ×</button>
+          <button type="button" class="text-link text-link-light" (click)="showWishlistOnly=false">Show all fragrances ×</button>
         </div>
 
         <div class="product-grid" *ngIf="filteredProducts.length; else emptyProducts">

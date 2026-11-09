@@ -827,6 +827,7 @@ export class AppComponent implements OnInit, OnDestroy {
   selectCategory(category: string): void {
     this.activeCategory = category;
     this.showWishlistOnly = false;
+    this.searchTerm = '';
     this.mobileMenuOpen = false;
     this.currentView = 'shop';
     if (this.allProducts.length) {
@@ -834,7 +835,14 @@ export class AppComponent implements OnInit, OnDestroy {
         this.products = [...this.allProducts];
       } else {
         const cat = category.trim().toLowerCase();
-        this.products = this.allProducts.filter(p => p.category && p.category.trim().toLowerCase() === cat);
+        this.products = this.allProducts.filter(p => {
+          if (!p.category) return false;
+          const pCat = p.category.trim().toLowerCase();
+          return pCat === cat ||
+                 ((cat === 'for him' || cat === 'men' || cat === 'him') && (pCat === 'for him' || pCat === 'men' || pCat === 'him')) ||
+                 ((cat === 'for her' || cat === 'women' || cat === 'her') && (pCat === 'for her' || pCat === 'women' || pCat === 'her')) ||
+                 (cat === 'unisex' && pCat === 'unisex');
+        });
       }
     }
     this.loadProducts();
@@ -844,12 +852,20 @@ export class AppComponent implements OnInit, OnDestroy {
   onCategoryPillClick(category: string): void {
     this.activeCategory = category;
     this.showWishlistOnly = false;
+    this.searchTerm = '';
     if (this.allProducts.length) {
       if (category === 'All Fragrances') {
         this.products = [...this.allProducts];
       } else {
         const cat = category.trim().toLowerCase();
-        this.products = this.allProducts.filter(p => p.category && p.category.trim().toLowerCase() === cat);
+        this.products = this.allProducts.filter(p => {
+          if (!p.category) return false;
+          const pCat = p.category.trim().toLowerCase();
+          return pCat === cat ||
+                 ((cat === 'for him' || cat === 'men' || cat === 'him') && (pCat === 'for him' || pCat === 'men' || pCat === 'him')) ||
+                 ((cat === 'for her' || cat === 'women' || cat === 'her') && (pCat === 'for her' || pCat === 'women' || pCat === 'her')) ||
+                 (cat === 'unisex' && pCat === 'unisex');
+        });
       }
     }
     this.loadProducts();
