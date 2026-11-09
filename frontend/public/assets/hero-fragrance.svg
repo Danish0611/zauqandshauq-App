@@ -51,8 +51,7 @@
   </filter>
 </defs>
 
-<!-- Luxury Backdrop Frame with Oval Halo -->
-<rect width="720" height="760" rx="40" fill="url(#bg)"/>
+<!-- Luxury Ambient Spotlight Halo (Transparent Background) -->
 <ellipse cx="360" cy="380" rx="300" ry="320" fill="url(#glow)"/>
 
 <!-- Geometric Concentric Luxury Rings -->

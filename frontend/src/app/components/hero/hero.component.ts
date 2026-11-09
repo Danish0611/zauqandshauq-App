@@ -78,7 +78,7 @@ export interface HeroSlide {
           <!-- Kicker Eyebrow with Brand Monogram -->
           <div class="hero-eyebrow-row">
             <span class="hero-crest-mini-wrap">
-              <img src="/assets/logo.png" alt="Z&amp;S" class="hero-crest-mini">
+              <img src="/assets/logo/svg/zauq-shauq-mark-gold.svg" alt="Z&amp;S" class="hero-crest-mini">
             </span>
             <span class="hero-kicker">🪔 शुभ दीपावली · ROYAL INDIAN HAUTE PARFUMERIE · PARIS &amp; JAIPUR 🪔</span>
           </div>

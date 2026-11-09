@@ -35,14 +35,15 @@ interface Particle {
       <div class="intro-bottle-stage" [class.nozzle-active]="isSpraying">
         <div class="intro-nozzle-plume" [class.plume-burst]="isSpraying" aria-hidden="true"></div>
         <img
-          src="/assets/products/noir-oud.svg"
-          alt="Zauq & Shauq signature flacon"
+          src="/assets/hero-fragrance.svg"
+          alt="Zauq &amp; Shauq signature flacon"
           class="intro-bottle-image"
           [class.bottle-pulse]="isSpraying" />
         
         <div class="intro-brand-lockup">
-          <span class="intro-kicker">HAUTE PARFUMERIE</span>
-          <h1 class="intro-title">ZAUQ <span>&</span> SHAUQ</h1>
+          <img src="/assets/logo/svg/zauq-shauq-mark-gold.svg" alt="Zauq &amp; Shauq Crest" class="intro-crest-logo" width="56" height="56">
+          <span class="intro-kicker">HAUTE PARFUMERIE · PARIS &amp; JAIPUR</span>
+          <h1 class="intro-title">ZAUQ <span>&amp;</span> SHAUQ</h1>
           <p class="intro-tagline">Scent, With Soul</p>
         </div>
       </div>
@@ -117,11 +118,21 @@ interface Particle {
     }
 
     .intro-brand-lockup {
-      margin-top: 2rem;
+      margin-top: 1.5rem;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 8px;
       align-items: center;
+    }
+
+    .intro-crest-logo {
+      filter: drop-shadow(0 0 16px rgba(201, 169, 110, 0.65));
+      animation: floatCrest 4s ease-in-out infinite;
+    }
+
+    @keyframes floatCrest {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
     }
 
     .intro-kicker {
