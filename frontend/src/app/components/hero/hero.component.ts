@@ -80,13 +80,7 @@ export interface HeroSlide {
             <span class="hero-crest-mini-wrap">
               <img src="/assets/logo/svg/zauq-shauq-mark-gold.svg" alt="Z&amp;S" class="hero-crest-mini">
             </span>
-            <span class="hero-kicker">🪔 शुभ दीपावली · ROYAL INDIAN HAUTE PARFUMERIE · PARIS &amp; JAIPUR 🪔</span>
-          </div>
-
-          <div class="hero-diwali-pill">
-            <span class="diya-twinkle">🪔</span>
-            <span>Diwali Festive Gifting Active · Code: <strong>DIWALI25</strong> (Flat 25% Off)</span>
-            <span class="diya-twinkle">✨</span>
+            <span class="hero-kicker">ROYAL INDIAN HAUTE PARFUMERIE · PARIS &amp; JAIPUR</span>
           </div>
 
           <!-- Main Grand Title (Scent, With Soul) -->

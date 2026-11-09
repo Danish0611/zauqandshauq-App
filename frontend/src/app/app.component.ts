@@ -87,8 +87,6 @@ export class AppComponent implements OnInit, OnDestroy {
   newsletterEmail = '';
   newsletterMessage = '';
   newsletterBusy = false;
-  diyaLit = false;
-  diyaWishesVisible = false;
 
   circularCategories = [
     {
@@ -788,7 +786,6 @@ export class AppComponent implements OnInit, OnDestroy {
     const code = (this.appliedCoupon || '').trim().toUpperCase();
     if (code === 'ZAUQ10') return Math.round(this.cartSubtotal * 0.10);
     if (code === 'ROYAL20') return Math.round(this.cartSubtotal * 0.20);
-    if (code === 'DIWALI25') return Math.round(this.cartSubtotal * 0.25);
     if (code === 'DISCOVER999') return Math.min(this.cartSubtotal, 999);
     if (code === 'WELCOME500') return this.cartSubtotal >= 2000 ? 500 : 0;
     return 0;
@@ -1081,10 +1078,6 @@ export class AppComponent implements OnInit, OnDestroy {
       this.appliedCoupon = code;
       this.checkout.couponCode = code;
       this.notify('ROYAL20 applied. 20% royal discount saved.');
-    } else if (code === 'DIWALI25') {
-      this.appliedCoupon = code;
-      this.checkout.couponCode = code;
-      this.notify('🪔 DIWALI25 applied! Flat 25% festive discount saved.');
     } else if (code === 'DISCOVER999') {
       this.appliedCoupon = code;
       this.checkout.couponCode = code;
@@ -1114,79 +1107,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.checkout.couponCode = '';
     this.couponInput = '';
     this.notify('Voucher removed.');
-  }
-
-  claimDiwaliCode(): void {
-    const code = 'DIWALI25';
-    this.couponInput = code;
-    this.appliedCoupon = code;
-    this.checkout.couponCode = code;
-    if (this.isBrowser && navigator.clipboard) {
-      navigator.clipboard.writeText(code).catch(() => {});
-    }
-    this.notify('🪔 Code DIWALI25 copied & applied! Flat 25% festive discount active.');
-  }
-
-  addDiwaliCoffret(): void {
-    const coffretProduct: Product = {
-      id: 999,
-      productCode: 'ZS-DIWALI-COFFRET',
-      name: 'The Royal Diwali Discovery Coffret',
-      brand: 'Zauq & Shauq Atelier',
-      category: 'Unisex',
-      concentration: 'Extrait de Parfum',
-      size: '5 × 15 ml Flacons + Brass Diya',
-      price: 3999,
-      originalPrice: 5499,
-      rating: 5.0,
-      reviews: 42,
-      description: 'Festive Luxury Edition. 5 signature extrait flacons (Noir Oud, Velvet Amber, Rose Éclat, Saffron Smoke, Desert Bloom) in a gold-foiled velvet box with hand-cast ceremonial brass diya and amber wax melts.',
-      ingredients: 'Pure Botanical Distillates, Aged Agarwood, Damask Rose Otto, Mysore Sandalwood.',
-      notes: ['Aged Oud', 'Ambergris', 'Damask Rose', 'Sacred Saffron', 'Mysore Sandal'],
-      image: '/assets/products/velvet-amber.svg',
-      badge: 'DIWALI EXCLUSIVE',
-      featured: true,
-      bestseller: true,
-      newArrival: true,
-      stockQuantity: 25
-    };
-    this.addToCart(coffretProduct);
-    this.claimDiwaliCode();
-    this.notify('🪔 Royal Diwali Coffret added to bag with 25% festive offer!');
-  }
-
-  addDiwaliDuo(): void {
-    const noir = (this.allProducts.length ? this.allProducts : this.products).find(p => p.productCode === 'ZS-OUD-01');
-    const rose = (this.allProducts.length ? this.allProducts : this.products).find(p => p.productCode === 'ZS-ROSE-02');
-    if (noir) this.addToCart(noir);
-    if (rose) this.addToCart(rose);
-    this.claimDiwaliCode();
-    this.notify('🪔 Celebration Duo (Noir Oud + Rose Éclat) added with DIWALI25 discount!');
-  }
-
-  lightDiya(): void {
-    this.diyaLit = true;
-    this.diyaWishesVisible = true;
-    this.claimDiwaliCode();
-    this.notify('🪔 शुभ दीपावली! Sacred Diya has been illuminated. Flat 25% Diwali discount unlocked!');
-  }
-
-  addDiwaliLakshmiPujan(): void {
-    const saff = (this.allProducts.length ? this.allProducts : this.products).find(p => p.productCode === 'ZS-SAFF-07');
-    if (saff) {
-      this.addToCart(saff);
-    }
-    this.claimDiwaliCode();
-    this.notify('🪔 Sacred Saffron Smoke (Lakshmi Pujan Edition) added to bag!');
-  }
-
-  addDiwaliTrio(): void {
-    const amber = (this.allProducts.length ? this.allProducts : this.products).find(p => p.productCode === 'ZS-AMBER-04');
-    const citrus = (this.allProducts.length ? this.allProducts : this.products).find(p => p.productCode === 'ZS-CITRUS-03');
-    if (amber) this.addToCart(amber);
-    if (citrus) this.addToCart(citrus);
-    this.claimDiwaliCode();
-    this.notify('🪔 Mithai & Saffron Festive Trio added with 25% discount!');
   }
 
   setPaymentMethod(method: 'RAZORPAY' | 'UPI' | 'COD' | 'DEMO'): void {

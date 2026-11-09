@@ -94,7 +94,7 @@ public class OrderService {
             discount = subtotal.multiply(new BigDecimal("0.10")).setScale(2, RoundingMode.HALF_UP);
         } else if ("ROYAL20".equalsIgnoreCase(coupon)) {
             discount = subtotal.multiply(new BigDecimal("0.20")).setScale(2, RoundingMode.HALF_UP);
-        } else if ("DIWALI25".equalsIgnoreCase(coupon)) {
+        } else if ("ZAUQ25".equalsIgnoreCase(coupon) || "DIWALI25".equalsIgnoreCase(coupon)) {
             discount = subtotal.multiply(new BigDecimal("0.25")).setScale(2, RoundingMode.HALF_UP);
         } else if ("DISCOVER999".equalsIgnoreCase(coupon)) {
             discount = subtotal.min(new BigDecimal("999.00")).setScale(2, RoundingMode.HALF_UP);

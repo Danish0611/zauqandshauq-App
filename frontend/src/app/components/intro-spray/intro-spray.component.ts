@@ -54,7 +54,7 @@ interface Particle {
         class="intro-skip-btn"
         (click)="skipIntro()"
         aria-label="Skip fragrance opening">
-        <span>Skip Ritual</span>
+        <span>Skip Intro</span>
         <span class="skip-arrow">→</span>
       </button>
 
