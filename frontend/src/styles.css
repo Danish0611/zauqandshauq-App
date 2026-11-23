@@ -6661,21 +6661,114 @@ body[data-theme="rose"] {
   --color-olive-base: #24111d;
   --color-olive-dark: #140911;
   --color-olive-light: #35172b;
-  --color-near-black: #0c060b;
-  --color-warm-ivory: #FBF4F6;
+  --color-near-black: #10070d;
+  --color-warm-ivory: #FDF5F8;
   --bg-primary: #190c16;
-  --bg-deep: #0c060b;
+  --bg-deep: #10070d;
   --bg-surface: #24111d;
-  --text-primary: #FBF4F6;
-  --glass-bg: rgba(36, 17, 29, 0.8);
+  --text-primary: #FDF5F8;
+  --glass-bg: rgba(36, 17, 29, 0.85);
   --section-gradient-top: #24111d;
-  --section-gradient-bottom: #0c060b;
+  --section-gradient-bottom: #10070d;
 }
-body[data-theme="rose"] .spotlight-him {
-  background: linear-gradient(135deg, rgba(38, 16, 29, 0.95), rgba(16, 8, 13, 0.98)) !important;
+
+body[data-theme="rose"] {
+  background: #10070d !important;
+  color: #FDF5F8 !important;
 }
+
 body[data-theme="rose"] .site-header {
-  background: rgba(20, 10, 17, 0.92) !important;
+  background: rgba(18, 8, 15, 0.95) !important;
+  border-bottom: 1px solid rgba(230, 165, 185, 0.25) !important;
+}
+body[data-theme="rose"] .brand-name {
+  color: #FDF5F8 !important;
+}
+body[data-theme="rose"] .desktop-nav a {
+  color: #d8c2cc !important;
+}
+body[data-theme="rose"] .desktop-nav a:hover,
+body[data-theme="rose"] .desktop-nav a.active-nav {
+  color: #10070d !important;
+  background: #E6A5B9 !important;
+}
+body[data-theme="rose"] .header-search {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(230, 165, 185, 0.3) !important;
+}
+body[data-theme="rose"] .header-search svg {
+  stroke: #E6A5B9 !important;
+}
+body[data-theme="rose"] .header-search input {
+  color: #FDF5F8 !important;
+}
+body[data-theme="rose"] .header-tools .icon-button {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(230, 165, 185, 0.28) !important;
+  color: #FDF5F8 !important;
+}
+body[data-theme="rose"] .header-tools .icon-button svg {
+  stroke: #E6A5B9 !important;
+}
+body[data-theme="rose"] .header-tools .icon-button:hover {
+  background: #E6A5B9 !important;
+  color: #10070d !important;
+}
+body[data-theme="rose"] .header-tools .icon-button:hover svg {
+  stroke: #10070d !important;
+}
+body[data-theme="rose"] .announcement-bar {
+  background: #180a14 !important;
+  color: #FDF5F8 !important;
+  border-bottom: 1px solid rgba(230, 165, 185, 0.2) !important;
+}
+
+body[data-theme="rose"] .hero-slider-section {
+  background: #10070d !important;
+}
+body[data-theme="rose"] .slider-backdrop {
+  background: radial-gradient(circle at 65% 45%, rgba(66, 19, 44, 0.85) 0%, rgba(26, 8, 18, 0.98) 60%, #10030a 100%) !important;
+}
+
+body[data-theme="rose"] .full-width-section,
+body[data-theme="rose"] .dark-luxury-section,
+body[data-theme="rose"] .collection-section,
+body[data-theme="rose"] .circular-categories-section,
+body[data-theme="rose"] .signature-line-section,
+body[data-theme="rose"] .category-cards-section,
+body[data-theme="rose"] .dual-spotlight-section,
+body[data-theme="rose"] .home-coffret-banner,
+body[data-theme="rose"] .royal-poetry-band,
+body[data-theme="rose"] .scent-ritual,
+body[data-theme="rose"] .reviews-section,
+body[data-theme="rose"] .service-strip,
+body[data-theme="rose"] .newsletter-section,
+body[data-theme="rose"] .story-feature,
+body[data-theme="rose"] .site-footer {
+  background: linear-gradient(180deg, #1d0c18 0%, #10070d 60%, #1a0b16 100%) !important;
+  color: #FDF5F8 !important;
+  border-color: rgba(230, 165, 185, 0.25) !important;
+}
+
+body[data-theme="rose"] .family-showcase-stage {
+  background: radial-gradient(circle at 60% 40%, rgba(46, 18, 36, 0.95) 0%, rgba(18, 7, 14, 0.98) 100%) !important;
+  border-color: rgba(230, 165, 185, 0.3) !important;
+}
+body[data-theme="rose"] .product-card,
+body[data-theme="rose"] .luxury-cat-card,
+body[data-theme="rose"] .review-card,
+body[data-theme="rose"] .circular-cat-card,
+body[data-theme="rose"] .spotlight-card {
+  background: rgba(36, 17, 29, 0.88) !important;
+  border-color: rgba(230, 165, 185, 0.28) !important;
+  color: #FDF5F8 !important;
+}
+body[data-theme="rose"] .product-visual {
+  background: radial-gradient(circle at 50% 65%, rgba(230, 165, 185, 0.22) 0%, rgba(20, 8, 16, 0.98) 100%) !important;
+}
+body[data-theme="rose"] .product-details {
+  background: rgba(28, 13, 23, 0.92) !important;
+  color: #FDF5F8 !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -6686,21 +6779,114 @@ body[data-theme="emerald"] {
   --color-olive-base: #0c2016;
   --color-olive-dark: #06120c;
   --color-olive-light: #132f22;
-  --color-near-black: #040c07;
+  --color-near-black: #050e09;
   --color-warm-ivory: #F2F8F4;
   --bg-primary: #091710;
-  --bg-deep: #040c07;
+  --bg-deep: #050e09;
   --bg-surface: #0c2016;
   --text-primary: #F2F8F4;
-  --glass-bg: rgba(12, 32, 22, 0.8);
+  --glass-bg: rgba(12, 32, 22, 0.85);
   --section-gradient-top: #0c2016;
-  --section-gradient-bottom: #040c07;
+  --section-gradient-bottom: #050e09;
 }
+
+body[data-theme="emerald"] {
+  background: #050e09 !important;
+  color: #F2F8F4 !important;
+}
+
 body[data-theme="emerald"] .site-header {
-  background: rgba(8, 20, 14, 0.92) !important;
+  background: rgba(6, 18, 12, 0.95) !important;
+  border-bottom: 1px solid rgba(134, 197, 158, 0.25) !important;
 }
-body[data-theme="emerald"] .spotlight-her {
-  background: linear-gradient(135deg, rgba(14, 38, 26, 0.95), rgba(6, 18, 12, 0.98)) !important;
+body[data-theme="emerald"] .brand-name {
+  color: #F2F8F4 !important;
+}
+body[data-theme="emerald"] .desktop-nav a {
+  color: #bed4c7 !important;
+}
+body[data-theme="emerald"] .desktop-nav a:hover,
+body[data-theme="emerald"] .desktop-nav a.active-nav {
+  color: #050e09 !important;
+  background: #86C59E !important;
+}
+body[data-theme="emerald"] .header-search {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(134, 197, 158, 0.3) !important;
+}
+body[data-theme="emerald"] .header-search svg {
+  stroke: #86C59E !important;
+}
+body[data-theme="emerald"] .header-search input {
+  color: #F2F8F4 !important;
+}
+body[data-theme="emerald"] .header-tools .icon-button {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(134, 197, 158, 0.28) !important;
+  color: #F2F8F4 !important;
+}
+body[data-theme="emerald"] .header-tools .icon-button svg {
+  stroke: #86C59E !important;
+}
+body[data-theme="emerald"] .header-tools .icon-button:hover {
+  background: #86C59E !important;
+  color: #050e09 !important;
+}
+body[data-theme="emerald"] .header-tools .icon-button:hover svg {
+  stroke: #050e09 !important;
+}
+body[data-theme="emerald"] .announcement-bar {
+  background: #081a10 !important;
+  color: #F2F8F4 !important;
+  border-bottom: 1px solid rgba(134, 197, 158, 0.2) !important;
+}
+
+body[data-theme="emerald"] .hero-slider-section {
+  background: #050e09 !important;
+}
+body[data-theme="emerald"] .slider-backdrop {
+  background: radial-gradient(circle at 65% 45%, rgba(14, 58, 38, 0.85) 0%, rgba(6, 26, 17, 0.98) 60%, #03120a 100%) !important;
+}
+
+body[data-theme="emerald"] .full-width-section,
+body[data-theme="emerald"] .dark-luxury-section,
+body[data-theme="emerald"] .collection-section,
+body[data-theme="emerald"] .circular-categories-section,
+body[data-theme="emerald"] .signature-line-section,
+body[data-theme="emerald"] .category-cards-section,
+body[data-theme="emerald"] .dual-spotlight-section,
+body[data-theme="emerald"] .home-coffret-banner,
+body[data-theme="emerald"] .royal-poetry-band,
+body[data-theme="emerald"] .scent-ritual,
+body[data-theme="emerald"] .reviews-section,
+body[data-theme="emerald"] .service-strip,
+body[data-theme="emerald"] .newsletter-section,
+body[data-theme="emerald"] .story-feature,
+body[data-theme="emerald"] .site-footer {
+  background: linear-gradient(180deg, #0a1b12 0%, #050e09 60%, #0c2016 100%) !important;
+  color: #F2F8F4 !important;
+  border-color: rgba(134, 197, 158, 0.25) !important;
+}
+
+body[data-theme="emerald"] .family-showcase-stage {
+  background: radial-gradient(circle at 60% 40%, rgba(14, 46, 30, 0.95) 0%, rgba(6, 18, 12, 0.98) 100%) !important;
+  border-color: rgba(134, 197, 158, 0.3) !important;
+}
+body[data-theme="emerald"] .product-card,
+body[data-theme="emerald"] .luxury-cat-card,
+body[data-theme="emerald"] .review-card,
+body[data-theme="emerald"] .circular-cat-card,
+body[data-theme="emerald"] .spotlight-card {
+  background: rgba(12, 29, 20, 0.88) !important;
+  border-color: rgba(134, 197, 158, 0.28) !important;
+  color: #F2F8F4 !important;
+}
+body[data-theme="emerald"] .product-visual {
+  background: radial-gradient(circle at 50% 65%, rgba(134, 197, 158, 0.22) 0%, rgba(5, 14, 9, 0.98) 100%) !important;
+}
+body[data-theme="emerald"] .product-details {
+  background: rgba(9, 22, 15, 0.92) !important;
+  color: #F2F8F4 !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -6711,18 +6897,114 @@ body[data-theme="saffron"] {
   --color-olive-base: #25140b;
   --color-olive-dark: #140a05;
   --color-olive-light: #381d11;
-  --color-near-black: #0d0603;
-  --color-warm-ivory: #FAF3EC;
+  --color-near-black: #0e0603;
+  --color-warm-ivory: #FAF4ED;
   --bg-primary: #1a0d07;
-  --bg-deep: #0d0603;
+  --bg-deep: #0e0603;
   --bg-surface: #25140b;
-  --text-primary: #FAF3EC;
-  --glass-bg: rgba(37, 20, 11, 0.82);
+  --text-primary: #FAF4ED;
+  --glass-bg: rgba(37, 20, 11, 0.85);
   --section-gradient-top: #25140b;
-  --section-gradient-bottom: #0d0603;
+  --section-gradient-bottom: #0e0603;
 }
+
+body[data-theme="saffron"] {
+  background: #0e0603 !important;
+  color: #FAF4ED !important;
+}
+
 body[data-theme="saffron"] .site-header {
-  background: rgba(22, 11, 6, 0.92) !important;
+  background: rgba(16, 8, 4, 0.95) !important;
+  border-bottom: 1px solid rgba(229, 161, 88, 0.25) !important;
+}
+body[data-theme="saffron"] .brand-name {
+  color: #FAF4ED !important;
+}
+body[data-theme="saffron"] .desktop-nav a {
+  color: #dbc9bc !important;
+}
+body[data-theme="saffron"] .desktop-nav a:hover,
+body[data-theme="saffron"] .desktop-nav a.active-nav {
+  color: #0e0603 !important;
+  background: #E5A158 !important;
+}
+body[data-theme="saffron"] .header-search {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(229, 161, 88, 0.3) !important;
+}
+body[data-theme="saffron"] .header-search svg {
+  stroke: #E5A158 !important;
+}
+body[data-theme="saffron"] .header-search input {
+  color: #FAF4ED !important;
+}
+body[data-theme="saffron"] .header-tools .icon-button {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(229, 161, 88, 0.28) !important;
+  color: #FAF4ED !important;
+}
+body[data-theme="saffron"] .header-tools .icon-button svg {
+  stroke: #E5A158 !important;
+}
+body[data-theme="saffron"] .header-tools .icon-button:hover {
+  background: #E5A158 !important;
+  color: #0e0603 !important;
+}
+body[data-theme="saffron"] .header-tools .icon-button:hover svg {
+  stroke: #0e0603 !important;
+}
+body[data-theme="saffron"] .announcement-bar {
+  background: #1a0a04 !important;
+  color: #FAF4ED !important;
+  border-bottom: 1px solid rgba(229, 161, 88, 0.2) !important;
+}
+
+body[data-theme="saffron"] .hero-slider-section {
+  background: #0e0603 !important;
+}
+body[data-theme="saffron"] .slider-backdrop {
+  background: radial-gradient(circle at 65% 45%, rgba(64, 30, 10, 0.85) 0%, rgba(26, 11, 4, 0.98) 60%, #0e0401 100%) !important;
+}
+
+body[data-theme="saffron"] .full-width-section,
+body[data-theme="saffron"] .dark-luxury-section,
+body[data-theme="saffron"] .collection-section,
+body[data-theme="saffron"] .circular-categories-section,
+body[data-theme="saffron"] .signature-line-section,
+body[data-theme="saffron"] .category-cards-section,
+body[data-theme="saffron"] .dual-spotlight-section,
+body[data-theme="saffron"] .home-coffret-banner,
+body[data-theme="saffron"] .royal-poetry-band,
+body[data-theme="saffron"] .scent-ritual,
+body[data-theme="saffron"] .reviews-section,
+body[data-theme="saffron"] .service-strip,
+body[data-theme="saffron"] .newsletter-section,
+body[data-theme="saffron"] .story-feature,
+body[data-theme="saffron"] .site-footer {
+  background: linear-gradient(180deg, #1c0e07 0%, #0e0603 60%, #201008 100%) !important;
+  color: #FAF4ED !important;
+  border-color: rgba(229, 161, 88, 0.25) !important;
+}
+
+body[data-theme="saffron"] .family-showcase-stage {
+  background: radial-gradient(circle at 60% 40%, rgba(48, 24, 12, 0.95) 0%, rgba(16, 8, 4, 0.98) 100%) !important;
+  border-color: rgba(229, 161, 88, 0.3) !important;
+}
+body[data-theme="saffron"] .product-card,
+body[data-theme="saffron"] .luxury-cat-card,
+body[data-theme="saffron"] .review-card,
+body[data-theme="saffron"] .circular-cat-card,
+body[data-theme="saffron"] .spotlight-card {
+  background: rgba(29, 14, 7, 0.88) !important;
+  border-color: rgba(229, 161, 88, 0.28) !important;
+  color: #FAF4ED !important;
+}
+body[data-theme="saffron"] .product-visual {
+  background: radial-gradient(circle at 50% 65%, rgba(229, 161, 88, 0.22) 0%, rgba(14, 6, 3, 0.98) 100%) !important;
+}
+body[data-theme="saffron"] .product-details {
+  background: rgba(22, 11, 5, 0.92) !important;
+  color: #FAF4ED !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -6739,8 +7021,8 @@ body[data-theme="ivory"] {
   --bg-deep: #EDE5D8;
   --bg-surface: #FFFFFF;
   --text-primary: #151912;
-  --glass-bg: rgba(255, 255, 255, 0.94);
-  --section-gradient-top: #F7F4EE;
+  --glass-bg: rgba(255, 255, 255, 0.95);
+  --section-gradient-top: #FAF8F4;
   --section-gradient-bottom: #EDE5D8;
 }
 
@@ -6749,9 +7031,69 @@ body[data-theme="ivory"] {
   color: #151912 !important;
 }
 
+/* Header in Ivory */
 body[data-theme="ivory"] .site-header {
-  background: rgba(247, 244, 238, 0.97) !important;
-  border-bottom: 1px solid rgba(168, 128, 56, 0.3) !important;
+  background: rgba(247, 244, 238, 0.98) !important;
+  border-bottom: 1px solid rgba(168, 128, 56, 0.28) !important;
+}
+body[data-theme="ivory"] .brand-name {
+  color: #151912 !important;
+}
+body[data-theme="ivory"] .brand-tagline {
+  color: #667060 !important;
+}
+body[data-theme="ivory"] .desktop-nav a {
+  color: #2b3227 !important;
+}
+body[data-theme="ivory"] .desktop-nav a:hover,
+body[data-theme="ivory"] .desktop-nav a.active-nav {
+  color: #ffffff !important;
+  background: #A88038 !important;
+}
+body[data-theme="ivory"] .nav-ai-link {
+  background: rgba(20, 128, 110, 0.12) !important;
+  border-color: rgba(20, 128, 110, 0.35) !important;
+  color: #0e5a4d !important;
+}
+body[data-theme="ivory"] .nav-quiz-link {
+  background: rgba(168, 128, 56, 0.12) !important;
+  border-color: rgba(168, 128, 56, 0.35) !important;
+  color: #7d5e22 !important;
+}
+
+body[data-theme="ivory"] .header-search {
+  background: rgba(0, 0, 0, 0.05) !important;
+  border: 1px solid rgba(168, 128, 56, 0.35) !important;
+}
+body[data-theme="ivory"] .header-search svg {
+  stroke: #151912 !important;
+}
+body[data-theme="ivory"] .header-search input {
+  color: #151912 !important;
+}
+body[data-theme="ivory"] .header-search input::placeholder {
+  color: #667060 !important;
+}
+body[data-theme="ivory"] .header-tools .icon-button {
+  background: rgba(0, 0, 0, 0.05) !important;
+  border: 1px solid rgba(168, 128, 56, 0.3) !important;
+  color: #151912 !important;
+}
+body[data-theme="ivory"] .header-tools .icon-button svg {
+  stroke: #151912 !important;
+}
+body[data-theme="ivory"] .header-tools .icon-button:hover {
+  background: #A88038 !important;
+  color: #ffffff !important;
+}
+body[data-theme="ivory"] .header-tools .icon-button:hover svg {
+  stroke: #ffffff !important;
+}
+body[data-theme="ivory"] .header-tools .tool-label {
+  color: #151912 !important;
+}
+body[data-theme="ivory"] .header-tools .icon-button:hover .tool-label {
+  color: #ffffff !important;
 }
 
 body[data-theme="ivory"] .announcement-bar {
@@ -6765,17 +7107,16 @@ body[data-theme="ivory"] .announcement-festive,
 body[data-theme="ivory"] .announcement-secondary {
   color: #151912 !important;
 }
-
-body[data-theme="ivory"] .desktop-nav a {
-  color: #2b3227 !important;
+body[data-theme="ivory"] .announcement-urdu {
+  color: #7d5e22 !important;
 }
-body[data-theme="ivory"] .desktop-nav a:hover,
-body[data-theme="ivory"] .desktop-nav a.active-nav {
-  color: var(--color-champagne-gold, #A88038) !important;
+body[data-theme="ivory"] .announcement-origin {
+  color: #8c6a28 !important;
+}
+body[data-theme="ivory"] .announcement-hinglish {
+  color: #4e5648 !important;
 }
 
-body[data-theme="ivory"] .brand-name,
-body[data-theme="ivory"] .brand-tagline,
 body[data-theme="ivory"] h1,
 body[data-theme="ivory"] h2,
 body[data-theme="ivory"] h3,
@@ -6783,35 +7124,83 @@ body[data-theme="ivory"] h4 {
   color: #151912 !important;
 }
 
-body[data-theme="ivory"] .hero-section {
+/* Hero Section in Ivory */
+body[data-theme="ivory"] .hero-slider-section {
   background: linear-gradient(135deg, #FAF8F4 0%, #EDE4D4 100%) !important;
   color: #151912 !important;
 }
-
+body[data-theme="ivory"] .slider-backdrop {
+  background: radial-gradient(circle at 65% 45%, rgba(201, 169, 110, 0.22) 0%, rgba(247, 244, 238, 0.96) 55%, #EDE4D4 100%) !important;
+}
+body[data-theme="ivory"] .hero-kicker {
+  color: #8c6a28 !important;
+}
 body[data-theme="ivory"] .hero-grand-title,
 body[data-theme="ivory"] .hero-grand-title .title-line-1,
 body[data-theme="ivory"] .hero-grand-title .title-line-2 {
   color: #151912 !important;
 }
-
+body[data-theme="ivory"] .hero-grand-title em {
+  color: #7d5e22 !important;
+}
 body[data-theme="ivory"] .hero-lead-narrative {
   color: #3f473a !important;
 }
-
 body[data-theme="ivory"] .active-flacon-strip {
-  background: rgba(255, 255, 255, 0.92) !important;
+  background: rgba(255, 255, 255, 0.94) !important;
   border-color: rgba(168, 128, 56, 0.35) !important;
 }
 body[data-theme="ivory"] .flacon-active-name {
   color: #151912 !important;
 }
+body[data-theme="ivory"] .flacon-price-tag {
+  color: #8c6a28 !important;
+}
+body[data-theme="ivory"] .hero-tab-pill {
+  background: rgba(0, 0, 0, 0.05) !important;
+  border-color: rgba(168, 128, 56, 0.3) !important;
+  color: #2b3227 !important;
+}
+body[data-theme="ivory"] .hero-tab-pill.is-active {
+  background: #A88038 !important;
+  color: #ffffff !important;
+  border-color: #A88038 !important;
+}
+body[data-theme="ivory"] .btn-smoked-glass {
+  background: rgba(0, 0, 0, 0.05) !important;
+  border-color: rgba(168, 128, 56, 0.35) !important;
+  color: #151912 !important;
+}
+body[data-theme="ivory"] .flacon-vintage-card {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border-color: rgba(168, 128, 56, 0.35) !important;
+  color: #151912 !important;
+}
+body[data-theme="ivory"] .vintage-cat {
+  color: #7d5e22 !important;
+}
+body[data-theme="ivory"] .vintage-title {
+  color: #151912 !important;
+}
+body[data-theme="ivory"] .vintage-inspect-btn {
+  color: #7d5e22 !important;
+}
 
+/* Sections in Ivory */
 body[data-theme="ivory"] .dark-luxury-section,
 body[data-theme="ivory"] .full-width-section,
 body[data-theme="ivory"] .collection-section,
 body[data-theme="ivory"] .circular-categories-section,
 body[data-theme="ivory"] .signature-line-section,
 body[data-theme="ivory"] .category-cards-section,
+body[data-theme="ivory"] .dual-spotlight-section,
+body[data-theme="ivory"] .home-coffret-banner,
+body[data-theme="ivory"] .royal-poetry-band,
+body[data-theme="ivory"] .scent-ritual,
+body[data-theme="ivory"] .reviews-section,
+body[data-theme="ivory"] .service-strip,
+body[data-theme="ivory"] .newsletter-section,
+body[data-theme="ivory"] .story-feature,
 body[data-theme="ivory"] .site-footer {
   background: linear-gradient(180deg, #FAF8F4 0%, #EDE5D8 100%) !important;
   color: #151912 !important;
@@ -6827,19 +7216,83 @@ body[data-theme="ivory"] p {
   color: #3e463a !important;
 }
 
+/* Scent Families in Ivory */
+body[data-theme="ivory"] .scent-families-pinned-section {
+  background: transparent !important;
+}
+body[data-theme="ivory"] .family-tab-btn {
+  background: rgba(0, 0, 0, 0.05) !important;
+  border-color: rgba(168, 128, 56, 0.28) !important;
+  color: #2b3227 !important;
+}
+body[data-theme="ivory"] .family-tab-btn:hover {
+  background: rgba(168, 128, 56, 0.15) !important;
+  color: #151912 !important;
+}
+body[data-theme="ivory"] .family-tab-btn.active {
+  background: #A88038 !important;
+  color: #ffffff !important;
+  border-color: #A88038 !important;
+}
+body[data-theme="ivory"] .family-showcase-stage {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(245, 240, 232, 0.96) 100%) !important;
+  border: 1px solid rgba(168, 128, 56, 0.35) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08) !important;
+}
+body[data-theme="ivory"] .fam-kicker {
+  color: #8c6a28 !important;
+}
+body[data-theme="ivory"] .fam-title {
+  color: #151912 !important;
+}
+body[data-theme="ivory"] .fam-sub {
+  color: #8c6a28 !important;
+}
+body[data-theme="ivory"] .fam-desc {
+  color: #3e463a !important;
+}
+body[data-theme="ivory"] .fam-meta-grid {
+  background: rgba(247, 244, 238, 0.9) !important;
+  border: 1px solid rgba(168, 128, 56, 0.25) !important;
+}
+body[data-theme="ivory"] .meta-label {
+  color: #8c6a28 !important;
+}
+body[data-theme="ivory"] .meta-box strong {
+  color: #151912 !important;
+}
+body[data-theme="ivory"] .notes-kicker {
+  color: #555e4e !important;
+}
+body[data-theme="ivory"] .fam-chip {
+  background: rgba(168, 128, 56, 0.12) !important;
+  border: 1px solid rgba(168, 128, 56, 0.3) !important;
+  color: #151912 !important;
+}
+body[data-theme="ivory"] .bottle-tag-pill {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border-color: rgba(168, 128, 56, 0.35) !important;
+}
+body[data-theme="ivory"] .bottle-tag-pill strong {
+  color: #151912 !important;
+}
+body[data-theme="ivory"] .bottle-tag-pill span {
+  color: #8c6a28 !important;
+}
+
 /* Ivory Cards Styling */
 body[data-theme="ivory"] .product-card,
 body[data-theme="ivory"] .luxury-cat-card,
 body[data-theme="ivory"] .review-card,
 body[data-theme="ivory"] .circular-cat-card {
-  background: rgba(255, 255, 255, 0.95) !important;
+  background: rgba(255, 255, 255, 0.96) !important;
   border-color: rgba(168, 128, 56, 0.3) !important;
   color: #151912 !important;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
 }
 
 body[data-theme="ivory"] .product-visual {
-  background: radial-gradient(circle at 50% 65%, rgba(201, 169, 110, 0.22) 0%, rgba(246, 241, 233, 0.96) 100%) !important;
+  background: radial-gradient(circle at 50% 65%, rgba(201, 169, 110, 0.18) 0%, rgba(246, 241, 233, 0.96) 100%) !important;
 }
 
 body[data-theme="ivory"] .product-details {
@@ -6852,7 +7305,7 @@ body[data-theme="ivory"] .product-name-button {
 }
 
 body[data-theme="ivory"] .product-brand {
-  color: var(--color-champagne-gold, #A88038) !important;
+  color: #8c6a28 !important;
 }
 
 body[data-theme="ivory"] .product-notes {
@@ -6860,7 +7313,7 @@ body[data-theme="ivory"] .product-notes {
 }
 
 body[data-theme="ivory"] .product-price {
-  color: var(--color-champagne-gold, #A88038) !important;
+  color: #8c6a28 !important;
 }
 
 body[data-theme="ivory"] .product-size {
@@ -6868,8 +7321,9 @@ body[data-theme="ivory"] .product-size {
 }
 
 body[data-theme="ivory"] .spotlight-card {
-  background: rgba(255, 255, 255, 0.95) !important;
-  border-color: rgba(168, 128, 56, 0.35) !important;
+  background: rgba(255, 255, 255, 0.96) !important;
+  border-color: rgba(168, 128, 56, 0.32) !important;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08) !important;
 }
 
 body[data-theme="ivory"] .spotlight-content h3 {
@@ -6881,9 +7335,9 @@ body[data-theme="ivory"] .spotlight-content p {
 }
 
 body[data-theme="ivory"] .spotlight-chips span {
-  background: rgba(0, 0, 0, 0.06) !important;
-  color: #242c20 !important;
-  border-color: rgba(168, 128, 56, 0.3) !important;
+  background: rgba(168, 128, 56, 0.1) !important;
+  color: #151912 !important;
+  border-color: rgba(168, 128, 56, 0.28) !important;
 }
 
 body[data-theme="ivory"] .cart-drawer,
@@ -6896,6 +7350,27 @@ body[data-theme="ivory"] .theme-modal-sheet {
   border-color: rgba(168, 128, 56, 0.3) !important;
 }
 
+body[data-theme="ivory"] .drawer-header h2,
+body[data-theme="ivory"] .checkout-modal h2,
+body[data-theme="ivory"] .auth-modal-dialog h2,
+body[data-theme="ivory"] .product-modal h2 {
+  color: #151912 !important;
+}
+
+body[data-theme="ivory"] .cart-line,
+body[data-theme="ivory"] .checkout-form label,
+body[data-theme="ivory"] .auth-modal-dialog label {
+  color: #2b3227 !important;
+}
+
+body[data-theme="ivory"] .checkout-form input,
+body[data-theme="ivory"] .auth-modal-dialog input,
+body[data-theme="ivory"] .coupon-input-box input {
+  background: #FFFFFF !important;
+  color: #151912 !important;
+  border-color: rgba(168, 128, 56, 0.35) !important;
+}
+
 body[data-theme="ivory"] .royal-poetry-band {
   background: #EDE5D8 !important;
   color: #151912 !important;
@@ -6906,7 +7381,7 @@ body[data-theme="ivory"] .band-column p {
 }
 
 body[data-theme="ivory"] .poetry-marquee-strip {
-  background: #E5DCce !important;
+  background: #E5DCCE !important;
   border-color: rgba(168, 128, 56, 0.3) !important;
 }
 body[data-theme="ivory"] .poetry-marquee-content {

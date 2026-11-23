@@ -262,6 +262,7 @@ export class ThemeService {
       root.style.setProperty('--theme-text-secondary', '#3b4236');
       root.style.setProperty('--theme-text-muted', '#667060');
       root.style.setProperty('--theme-border', 'rgba(168, 128, 56, 0.32)');
+      root.style.setProperty('--theme-header-bg', 'rgba(247, 244, 238, 0.98)');
       root.style.setProperty('--color-near-black', '#F7F4EE');
       root.style.setProperty('--color-warm-ivory', '#151912');
       root.style.setProperty('--color-olive-base', '#EFE9DF');
@@ -277,6 +278,7 @@ export class ThemeService {
       root.style.setProperty('--theme-text-secondary', '#d8c2cc');
       root.style.setProperty('--theme-text-muted', '#9b848f');
       root.style.setProperty('--theme-border', 'rgba(230, 165, 185, 0.3)');
+      root.style.setProperty('--theme-header-bg', 'rgba(18, 8, 15, 0.95)');
       root.style.setProperty('--color-near-black', '#10070d');
       root.style.setProperty('--color-warm-ivory', '#FDF5F8');
       root.style.setProperty('--color-olive-base', '#1d0c18');
@@ -292,6 +294,7 @@ export class ThemeService {
       root.style.setProperty('--theme-text-secondary', '#bed4c7');
       root.style.setProperty('--theme-text-muted', '#7f998b');
       root.style.setProperty('--theme-border', 'rgba(134, 197, 158, 0.3)');
+      root.style.setProperty('--theme-header-bg', 'rgba(6, 18, 12, 0.95)');
       root.style.setProperty('--color-near-black', '#050e09');
       root.style.setProperty('--color-warm-ivory', '#F2F8F4');
       root.style.setProperty('--color-olive-base', '#0a1b12');
@@ -307,6 +310,7 @@ export class ThemeService {
       root.style.setProperty('--theme-text-secondary', '#dbc9bc');
       root.style.setProperty('--theme-text-muted', '#9b8779');
       root.style.setProperty('--theme-border', 'rgba(229, 161, 88, 0.3)');
+      root.style.setProperty('--theme-header-bg', 'rgba(16, 8, 4, 0.95)');
       root.style.setProperty('--color-near-black', '#0e0603');
       root.style.setProperty('--color-warm-ivory', '#FAF4ED');
       root.style.setProperty('--color-olive-base', '#1c0e07');
@@ -323,6 +327,7 @@ export class ThemeService {
       root.style.setProperty('--theme-text-secondary', '#c7cebf');
       root.style.setProperty('--theme-text-muted', '#8e9687');
       root.style.setProperty('--theme-border', 'rgba(201, 169, 110, 0.28)');
+      root.style.setProperty('--theme-header-bg', 'rgba(13, 15, 11, 0.95)');
       root.style.setProperty('--color-near-black', '#0d0f0b');
       root.style.setProperty('--color-warm-ivory', '#F5EFE6');
       root.style.setProperty('--color-olive-base', '#202a1c');

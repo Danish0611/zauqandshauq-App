@@ -248,10 +248,14 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
       display: flex;
       flex-direction: column;
       transform: translateX(100%);
-      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.35s ease;
+      visibility: hidden;
+      pointer-events: none;
     }
     .theme-modal-sheet.is-open {
       transform: translateX(0);
+      visibility: visible;
+      pointer-events: auto;
     }
 
     /* HEADER */

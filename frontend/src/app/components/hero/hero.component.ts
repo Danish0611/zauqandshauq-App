@@ -219,7 +219,7 @@ export interface HeroSlide {
               <div class="vintage-stamp">
                 <span class="vintage-est">MAISON</span>
                 <strong class="vintage-logo">Z&amp;S</strong>
-                <span class="vintage-city">PARIS · JAIPUR</span>
+                <span class="vintage-city">AMRAVATI · VIDARBHA</span>
               </div>
               <div class="vintage-details">
                 <span class="vintage-cat">{{ currentSlide.concentration }} · {{ currentSlide.size }}</span>
