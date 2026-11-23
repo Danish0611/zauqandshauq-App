@@ -4,6 +4,9 @@
 <!-- ELEGANT SPRAY CURSOR (Fine pointer devices with mist drift & tap puffs) -->
 <app-spray-cursor></app-spray-cursor>
 
+<!-- ATELIER THEME & CHROMATICS CUSTOMIZER -->
+<app-theme-customizer [isOpen]="themeModalOpen" (close)="themeModalOpen = false"></app-theme-customizer>
+
 <div class="royal-header-wrapper">
   <div class="announcement-bar">
     <span class="announcement-dot"></span>
@@ -52,6 +55,10 @@
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="M12 18v-6"></path><path d="m9 15 3-3 3 3"></path></svg>
         <span class="tool-label">CSV</span>
       </button>
+      <button class="icon-button theme-btn" type="button" aria-label="Atelier Theme and Colors" title="Atelier Theme & Chromatics" (click)="themeModalOpen = true">
+        <span class="theme-dot-mini" [style.background]="themeService.currentAccent"></span>
+        <span class="tool-label">Palette</span>
+      </button>
       <button class="icon-button account-btn" type="button" aria-label="Account and Orders" [title]="authService.currentUser ? authService.currentUser.name : 'Sign in'" (click)="authModalOpen = true">
         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c1.8-3.8 5-6 8-6s6.2 2.2 8 6"></path></svg>
         <span class="tool-label">{{ authService.currentUser ? authService.currentUser.name.split(' ')[0] : 'Sign in' }}</span>
@@ -95,6 +102,10 @@
       <a href="javascript:void(0)" class="mobile-nav-link" (click)="setView('philosophy'); mobileMenuOpen = false">
         <span>Philosophy &amp; Notes</span>
         <span class="nav-arrow">→</span>
+      </a>
+      <a href="javascript:void(0)" class="mobile-nav-link theme-highlight" (click)="themeModalOpen = true; mobileMenuOpen = false">
+        <span>✦ Atelier Mood &amp; Colors</span>
+        <span class="nav-badge" [style.background]="themeService.currentAccent" style="color: #0d0f0b;">{{ themeService.activeThemeObject.name }}</span>
       </a>
 
       <div class="mobile-nav-divider"></div>

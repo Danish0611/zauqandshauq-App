@@ -26,6 +26,8 @@ import { GlassCardComponent } from './components/glass-card/glass-card.component
 import { IntroSprayComponent } from './components/intro-spray/intro-spray.component';
 import { SprayCursorComponent } from './components/spray-cursor/spray-cursor.component';
 import { ScentFamiliesShowcaseComponent } from './components/scent-families-showcase/scent-families-showcase.component';
+import { ThemeCustomizerComponent } from './components/theme-customizer/theme-customizer.component';
+import { ThemeService } from './theme.service';
 
 declare global {
   interface Window {
@@ -58,7 +60,8 @@ declare global {
     GlassCardComponent,
     IntroSprayComponent,
     SprayCursorComponent,
-    ScentFamiliesShowcaseComponent
+    ScentFamiliesShowcaseComponent,
+    ThemeCustomizerComponent
   ],
   templateUrl: './app.component.html'
 })
@@ -75,6 +78,7 @@ export class AppComponent implements OnInit, OnDestroy {
   cart: CartItem[] = [];
   wishlist = new Set<number>();
   cartOpen = false;
+  themeModalOpen = false;
   mobileMenuOpen = false;
   showTop = false;
   showWishlistOnly = false;
@@ -585,6 +589,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private ngZone: NgZone,
     public productService: ProductService,
     public authService: AuthService,
+    public themeService: ThemeService,
     private http: HttpClient,
     private route: ActivatedRoute
   ) {
@@ -593,6 +598,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.isBrowser) {
+      this.themeService.init();
       this.initSmoothScroll();
     }
 

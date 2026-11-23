@@ -60,8 +60,8 @@ interface CursorParticle {
       height: 5px;
       border-radius: 50%;
       background: var(--color-champagne-gold, #C9A96E);
-      box-shadow: 0 0 8px rgba(201, 169, 110, 0.8);
-      transition: transform 0.2s ease;
+      box-shadow: 0 0 10px var(--color-champagne-gold, #C9A96E);
+      transition: transform 0.2s ease, background-color 0.25s ease;
     }
 
     .cursor-ring {
@@ -69,14 +69,14 @@ interface CursorParticle {
       width: 26px;
       height: 26px;
       border-radius: 50%;
-      border: 1px solid rgba(201, 169, 110, 0.35);
+      border: 1px solid var(--color-champagne-border, rgba(201, 169, 110, 0.35));
       transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.25s ease;
     }
 
     .hover-active .cursor-ring {
       transform: scale(1.6);
       border-color: var(--color-champagne-gold, #C9A96E);
-      background: rgba(201, 169, 110, 0.08);
+      background: var(--color-champagne-dim, rgba(201, 169, 110, 0.08));
     }
 
     .hover-active .cursor-dot {
@@ -230,13 +230,14 @@ export class SprayCursorComponent implements AfterViewInit, OnDestroy {
           continue;
         }
 
+        const accentRgb = (typeof document !== 'undefined' && document.documentElement.style.getPropertyValue('--cursor-accent-rgb')) || '201, 169, 110';
         ctx.save();
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fillStyle = p.gold
-          ? `rgba(201, 169, 110, ${p.alpha.toFixed(3)})`
+          ? `rgba(${accentRgb}, ${p.alpha.toFixed(3)})`
           : `rgba(245, 239, 230, ${p.alpha.toFixed(3)})`;
-        ctx.shadowColor = 'rgba(201, 169, 110, 0.3)';
+        ctx.shadowColor = `rgba(${accentRgb}, 0.3)`;
         ctx.shadowBlur = 6;
         ctx.fill();
         ctx.restore();

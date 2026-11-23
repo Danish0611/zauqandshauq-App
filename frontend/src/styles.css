@@ -6593,3 +6593,304 @@ html, body {
     gap: 18px !important;
   }
 }
+
+/* ==========================================================================
+   ATELIER THEMES & COMPREHENSIVE COLOR ADAPTATION ACROSS ALL SECTIONS
+   ========================================================================== */
+
+/* Header Theme Button & Mini Dot */
+.theme-header-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 12px !important;
+  border-radius: 999px;
+  background: rgba(201, 169, 110, 0.08) !important;
+  border: 1px solid var(--color-champagne-border, rgba(201, 169, 110, 0.28)) !important;
+  transition: all 0.25s ease;
+}
+.theme-header-btn:hover {
+  background: rgba(201, 169, 110, 0.16) !important;
+  border-color: var(--color-champagne-gold, #C9A96E) !important;
+  transform: translateY(-1px);
+}
+.theme-dot-mini {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 8px currentColor;
+  animation: themePulse 2.5s infinite ease-in-out;
+}
+@keyframes themePulse {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.3); opacity: 1; }
+}
+
+/* --------------------------------------------------------------------------
+   THEME 1: NOIR & IMPERIAL GOLD ("Midnight Oud") - Default House Signature
+   -------------------------------------------------------------------------- */
+:root[data-theme="noir"],
+body[data-theme="noir"] {
+  --color-olive-base: #1b2518;
+  --color-olive-dark: #0f150d;
+  --color-olive-light: #253320;
+  --color-near-black: #080b08;
+  --color-warm-ivory: #F5EFE6;
+  --bg-primary: #121811;
+  --bg-deep: #080b08;
+  --bg-surface: #1b2518;
+  --text-primary: #F5EFE6;
+  --glass-bg: rgba(20, 27, 18, 0.78);
+  --section-gradient-top: #1b2518;
+  --section-gradient-bottom: #080b08;
+}
+
+/* --------------------------------------------------------------------------
+   THEME 2: ROSE ÉCLAT ("Damask Petals & Velvet Noir")
+   -------------------------------------------------------------------------- */
+:root[data-theme="rose"],
+body[data-theme="rose"] {
+  --color-olive-base: #24111d;
+  --color-olive-dark: #140911;
+  --color-olive-light: #35172b;
+  --color-near-black: #0c060b;
+  --color-warm-ivory: #FBF4F6;
+  --bg-primary: #190c16;
+  --bg-deep: #0c060b;
+  --bg-surface: #24111d;
+  --text-primary: #FBF4F6;
+  --glass-bg: rgba(36, 17, 29, 0.8);
+  --section-gradient-top: #24111d;
+  --section-gradient-bottom: #0c060b;
+}
+body[data-theme="rose"] .spotlight-him {
+  background: linear-gradient(135deg, rgba(38, 16, 29, 0.95), rgba(16, 8, 13, 0.98)) !important;
+}
+body[data-theme="rose"] .site-header {
+  background: rgba(20, 10, 17, 0.92) !important;
+}
+
+/* --------------------------------------------------------------------------
+   THEME 3: EMERALD SYLVAN ("Imperial Vetiver & Verdant Jade")
+   -------------------------------------------------------------------------- */
+:root[data-theme="emerald"],
+body[data-theme="emerald"] {
+  --color-olive-base: #0c2016;
+  --color-olive-dark: #06120c;
+  --color-olive-light: #132f22;
+  --color-near-black: #040c07;
+  --color-warm-ivory: #F2F8F4;
+  --bg-primary: #091710;
+  --bg-deep: #040c07;
+  --bg-surface: #0c2016;
+  --text-primary: #F2F8F4;
+  --glass-bg: rgba(12, 32, 22, 0.8);
+  --section-gradient-top: #0c2016;
+  --section-gradient-bottom: #040c07;
+}
+body[data-theme="emerald"] .site-header {
+  background: rgba(8, 20, 14, 0.92) !important;
+}
+body[data-theme="emerald"] .spotlight-her {
+  background: linear-gradient(135deg, rgba(14, 38, 26, 0.95), rgba(6, 18, 12, 0.98)) !important;
+}
+
+/* --------------------------------------------------------------------------
+   THEME 4: SAFFRON DUSK ("Smoked Amber & Twilight Embers")
+   -------------------------------------------------------------------------- */
+:root[data-theme="saffron"],
+body[data-theme="saffron"] {
+  --color-olive-base: #25140b;
+  --color-olive-dark: #140a05;
+  --color-olive-light: #381d11;
+  --color-near-black: #0d0603;
+  --color-warm-ivory: #FAF3EC;
+  --bg-primary: #1a0d07;
+  --bg-deep: #0d0603;
+  --bg-surface: #25140b;
+  --text-primary: #FAF3EC;
+  --glass-bg: rgba(37, 20, 11, 0.82);
+  --section-gradient-top: #25140b;
+  --section-gradient-bottom: #0d0603;
+}
+body[data-theme="saffron"] .site-header {
+  background: rgba(22, 11, 6, 0.92) !important;
+}
+
+/* --------------------------------------------------------------------------
+   THEME 5: IVORY ATELIER ("Daylight Alabaster & French Silk" - Light Luxe)
+   -------------------------------------------------------------------------- */
+:root[data-theme="ivory"],
+body[data-theme="ivory"] {
+  --color-olive-base: #F5EFE6;
+  --color-olive-dark: #ECE4D6;
+  --color-olive-light: #FFFFFF;
+  --color-near-black: #F8F5EE;
+  --color-warm-ivory: #1A1F16;
+  --bg-primary: #F8F5EE;
+  --bg-deep: #EDE5D8;
+  --bg-surface: #FFFFFF;
+  --text-primary: #1A1F16;
+  --glass-bg: rgba(255, 255, 255, 0.88);
+  --section-gradient-top: #F5EFE6;
+  --section-gradient-bottom: #ECE4D6;
+}
+body[data-theme="ivory"] {
+  background: #F8F5EE !important;
+  color: #1A1F16 !important;
+}
+body[data-theme="ivory"] .site-header {
+  background: rgba(248, 245, 238, 0.94) !important;
+  border-bottom: 1px solid rgba(176, 136, 70, 0.25) !important;
+}
+body[data-theme="ivory"] .announcement-bar {
+  background: #EDE5D8 !important;
+  color: #1A1F16 !important;
+}
+body[data-theme="ivory"] .desktop-nav a {
+  color: #2D3328 !important;
+}
+body[data-theme="ivory"] .brand-name,
+body[data-theme="ivory"] h1,
+body[data-theme="ivory"] h2,
+body[data-theme="ivory"] h3 {
+  color: #141A11 !important;
+}
+body[data-theme="ivory"] .hero-section {
+  background: linear-gradient(135deg, #F8F5EE 0%, #EDE3D4 100%) !important;
+  color: #1A1F16 !important;
+}
+body[data-theme="ivory"] .hero-grand-title,
+body[data-theme="ivory"] .hero-lead-narrative {
+  color: #181E15 !important;
+}
+body[data-theme="ivory"] .dark-luxury-section,
+body[data-theme="ivory"] .full-width-section,
+body[data-theme="ivory"] .collection-section,
+body[data-theme="ivory"] .circular-categories-section,
+body[data-theme="ivory"] .signature-line-section,
+body[data-theme="ivory"] .category-cards-section,
+body[data-theme="ivory"] .site-footer {
+  background: linear-gradient(180deg, #F8F5EE 0%, #EDE5D8 100%) !important;
+  color: #1A1F16 !important;
+}
+body[data-theme="ivory"] .section-heading h2,
+body[data-theme="ivory"] .section-heading h2 em {
+  color: #141A11 !important;
+}
+body[data-theme="ivory"] .section-intro,
+body[data-theme="ivory"] p {
+  color: #4A5244 !important;
+}
+body[data-theme="ivory"] .product-card,
+body[data-theme="ivory"] .luxury-cat-card,
+body[data-theme="ivory"] .review-card,
+body[data-theme="ivory"] .circular-cat-card {
+  background: rgba(255, 255, 255, 0.85) !important;
+  border-color: rgba(176, 136, 70, 0.25) !important;
+  color: #1A1F16 !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06) !important;
+}
+body[data-theme="ivory"] .product-name-button,
+body[data-theme="ivory"] .product-brand,
+body[data-theme="ivory"] .product-price {
+  color: #141A11 !important;
+}
+body[data-theme="ivory"] .spotlight-card {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(176, 136, 70, 0.3) !important;
+}
+body[data-theme="ivory"] .spotlight-content h3 {
+  color: #141A11 !important;
+}
+body[data-theme="ivory"] .spotlight-content p {
+  color: #4A5244 !important;
+}
+body[data-theme="ivory"] .spotlight-chips span {
+  background: rgba(0, 0, 0, 0.05) !important;
+  color: #2D3328 !important;
+}
+body[data-theme="ivory"] .cart-drawer,
+body[data-theme="ivory"] .product-modal,
+body[data-theme="ivory"] .checkout-modal,
+body[data-theme="ivory"] .auth-modal-dialog {
+  background: #FDFBF7 !important;
+  color: #1A1F16 !important;
+}
+
+/* --------------------------------------------------------------------------
+   UNIVERSAL THEME PROPAGATION ACROSS ALL SECTIONS
+   -------------------------------------------------------------------------- */
+.hero-section,
+.collection-section,
+.dark-luxury-section,
+.full-width-section,
+.site-footer {
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+/* Dynamic Accent Tint Styling (Buttons, Badges, Links, Borders) */
+.btn-royal-gold,
+.btn-spotlight-cta.btn-him-cta,
+.button-dark,
+.quick-add,
+.category-pills button.active {
+  background: var(--color-champagne-gold, #C9A96E) !important;
+  color: #0d0f0b !important;
+  border-color: var(--color-champagne-light, #dfc796) !important;
+  box-shadow: 0 6px 20px var(--color-champagne-dim, rgba(201, 169, 110, 0.35)) !important;
+  transition: all 0.25s ease !important;
+}
+
+.btn-royal-gold:hover,
+.btn-spotlight-cta.btn-him-cta:hover,
+.quick-add:hover {
+  background: var(--color-champagne-light, #dfc796) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px var(--color-champagne-dim, rgba(201, 169, 110, 0.5)) !important;
+}
+
+.eyebrow,
+.section-heading .eyebrow,
+.flacon-batch-pill,
+.product-badge,
+.banner-badge,
+.poetry-marquee-content,
+.text-link-light,
+.text-link {
+  color: var(--color-champagne-gold, #C9A96E) !important;
+}
+
+.category-pills button {
+  border-color: var(--color-champagne-border, rgba(201, 169, 110, 0.28)) !important;
+}
+.category-pills button:hover {
+  border-color: var(--color-champagne-gold, #C9A96E) !important;
+  background: var(--color-champagne-dim, rgba(201, 169, 110, 0.15)) !important;
+}
+
+.circular-avatar-ring {
+  border: 1px solid var(--color-champagne-border, rgba(201, 169, 110, 0.3)) !important;
+}
+.circular-cat-card:hover .circular-avatar-ring {
+  border-color: var(--color-champagne-gold, #C9A96E) !important;
+  box-shadow: 0 0 20px var(--color-champagne-dim, rgba(201, 169, 110, 0.4)) !important;
+}
+
+.luxury-trust-strip,
+.promise-strip {
+  border-top: 1px solid var(--color-champagne-border, rgba(201, 169, 110, 0.22)) !important;
+  border-bottom: 1px solid var(--color-champagne-border, rgba(201, 169, 110, 0.22)) !important;
+}
+.promise-star,
+.promise-icon {
+  color: var(--color-champagne-gold, #C9A96E) !important;
+}
+
+.poetry-marquee-strip {
+  border-color: var(--color-champagne-border, rgba(201, 169, 110, 0.22)) !important;
+}
+.marquee-star {
+  color: var(--color-champagne-gold, #C9A96E) !important;
+}
