@@ -1,6 +1,7 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, EventEmitter, HostListener, Inject, Input, NgZone, OnDestroy, OnInit, Output, PLATFORM_ID, ViewChild } from '@angular/core';
 import { Product } from '../../product.model';
+import { ThemeService } from '../../theme.service';
 
 export interface FragranticaAccord {
   name: string;
@@ -58,7 +59,7 @@ export interface HeroSlide {
       aria-label="Zauq and Shauq Haute Parfumerie Hero">
 
       <!-- Ambient Spotlight & Canvas Particles -->
-      <div class="slider-backdrop" [style.background]="currentSlide.spotlightGradient"></div>
+      <div class="slider-backdrop" [style.background]="getSpotlightGradient()"></div>
       <canvas #mistCanvas class="hero-ambient-canvas" aria-hidden="true"></canvas>
       <div class="slider-grain"></div>
       
@@ -533,9 +534,26 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     @Inject(PLATFORM_ID) platformId: object,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    public themeService: ThemeService
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
+  }
+
+  getSpotlightGradient(): string {
+    if (this.themeService.currentTheme === 'ivory') {
+      return 'radial-gradient(circle at 65% 45%, rgba(201, 169, 110, 0.28) 0%, rgba(247, 244, 238, 0.96) 55%, #EDE4D4 100%)';
+    }
+    if (this.themeService.currentTheme === 'rose') {
+      return 'radial-gradient(circle at 65% 45%, rgba(89, 28, 52, 0.72) 0%, rgba(24, 8, 18, 0.96) 60%, #12040d 100%)';
+    }
+    if (this.themeService.currentTheme === 'emerald') {
+      return 'radial-gradient(circle at 65% 45%, rgba(13, 56, 41, 0.82) 0%, rgba(6, 26, 19, 0.96) 60%, #03120c 100%)';
+    }
+    if (this.themeService.currentTheme === 'saffron') {
+      return 'radial-gradient(circle at 65% 45%, rgba(140, 72, 28, 0.75) 0%, rgba(28, 14, 8, 0.96) 60%, #140804 100%)';
+    }
+    return this.currentSlide.spotlightGradient;
   }
 
   ngOnInit(): void {

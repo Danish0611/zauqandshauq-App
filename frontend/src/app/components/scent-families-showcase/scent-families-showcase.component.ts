@@ -1,6 +1,7 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Inject, NgZone, OnDestroy, Output, PLATFORM_ID, ViewChild } from '@angular/core';
 import { ScentNotesPyramidComponent } from '../scent-notes-pyramid/scent-notes-pyramid.component';
+import { ThemeService } from '../../theme.service';
 
 export interface ScentFamily {
   id: 'woody' | 'floral' | 'oriental' | 'fresh';
@@ -50,7 +51,7 @@ export interface ScentFamily {
       </div>
 
       <!-- Pinned Showcase Stage -->
-      <div class="family-showcase-stage" [style.background]="selectedFamily.bgGlow">
+      <div class="family-showcase-stage" [style.background]="getFamilyStageBackground()">
         <!-- Ambient Glass Frame -->
         <div class="showcase-content-col">
           <span class="fam-kicker">FAMILY ARCHITECTURE</span>
@@ -369,10 +370,69 @@ export interface ScentFamily {
         order: -1;
       }
     }
+
+    :host-context([data-theme="ivory"]) .family-showcase-stage {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(245, 240, 232, 0.96) 100%) !important;
+      border: 1px solid rgba(168, 128, 56, 0.35) !important;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08) !important;
+    }
+    :host-context([data-theme="ivory"]) .fam-kicker { color: #7d5e22 !important; font-weight: 700; }
+    :host-context([data-theme="ivory"]) .fam-title { color: #151912 !important; }
+    :host-context([data-theme="ivory"]) .fam-sub { color: #7d5e22 !important; font-size: 17px !important; font-weight: 600 !important; }
+    :host-context([data-theme="ivory"]) .fam-desc { color: #2b3227 !important; font-size: 14px !important; line-height: 1.75 !important; }
+    :host-context([data-theme="ivory"]) .fam-meta-grid {
+      background: #FFFFFF !important;
+      border: 1px solid rgba(168, 128, 56, 0.3) !important;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05) !important;
+    }
+    :host-context([data-theme="ivory"]) .meta-label { color: #7d5e22 !important; font-weight: 700; }
+    :host-context([data-theme="ivory"]) .meta-box strong { color: #151912 !important; font-size: 13.5px !important; font-weight: 600; }
+    :host-context([data-theme="ivory"]) .notes-kicker { color: #4e5648 !important; font-weight: 600; }
+    :host-context([data-theme="ivory"]) .fam-chip {
+      background: rgba(168, 128, 56, 0.12) !important;
+      border: 1px solid rgba(168, 128, 56, 0.35) !important;
+      color: #151912 !important;
+      font-weight: 600;
+    }
+    :host-context([data-theme="ivory"]) .bottle-tag-pill {
+      background: rgba(255, 255, 255, 0.98) !important;
+      border: 1px solid rgba(168, 128, 56, 0.35) !important;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08) !important;
+    }
+    :host-context([data-theme="ivory"]) .flacon-lead-name { color: #151912 !important; }
+    :host-context([data-theme="ivory"]) .flacon-lead-price { color: #7d5e22 !important; font-weight: 700; }
+    :host-context([data-theme="ivory"]) .family-tab-btn {
+      background: rgba(0, 0, 0, 0.05) !important;
+      border-color: rgba(168, 128, 56, 0.28) !important;
+      color: #2b3227 !important;
+    }
+    :host-context([data-theme="ivory"]) .family-tab-btn.active {
+      background: #A88038 !important;
+      color: #ffffff !important;
+      border-color: #A88038 !important;
+    }
   `]
 })
 export class ScentFamiliesShowcaseComponent {
   @Output() explore = new EventEmitter<string>();
+
+  constructor(public themeService: ThemeService) {}
+
+  getFamilyStageBackground(): string {
+    if (this.themeService.currentTheme === 'ivory') {
+      return 'linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(245, 240, 232, 0.96) 100%)';
+    }
+    if (this.themeService.currentTheme === 'rose') {
+      return 'radial-gradient(circle at 60% 40%, rgba(46, 18, 36, 0.95) 0%, rgba(18, 7, 14, 0.98) 100%)';
+    }
+    if (this.themeService.currentTheme === 'emerald') {
+      return 'radial-gradient(circle at 60% 40%, rgba(14, 46, 30, 0.95) 0%, rgba(6, 18, 12, 0.98) 100%)';
+    }
+    if (this.themeService.currentTheme === 'saffron') {
+      return 'radial-gradient(circle at 60% 40%, rgba(48, 24, 12, 0.95) 0%, rgba(16, 8, 4, 0.98) 100%)';
+    }
+    return this.selectedFamily.bgGlow;
+  }
 
   families: ScentFamily[] = [
     {

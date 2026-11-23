@@ -261,6 +261,44 @@ export interface PyramidTier {
       from { opacity: 0; transform: translateY(-4px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+    :host-context([data-theme="ivory"]) .scent-pyramid-container {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(245, 240, 232, 0.96) 100%) !important;
+      border: 1px solid rgba(168, 128, 56, 0.35) !important;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08) !important;
+      color: #151912 !important;
+    }
+    :host-context([data-theme="ivory"]) .pyramid-kicker { color: #7d5e22 !important; font-weight: 700; }
+    :host-context([data-theme="ivory"]) .pyramid-title { color: #151912 !important; }
+    :host-context([data-theme="ivory"]) .pyramid-subtitle { color: #3e463a !important; }
+    :host-context([data-theme="ivory"]) .pyramid-tier {
+      background: rgba(255, 255, 255, 0.94) !important;
+      border: 1px solid rgba(168, 128, 56, 0.28) !important;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04) !important;
+    }
+    :host-context([data-theme="ivory"]) .pyramid-tier:hover {
+      background: rgba(168, 128, 56, 0.08) !important;
+      border-color: rgba(168, 128, 56, 0.5) !important;
+    }
+    :host-context([data-theme="ivory"]) .pyramid-tier.active-tier {
+      background: #FFFFFF !important;
+      border-color: var(--color-champagne-gold, #A88038) !important;
+      box-shadow: 0 8px 24px rgba(168, 128, 56, 0.2) !important;
+    }
+    :host-context([data-theme="ivory"]) .tier-name { color: #151912 !important; font-weight: 700; }
+    :host-context([data-theme="ivory"]) .tier-time {
+      background: rgba(168, 128, 56, 0.12) !important;
+      color: #7d5e22 !important;
+      font-weight: 700;
+    }
+    :host-context([data-theme="ivory"]) .tier-summary { color: #3e463a !important; }
+    :host-context([data-theme="ivory"]) .tier-desc { color: #3e463a !important; }
+    :host-context([data-theme="ivory"]) .pyramid-note-chip {
+      background: rgba(168, 128, 56, 0.1) !important;
+      border: 1px solid rgba(168, 128, 56, 0.3) !important;
+      color: #151912 !important;
+      font-weight: 600;
+    }
   `]
 })
 export class ScentNotesPyramidComponent {

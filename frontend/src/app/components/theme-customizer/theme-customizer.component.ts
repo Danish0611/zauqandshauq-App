@@ -12,7 +12,7 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
     <button
       type="button"
       class="theme-floating-trigger"
-      (click)="themeService.openCustomizer()"
+      (click)="themeService.toggleCustomizer()"
       aria-label="Customize Atelier Theme and Colors"
       title="Atelier Theme & Chromatics">
       <span class="theme-glow-orb" [style.background]="themeService.currentAccent"></span>
@@ -163,7 +163,7 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
       position: fixed;
       bottom: 24px;
       left: 24px;
-      z-index: 80;
+      z-index: 2300;
       display: inline-flex;
       align-items: center;
       gap: 10px;
@@ -220,7 +220,7 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
     .theme-modal-backdrop {
       position: fixed;
       inset: 0;
-      z-index: 150;
+      z-index: 2400;
       background: rgba(5, 7, 5, 0.75);
       -webkit-backdrop-filter: blur(8px);
       backdrop-filter: blur(8px);
@@ -238,7 +238,7 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
       right: 0;
       bottom: 0;
       width: min(480px, 100vw);
-      z-index: 160;
+      z-index: 2500;
       background: var(--theme-header-bg, #0d0f0b);
       -webkit-backdrop-filter: blur(24px);
       backdrop-filter: blur(24px);
@@ -256,6 +256,49 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
       transform: translateX(0);
       visibility: visible;
       pointer-events: auto;
+    }
+
+    :host-context([data-theme="ivory"]) .theme-floating-trigger {
+      background: #FFFFFF !important;
+      border-color: rgba(168, 128, 56, 0.35) !important;
+      color: #151912 !important;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+    }
+    :host-context([data-theme="ivory"]) .theme-name-tag {
+      color: #151912 !important;
+    }
+    :host-context([data-theme="ivory"]) .theme-modal-sheet {
+      background: #FCFAF6 !important;
+      color: #151912 !important;
+      border-color: rgba(168, 128, 56, 0.3) !important;
+    }
+    :host-context([data-theme="ivory"]) .theme-sheet-header h3 {
+      color: #151912 !important;
+    }
+    :host-context([data-theme="ivory"]) .theme-close-btn {
+      color: #151912 !important;
+      border-color: rgba(168, 128, 56, 0.3) !important;
+    }
+    :host-context([data-theme="ivory"]) .theme-sheet-intro {
+      color: #3e463a !important;
+    }
+    :host-context([data-theme="ivory"]) .theme-realm-card {
+      background: #FFFFFF !important;
+      border-color: rgba(168, 128, 56, 0.25) !important;
+      color: #151912 !important;
+    }
+    :host-context([data-theme="ivory"]) .theme-realm-card.active {
+      background: rgba(168, 128, 56, 0.12) !important;
+      border-color: #A88038 !important;
+    }
+    :host-context([data-theme="ivory"]) .realm-name {
+      color: #151912 !important;
+    }
+    :host-context([data-theme="ivory"]) .realm-tagline {
+      color: #555e4e !important;
+    }
+    :host-context([data-theme="ivory"]) .realm-notes {
+      color: #7d5e22 !important;
     }
 
     /* HEADER */

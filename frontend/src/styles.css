@@ -7124,6 +7124,19 @@ body[data-theme="ivory"] h4 {
   color: #151912 !important;
 }
 
+/* Hero Section in Dark Themes */
+body:not([data-theme="ivory"]) .hero-grand-title,
+body:not([data-theme="ivory"]) .hero-grand-title .title-line-1,
+body:not([data-theme="ivory"]) .hero-grand-title .title-line-2 {
+  color: #F7F3EC !important;
+}
+body:not([data-theme="ivory"]) .hero-grand-title em {
+  color: var(--color-champagne-gold, #C9A96E) !important;
+}
+body:not([data-theme="ivory"]) .hero-lead-narrative {
+  color: rgba(245, 239, 230, 0.85) !important;
+}
+
 /* Hero Section in Ivory */
 body[data-theme="ivory"] .hero-slider-section {
   background: linear-gradient(135deg, #FAF8F4 0%, #EDE4D4 100%) !important;
@@ -7240,44 +7253,183 @@ body[data-theme="ivory"] .family-showcase-stage {
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08) !important;
 }
 body[data-theme="ivory"] .fam-kicker {
-  color: #8c6a28 !important;
+  color: #7d5e22 !important;
+  font-weight: 700;
 }
 body[data-theme="ivory"] .fam-title {
   color: #151912 !important;
 }
 body[data-theme="ivory"] .fam-sub {
-  color: #8c6a28 !important;
+  color: #7d5e22 !important;
+  font-size: 17px !important;
+  font-weight: 600 !important;
+  line-height: 1.4 !important;
 }
 body[data-theme="ivory"] .fam-desc {
-  color: #3e463a !important;
+  color: #2b3227 !important;
+  font-size: 14px !important;
+  line-height: 1.75 !important;
 }
 body[data-theme="ivory"] .fam-meta-grid {
-  background: rgba(247, 244, 238, 0.9) !important;
-  border: 1px solid rgba(168, 128, 56, 0.25) !important;
+  background: #FFFFFF !important;
+  border: 1px solid rgba(168, 128, 56, 0.3) !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05) !important;
 }
 body[data-theme="ivory"] .meta-label {
-  color: #8c6a28 !important;
+  color: #7d5e22 !important;
+  font-weight: 700 !important;
 }
 body[data-theme="ivory"] .meta-box strong {
   color: #151912 !important;
+  font-size: 13.5px !important;
+  font-weight: 600 !important;
 }
 body[data-theme="ivory"] .notes-kicker {
-  color: #555e4e !important;
+  color: #4e5648 !important;
+  font-weight: 600 !important;
 }
 body[data-theme="ivory"] .fam-chip {
   background: rgba(168, 128, 56, 0.12) !important;
-  border: 1px solid rgba(168, 128, 56, 0.3) !important;
+  border: 1px solid rgba(168, 128, 56, 0.35) !important;
   color: #151912 !important;
+  font-weight: 600 !important;
 }
 body[data-theme="ivory"] .bottle-tag-pill {
-  background: rgba(255, 255, 255, 0.96) !important;
-  border-color: rgba(168, 128, 56, 0.35) !important;
+  background: rgba(255, 255, 255, 0.98) !important;
+  border: 1px solid rgba(168, 128, 56, 0.35) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08) !important;
 }
-body[data-theme="ivory"] .bottle-tag-pill strong {
+body[data-theme="ivory"] .bottle-tag-pill strong,
+body[data-theme="ivory"] .flacon-lead-name {
   color: #151912 !important;
 }
-body[data-theme="ivory"] .bottle-tag-pill span {
-  color: #8c6a28 !important;
+body[data-theme="ivory"] .bottle-tag-pill span,
+body[data-theme="ivory"] .flacon-lead-price {
+  color: #7d5e22 !important;
+  font-weight: 700 !important;
+}
+
+/* Scent Notes Pyramid in Ivory */
+body[data-theme="ivory"] .scent-pyramid-container {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(245, 240, 232, 0.96) 100%) !important;
+  border: 1px solid rgba(168, 128, 56, 0.35) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08) !important;
+  color: #151912 !important;
+}
+body[data-theme="ivory"] .pyramid-kicker {
+  color: #7d5e22 !important;
+  font-weight: 700 !important;
+}
+body[data-theme="ivory"] .pyramid-title {
+  color: #151912 !important;
+}
+body[data-theme="ivory"] .pyramid-subtitle {
+  color: #3e463a !important;
+}
+body[data-theme="ivory"] .pyramid-tier {
+  background: rgba(255, 255, 255, 0.94) !important;
+  border: 1px solid rgba(168, 128, 56, 0.28) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04) !important;
+}
+body[data-theme="ivory"] .pyramid-tier:hover {
+  background: rgba(168, 128, 56, 0.08) !important;
+  border-color: rgba(168, 128, 56, 0.5) !important;
+}
+body[data-theme="ivory"] .pyramid-tier.active-tier {
+  background: #FFFFFF !important;
+  border-color: var(--color-champagne-gold, #A88038) !important;
+  box-shadow: 0 8px 24px rgba(168, 128, 56, 0.2) !important;
+}
+body[data-theme="ivory"] .tier-name {
+  color: #151912 !important;
+  font-weight: 700 !important;
+}
+body[data-theme="ivory"] .tier-time {
+  background: rgba(168, 128, 56, 0.12) !important;
+  color: #7d5e22 !important;
+  font-weight: 700 !important;
+}
+body[data-theme="ivory"] .tier-summary {
+  color: #3e463a !important;
+}
+body[data-theme="ivory"] .pyramid-note-chip {
+  background: rgba(168, 128, 56, 0.1) !important;
+  border: 1px solid rgba(168, 128, 56, 0.3) !important;
+  color: #151912 !important;
+  font-weight: 600 !important;
+}
+body[data-theme="ivory"] .tier-desc {
+  color: #3e463a !important;
+}
+
+/* Mood Portals in Ivory */
+body[data-theme="ivory"] .mood-card {
+  background: linear-gradient(145deg, #FFFFFF 0%, #F5EFE6 100%) !important;
+  border: 1px solid rgba(168, 128, 56, 0.3) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07) !important;
+}
+body[data-theme="ivory"] .mood-dreamers {
+  background: linear-gradient(145deg, #FFFFFF 0%, #F0F5F2 100%) !important;
+  border-color: rgba(62, 107, 85, 0.25) !important;
+}
+body[data-theme="ivory"] .mood-gogetters {
+  background: linear-gradient(145deg, #FFFFFF 0%, #F8F3EC 100%) !important;
+  border-color: rgba(168, 128, 56, 0.3) !important;
+}
+body[data-theme="ivory"] .mood-romantics {
+  background: linear-gradient(145deg, #FFFFFF 0%, #FAF0F2 100%) !important;
+  border-color: rgba(196, 112, 134, 0.25) !important;
+}
+body[data-theme="ivory"] .mood-classics {
+  background: linear-gradient(145deg, #FFFFFF 0%, #F4F3EE 100%) !important;
+  border-color: rgba(120, 130, 110, 0.25) !important;
+}
+body[data-theme="ivory"] .mood-card:hover {
+  border-color: var(--color-champagne-gold, #A88038) !important;
+  box-shadow: 0 16px 40px rgba(168, 128, 56, 0.22) !important;
+}
+body[data-theme="ivory"] .mood-card h4 {
+  color: #151912 !important;
+}
+body[data-theme="ivory"] .mood-card p {
+  color: #3e463a !important;
+}
+body[data-theme="ivory"] .mood-num {
+  color: #7d5e22 !important;
+  font-weight: 700 !important;
+}
+body[data-theme="ivory"] .mood-link {
+  color: #7d5e22 !important;
+  font-weight: 700 !important;
+}
+
+/* Mood Portals in Dark Themes */
+body:not([data-theme="ivory"]) .mood-card h4 {
+  color: #ffffff !important;
+}
+body:not([data-theme="ivory"]) .mood-card p {
+  color: rgba(247, 243, 236, 0.75) !important;
+}
+body:not([data-theme="ivory"]) .mood-num {
+  color: #C9A96E !important;
+}
+body:not([data-theme="ivory"]) .mood-link {
+  color: #C9A96E !important;
+}
+
+/* Discovery Coffret in Ivory */
+body[data-theme="ivory"] .coffret-glass-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(245, 240, 232, 0.96) 100%) !important;
+  border: 1px solid rgba(168, 128, 56, 0.35) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08) !important;
+  color: #151912 !important;
+}
+body[data-theme="ivory"] .coffret-glass-card h3,
+body[data-theme="ivory"] .coffret-glass-card h4 {
+  color: #151912 !important;
+}
+body[data-theme="ivory"] .coffret-glass-card p {
+  color: #3e463a !important;
 }
 
 /* Ivory Cards Styling */
