@@ -1,5 +1,6 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, HostListener, Inject, NgZone, OnDestroy, PLATFORM_ID, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Inject, NgZone, OnDestroy, PLATFORM_ID, ViewChild } from '@angular/core';
+import { ThemeService } from '../../theme.service';
 
 interface CursorParticle {
   x: number;
@@ -18,11 +19,11 @@ interface CursorParticle {
   imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <canvas #cursorCanvas class="spray-cursor-canvas" aria-hidden="true"></canvas>
-    <div #cursorFollower class="luxury-cursor-follower" [class.hover-active]="isHovering" aria-hidden="true">
-      <div class="cursor-dot"></div>
-      <div class="cursor-ring"></div>
-    </div>
+    <ng-container *ngIf="themeService.cursorEnabled$ | async">
+      <canvas #cursorCanvas class="spray-cursor-canvas" aria-hidden="true"></canvas>
+      <div #cursorDot class="luxury-cursor-dot" aria-hidden="true"></div>
+      <div #cursorRing class="luxury-cursor-ring" aria-hidden="true"></div>
+    </ng-container>
   `,
   styles: [`
     :host {
@@ -40,51 +41,55 @@ interface CursorParticle {
       pointer-events: none;
     }
 
-    .luxury-cursor-follower {
+    /* ZERO-LAG IMMEDIATE PINPOINT DOT */
+    .luxury-cursor-dot {
       position: fixed;
       top: 0;
       left: 0;
-      pointer-events: none;
-      transform: translate(-50%, -50%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: width 0.22s var(--ease-luxury, ease),
-                  height 0.22s var(--ease-luxury, ease),
-                  opacity 0.22s ease;
-      opacity: 0;
-    }
-
-    .cursor-dot {
-      width: 5px;
-      height: 5px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       background: var(--color-champagne-gold, #C9A96E);
-      box-shadow: 0 0 10px var(--color-champagne-gold, #C9A96E);
-      transition: transform 0.2s ease, background-color 0.25s ease;
+      box-shadow: 0 0 6px var(--color-champagne-gold, #C9A96E);
+      pointer-events: none;
+      z-index: 999993;
+      opacity: 0;
+      transform: translate3d(-100px, -100px, 0) translate(-50%, -50%);
+      will-change: transform;
+      transition: opacity 0.15s ease, background-color 0.2s ease;
     }
 
-    .cursor-ring {
-      position: absolute;
+    /* SNAPPY LIQUID AURA RING */
+    .luxury-cursor-ring {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 26px;
       height: 26px;
       border-radius: 50%;
-      border: 1px solid var(--color-champagne-border, rgba(201, 169, 110, 0.35));
-      transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.25s ease;
+      border: 1.5px solid var(--color-champagne-border, rgba(201, 169, 110, 0.45));
+      pointer-events: none;
+      z-index: 999992;
+      opacity: 0;
+      transform: translate3d(-100px, -100px, 0) translate(-50%, -50%);
+      will-change: transform;
+      transition: width 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+                  height 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+                  border-color 0.2s ease,
+                  background-color 0.2s ease,
+                  opacity 0.2s ease;
     }
 
-    .hover-active .cursor-ring {
-      transform: scale(1.6);
+    .luxury-cursor-ring.hover-active {
+      width: 44px;
+      height: 44px;
       border-color: var(--color-champagne-gold, #C9A96E);
-      background: var(--color-champagne-dim, rgba(201, 169, 110, 0.08));
-    }
-
-    .hover-active .cursor-dot {
-      transform: scale(1.4);
+      background: var(--color-champagne-dim, rgba(201, 169, 110, 0.1));
     }
 
     @media (pointer: coarse) {
-      .luxury-cursor-follower {
+      .luxury-cursor-dot,
+      .luxury-cursor-ring {
         display: none !important;
       }
     }
@@ -92,15 +97,16 @@ interface CursorParticle {
 })
 export class SprayCursorComponent implements AfterViewInit, OnDestroy {
   @ViewChild('cursorCanvas') canvasRef?: ElementRef<HTMLCanvasElement>;
-  @ViewChild('cursorFollower') followerRef?: ElementRef<HTMLDivElement>;
+  @ViewChild('cursorDot') dotRef?: ElementRef<HTMLDivElement>;
+  @ViewChild('cursorRing') ringRef?: ElementRef<HTMLDivElement>;
 
-  isHovering = false;
   private isBrowser: boolean;
-  private isFinePointer = false;
-  private mouseX = -100;
-  private mouseY = -100;
+  private ringX = -100;
+  private ringY = -100;
   private targetX = -100;
   private targetY = -100;
+  private lastEmitX = -100;
+  private lastEmitY = -100;
   private isMouseDown = false;
   private particles: CursorParticle[] = [];
   private animId: number | null = null;
@@ -108,7 +114,8 @@ export class SprayCursorComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     @Inject(PLATFORM_ID) platformId: object,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    public themeService: ThemeService
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
   }
@@ -116,131 +123,146 @@ export class SprayCursorComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     if (!this.isBrowser) return;
 
-    this.isFinePointer = window.matchMedia('(pointer: fine)').matches;
+    // Run outside Angular's zone to prevent change detection overhead on mousemove
+    this.ngZone.runOutsideAngular(() => {
+      this.initCursorEngine();
+    });
+  }
 
+  private initCursorEngine(): void {
     const canvas = this.canvasRef?.nativeElement;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    const ctx = canvas?.getContext('2d');
 
     const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      if (canvas) {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
     };
     resize();
     window.addEventListener('resize', resize, { passive: true });
     this.cleanups.push(() => window.removeEventListener('resize', resize));
 
-    // Handle tab visibility to pause RAF
+    // Visibility listener to pause RAF when tab is hidden
     const visibilityListener = () => {
       if (document.hidden && this.animId) {
         cancelAnimationFrame(this.animId);
         this.animId = null;
-      } else if (!document.hidden && !this.animId) {
+      } else if (!document.hidden && !this.animId && ctx && canvas) {
         this.startLoop(ctx, canvas);
       }
     };
     document.addEventListener('visibilitychange', visibilityListener);
     this.cleanups.push(() => document.removeEventListener('visibilitychange', visibilityListener));
 
-    // Run animation outside Angular zone
-    this.ngZone.runOutsideAngular(() => {
-      // Event listeners for smooth mouse tracking
-      const onMouseMove = (e: MouseEvent) => {
-        this.targetX = e.clientX;
-        this.targetY = e.clientY;
+    // INSTANT 1:1 hardware mousemove tracking
+    const onMouseMove = (e: MouseEvent) => {
+      this.targetX = e.clientX;
+      this.targetY = e.clientY;
 
-        if (this.followerRef?.nativeElement) {
-          this.followerRef.nativeElement.style.opacity = '1';
-        }
+      // Update inner dot IMMEDIATELY with zero latency
+      if (this.dotRef?.nativeElement) {
+        const dot = this.dotRef.nativeElement;
+        dot.style.opacity = '1';
+        dot.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
+      }
 
-        // Spawn a gentle particle on move
-        if (Math.random() > 0.6) {
-          this.emitParticle(this.targetX, this.targetY, 1, false);
-        }
-      };
-      window.addEventListener('mousemove', onMouseMove, { passive: true });
-      this.cleanups.push(() => window.removeEventListener('mousemove', onMouseMove));
+      if (this.ringRef?.nativeElement && this.ringRef.nativeElement.style.opacity !== '1') {
+        this.ringRef.nativeElement.style.opacity = '1';
+      }
 
-      const onMouseDown = (e: MouseEvent) => {
-        this.isMouseDown = true;
-        this.emitBurst(e.clientX, e.clientY, 18);
-      };
-      window.addEventListener('mousedown', onMouseDown, { passive: true });
-      this.cleanups.push(() => window.removeEventListener('mousedown', onMouseDown));
+      // Spawn subtle mist droplet only on deliberate motion (> 18px delta)
+      const dx = e.clientX - this.lastEmitX;
+      const dy = e.clientY - this.lastEmitY;
+      if (dx * dx + dy * dy > 324) {
+        this.lastEmitX = e.clientX;
+        this.lastEmitY = e.clientY;
+        this.emitParticle(e.clientX, e.clientY, 1, false);
+      }
+    };
+    window.addEventListener('mousemove', onMouseMove, { passive: true });
+    this.cleanups.push(() => window.removeEventListener('mousemove', onMouseMove));
 
-      const onMouseUp = () => {
-        this.isMouseDown = false;
-      };
-      window.addEventListener('mouseup', onMouseUp, { passive: true });
-      this.cleanups.push(() => window.removeEventListener('mouseup', onMouseUp));
+    // Mouse down mist plume burst
+    const onMouseDown = (e: MouseEvent) => {
+      this.isMouseDown = true;
+      this.emitBurst(e.clientX, e.clientY, 12);
+    };
+    window.addEventListener('mousedown', onMouseDown, { passive: true });
+    this.cleanups.push(() => window.removeEventListener('mousedown', onMouseDown));
 
-      // Touch tap mist puff
-      const onTouchStart = (e: TouchEvent) => {
-        if (e.touches.length > 0) {
-          const t = e.touches[0];
-          this.emitBurst(t.clientX, t.clientY, 10);
-        }
-      };
-      window.addEventListener('touchstart', onTouchStart, { passive: true });
-      this.cleanups.push(() => window.removeEventListener('touchstart', onTouchStart));
+    const onMouseUp = () => {
+      this.isMouseDown = false;
+    };
+    window.addEventListener('mouseup', onMouseUp, { passive: true });
+    this.cleanups.push(() => window.removeEventListener('mouseup', onMouseUp));
 
-      // Detect hover over interactive elements with direct DOM update
-      const onMouseOver = (e: MouseEvent) => {
-        const target = e.target as HTMLElement | null;
-        const matches = target && !!target.closest('a, button, [role="button"], .product-card, .luxury-cat-card, input, select');
-        if (this.followerRef?.nativeElement) {
-          this.followerRef.nativeElement.classList.toggle('hover-active', !!matches);
-        }
-      };
-      document.addEventListener('mouseover', onMouseOver, { passive: true });
-      this.cleanups.push(() => document.removeEventListener('mouseover', onMouseOver));
+    // Touch tap mist burst for touchscreens
+    const onTouchStart = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        const t = e.touches[0];
+        this.emitBurst(t.clientX, t.clientY, 8);
+      }
+    };
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    this.cleanups.push(() => window.removeEventListener('touchstart', onTouchStart));
 
+    // Fast magnetic hover detection
+    const onMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      const matches = target && !!target.closest('a, button, [role="button"], .product-card, .luxury-cat-card, input, select');
+      if (this.ringRef?.nativeElement) {
+        this.ringRef.nativeElement.classList.toggle('hover-active', !!matches);
+      }
+    };
+    document.addEventListener('mouseover', onMouseOver, { passive: true });
+    this.cleanups.push(() => document.removeEventListener('mouseover', onMouseOver));
+
+    if (ctx && canvas) {
       this.startLoop(ctx, canvas);
-    });
+    }
   }
 
   private startLoop(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement): void {
     const loop = () => {
-      // Ease cursor follower position
-      this.mouseX += (this.targetX - this.mouseX) * 0.18;
-      this.mouseY += (this.targetY - this.mouseY) * 0.18;
+      // Snappy, liquid follow for the outer ring (lerp 0.55 for zero sluggishness)
+      this.ringX += (this.targetX - this.ringX) * 0.55;
+      this.ringY += (this.targetY - this.ringY) * 0.55;
 
-      if (this.followerRef?.nativeElement) {
-        this.followerRef.nativeElement.style.transform = `translate3d(${this.mouseX}px, ${this.mouseY}px, 0)`;
+      if (this.ringRef?.nativeElement) {
+        this.ringRef.nativeElement.style.transform = `translate3d(${this.ringX}px, ${this.ringY}px, 0) translate(-50%, -50%)`;
       }
 
-      // If mouse held down, continuously emit mist stream
+      // Continuous stream on mouse drag
       if (this.isMouseDown) {
-        this.emitParticle(this.targetX, this.targetY, 3, true);
+        this.emitParticle(this.targetX, this.targetY, 2, true);
       }
 
+      // Fast GPU-friendly particle rendering (NO shadowBlur!)
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      for (let i = this.particles.length - 1; i >= 0; i--) {
-        const p = this.particles[i];
-        p.x += p.vx;
-        p.y += p.vy;
-        p.size += 0.08;
-        p.alpha -= p.decay;
-
-        if (p.alpha <= 0) {
-          this.particles.splice(i, 1);
-          continue;
-        }
-
+      if (this.particles.length > 0) {
         const accentRgb = (typeof document !== 'undefined' && document.documentElement.style.getPropertyValue('--cursor-accent-rgb')) || '201, 169, 110';
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = p.gold
-          ? `rgba(${accentRgb}, ${p.alpha.toFixed(3)})`
-          : `rgba(245, 239, 230, ${p.alpha.toFixed(3)})`;
-        ctx.shadowColor = `rgba(${accentRgb}, 0.3)`;
-        ctx.shadowBlur = 6;
-        ctx.fill();
-        ctx.restore();
+
+        for (let i = this.particles.length - 1; i >= 0; i--) {
+          const p = this.particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          p.size += 0.05;
+          p.alpha -= p.decay;
+
+          if (p.alpha <= 0) {
+            this.particles.splice(i, 1);
+            continue;
+          }
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fillStyle = p.gold
+            ? `rgba(${accentRgb}, ${p.alpha.toFixed(2)})`
+            : `rgba(255, 248, 235, ${p.alpha.toFixed(2)})`;
+          ctx.fill();
+        }
       }
 
       this.animId = requestAnimationFrame(loop);
@@ -250,38 +272,38 @@ export class SprayCursorComponent implements AfterViewInit, OnDestroy {
   }
 
   private emitParticle(x: number, y: number, count: number, strong: boolean): void {
-    if (this.particles.length > 80) return; // Cap particles for performance
+    if (this.particles.length > 50) return; // Strict particle cap for high FPS
 
     for (let i = 0; i < count; i++) {
       const angle = Math.random() * Math.PI * 2;
-      const speed = strong ? 1.5 + Math.random() * 3 : 0.4 + Math.random() * 1.2;
+      const speed = strong ? 1.5 + Math.random() * 2.5 : 0.4 + Math.random() * 1.0;
       this.particles.push({
-        x: x + (Math.random() - 0.5) * 8,
-        y: y + (Math.random() - 0.5) * 8,
+        x: x + (Math.random() - 0.5) * 6,
+        y: y + (Math.random() - 0.5) * 6,
         vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed - 0.3,
-        size: 1.2 + Math.random() * 2.2,
-        alpha: 0.6 + Math.random() * 0.3,
-        decay: 0.015 + Math.random() * 0.02,
+        vy: Math.sin(angle) * speed - 0.2,
+        size: 1.0 + Math.random() * 1.8,
+        alpha: 0.5 + Math.random() * 0.3,
+        decay: 0.02 + Math.random() * 0.025,
         gold: Math.random() > 0.4
       });
     }
   }
 
   private emitBurst(x: number, y: number, count: number): void {
-    if (this.particles.length > 80) return;
+    if (this.particles.length > 50) return;
 
     for (let i = 0; i < count; i++) {
       const angle = Math.random() * Math.PI * 2;
-      const speed = 1.2 + Math.random() * 4.5;
+      const speed = 1.0 + Math.random() * 3.5;
       this.particles.push({
         x,
         y,
         vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed - 0.5,
-        size: 1.5 + Math.random() * 3,
-        alpha: 0.8 + Math.random() * 0.2,
-        decay: 0.02 + Math.random() * 0.025,
+        vy: Math.sin(angle) * speed - 0.4,
+        size: 1.2 + Math.random() * 2.4,
+        alpha: 0.75 + Math.random() * 0.25,
+        decay: 0.025 + Math.random() * 0.03,
         gold: Math.random() > 0.3
       });
     }
@@ -293,4 +315,3 @@ export class SprayCursorComponent implements AfterViewInit, OnDestroy {
     this.cleanups = [];
   }
 }
-

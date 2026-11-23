@@ -134,6 +134,22 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
               <button type="button" class="color-apply-btn" (click)="applyCustomHex()">Apply</button>
             </div>
           </div>
+
+          <!-- SECTION 4: PERFUME SPRAY CURSOR TOGGLE -->
+          <div class="custom-color-row cursor-toggle-row">
+            <label class="custom-color-label">
+              <span>Perfume Spray Cursor:</span>
+            </label>
+            <button
+              type="button"
+              class="cursor-switch-btn"
+              [class.active]="themeService.isCursorEnabled"
+              (click)="themeService.toggleCursor()"
+              title="Toggle Perfume Spray Cursor">
+              <span class="switch-pill"></span>
+              <span>{{ themeService.isCursorEnabled ? '✦ Active (Instant Spray)' : 'Standard Mouse Pointer' }}</span>
+            </button>
+          </div>
         </div>
 
         <!-- ACTIVE PALETTE SUMMARY -->
@@ -620,6 +636,39 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
     }
     .color-apply-btn:hover {
       background: var(--color-champagne-light, #dfc796);
+    }
+
+    /* CURSOR SWITCH BUTTON */
+    .cursor-toggle-row {
+      margin-top: 10px;
+    }
+    .cursor-switch-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--theme-border, rgba(201, 169, 110, 0.3));
+      color: var(--theme-text-primary, #F5EFE6);
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .cursor-switch-btn:hover {
+      border-color: var(--color-champagne-gold, #C9A96E);
+    }
+    .cursor-switch-btn.active {
+      background: var(--color-champagne-dim, rgba(201, 169, 110, 0.15));
+      border-color: var(--color-champagne-gold, #C9A96E);
+      color: var(--color-champagne-gold, #C9A96E);
+      font-weight: 600;
+    }
+    .switch-pill {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: currentColor;
     }
 
     /* SUMMARY */

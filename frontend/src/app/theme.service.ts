@@ -134,6 +134,9 @@ export class ThemeService {
   private isCustomizerOpenSubject = new BehaviorSubject<boolean>(false);
   public isCustomizerOpen$ = this.isCustomizerOpenSubject.asObservable();
 
+  private cursorEnabledSubject = new BehaviorSubject<boolean>(true);
+  public cursorEnabled$ = this.cursorEnabledSubject.asObservable();
+
   constructor(@Inject(PLATFORM_ID) platformId: object) {
     this.isBrowser = isPlatformBrowser(platformId);
     if (this.isBrowser) {
@@ -155,6 +158,29 @@ export class ThemeService {
 
   get isCustomizerOpen(): boolean {
     return this.isCustomizerOpenSubject.value;
+  }
+
+  get isCursorEnabled(): boolean {
+    return this.cursorEnabledSubject.value;
+  }
+
+  toggleCursor(): void {
+    const nextVal = !this.cursorEnabledSubject.value;
+    this.cursorEnabledSubject.next(nextVal);
+    if (this.isBrowser) {
+      try {
+        localStorage.setItem('zs-cursor-enabled', String(nextVal));
+      } catch { /* ignore */ }
+    }
+  }
+
+  setCursorEnabled(enabled: boolean): void {
+    this.cursorEnabledSubject.next(enabled);
+    if (this.isBrowser) {
+      try {
+        localStorage.setItem('zs-cursor-enabled', String(enabled));
+      } catch { /* ignore */ }
+    }
   }
 
   openCustomizer(): void {
@@ -182,6 +208,11 @@ export class ThemeService {
 
       const savedAccent = localStorage.getItem('zs-luxury-accent') || validTheme?.accentColor || '#C9A96E';
       this.applyTheme(themeId, savedAccent);
+
+      const savedCursor = localStorage.getItem('zs-cursor-enabled');
+      if (savedCursor !== null) {
+        this.cursorEnabledSubject.next(savedCursor === 'true');
+      }
     } catch {
       this.applyTheme('noir', '#C9A96E');
     }
