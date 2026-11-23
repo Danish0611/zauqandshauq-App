@@ -2517,41 +2517,44 @@ html, body {
 }
 
 .product-card {
-  background: rgba(32, 42, 28, 0.72) !important;
+  background: var(--theme-bg-card, rgba(20, 27, 18, 0.85)) !important;
   backdrop-filter: blur(14px) !important;
   -webkit-backdrop-filter: blur(14px) !important;
-  border: 1px solid rgba(201, 169, 110, 0.22) !important;
-  border-radius: 16px !important;
+  border: 1px solid var(--theme-border, rgba(201, 169, 110, 0.22)) !important;
+  border-radius: 18px !important;
   overflow: hidden !important;
-  box-shadow: 0 12px 32px rgba(13, 15, 11, 0.5) !important;
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.35s ease !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45) !important;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease !important;
 }
 
 .product-card:hover {
   transform: translateY(-6px) !important;
-  border-color: rgba(201, 169, 110, 0.55) !important;
-  box-shadow: 0 20px 48px rgba(13, 15, 11, 0.7), 0 0 24px rgba(201, 169, 110, 0.2) !important;
+  border-color: var(--color-champagne-gold, #C9A96E) !important;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.6), 0 0 24px var(--color-champagne-dim, rgba(201, 169, 110, 0.2)) !important;
 }
 
 .product-visual {
   height: 290px !important;
-  background: radial-gradient(circle at 50% 60%, rgba(201, 169, 110, 0.14) 0%, rgba(13, 15, 11, 0.95) 100%) !important;
+  background: var(--theme-card-visual, radial-gradient(circle at 50% 60%, rgba(201, 169, 110, 0.14) 0%, rgba(13, 15, 11, 0.95) 100%)) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  transition: background 0.35s ease !important;
 }
 
 .product-details {
-  background: rgba(13, 15, 11, 0.75) !important;
-  color: var(--color-warm-ivory, #F5EFE6) !important;
+  background: var(--theme-details-bg, rgba(13, 15, 11, 0.75)) !important;
+  color: var(--theme-text-primary, #F5EFE6) !important;
   padding: 16px !important;
+  transition: background 0.35s ease, color 0.35s ease !important;
 }
 
 .product-name-button {
-  color: var(--color-warm-ivory, #F5EFE6) !important;
+  color: var(--theme-text-primary, #F5EFE6) !important;
   font-family: var(--font-heading, 'Cormorant Garamond', serif) !important;
   font-size: 19px !important;
   font-weight: 600 !important;
+  transition: color 0.25s ease !important;
 }
 
 .product-brand {
@@ -2562,7 +2565,7 @@ html, body {
 }
 
 .product-notes {
-  color: var(--color-ivory-dim, rgba(245, 239, 230, 0.75)) !important;
+  color: var(--theme-text-muted, rgba(245, 239, 230, 0.75)) !important;
 }
 
 .product-price {
@@ -2572,7 +2575,7 @@ html, body {
 }
 
 .product-size {
-  color: var(--color-ivory-muted, rgba(245, 239, 230, 0.6)) !important;
+  color: var(--theme-text-muted, rgba(245, 239, 230, 0.6)) !important;
 }
 
 /* ==========================================================================
@@ -2788,26 +2791,27 @@ html, body {
 }
 
 .product-card {
-  background: rgba(13, 27, 21, 0.75) !important;
-  border: 1px solid rgba(229, 193, 120, 0.2) !important;
+  background: var(--theme-bg-card, rgba(20, 27, 18, 0.85)) !important;
+  border: 1px solid var(--theme-border, rgba(201, 169, 110, 0.25)) !important;
   border-radius: 20px !important;
   overflow: hidden !important;
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
-  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease !important;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45) !important;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease, background 0.35s ease !important;
 }
 
 .product-card:hover {
   transform: translateY(-6px) !important;
-  border-color: rgba(229, 193, 120, 0.55) !important;
-  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.7), 0 0 25px rgba(229, 193, 120, 0.18) !important;
+  border-color: var(--color-champagne-gold, #C9A96E) !important;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.6), 0 0 25px var(--color-champagne-dim, rgba(201, 169, 110, 0.2)) !important;
 }
 
 .product-visual {
   height: 290px !important;
-  background: radial-gradient(circle at 50% 65%, rgba(28, 62, 47, 0.85) 0%, rgba(8, 18, 14, 0.98) 100%) !important;
+  background: var(--theme-card-visual, radial-gradient(circle at 50% 65%, rgba(201, 169, 110, 0.15) 0%, rgba(13, 17, 12, 0.98) 100%)) !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  transition: background 0.35s ease !important;
 }
 
 .product-image-button img {
@@ -2816,16 +2820,16 @@ html, body {
 }
 
 .product-badge {
-  background: #c89d54 !important;
-  color: #060b09 !important;
+  background: var(--color-champagne-gold, #C9A96E) !important;
+  color: #0d0f0b !important;
   font-weight: 700 !important;
   border-radius: 999px !important;
 }
 
 .wish-button {
-  background: rgba(10, 24, 18, 0.82) !important;
-  border: 1px solid rgba(216, 191, 167, 0.3) !important;
-  color: #ffffff !important;
+  background: var(--theme-bg-card, rgba(10, 24, 18, 0.82)) !important;
+  border: 1px solid var(--theme-border, rgba(201, 169, 110, 0.3)) !important;
+  color: var(--theme-text-primary, #ffffff) !important;
 }
 
 .wish-button.wished {
@@ -2834,35 +2838,38 @@ html, body {
 }
 
 .quick-add {
-  background: rgba(8, 20, 16, 0.94) !important;
-  border: 1px solid rgba(229, 193, 120, 0.45) !important;
-  color: #ffffff !important;
+  background: var(--color-champagne-gold, #C9A96E) !important;
+  border: 1px solid var(--color-champagne-light, #ffd875) !important;
+  color: #0d0f0b !important;
   border-radius: 999px !important;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.55) !important;
+  box-shadow: 0 10px 25px var(--color-champagne-dim, rgba(201, 169, 110, 0.35)) !important;
+  font-weight: 700 !important;
 }
 
 .quick-add-price {
-  color: #e5c178 !important;
+  color: #0d0f0b !important;
   font-weight: 700 !important;
 }
 
 .product-details {
+  background: var(--theme-details-bg, rgba(16, 22, 14, 0.85)) !important;
   padding: 16px 18px 18px !important;
+  transition: background 0.35s ease, color 0.35s ease !important;
 }
 
 .product-brand {
-  color: #c89d54 !important;
+  color: var(--color-champagne-gold, #C9A96E) !important;
   letter-spacing: 1.2px !important;
   font-weight: 600 !important;
 }
 
 .product-rating {
-  color: #e5c178 !important;
+  color: var(--color-champagne-gold, #C9A96E) !important;
   font-weight: 600 !important;
 }
 
 .product-name-button {
-  color: #ffffff !important;
+  color: var(--theme-text-primary, #ffffff) !important;
   font-size: 21px !important;
   font-family: 'Playfair Display', serif !important;
   letter-spacing: -0.3px !important;
@@ -2870,25 +2877,25 @@ html, body {
 }
 
 .product-name-button:hover {
-  color: #e5c178 !important;
+  color: var(--color-champagne-gold, #C9A96E) !important;
 }
 
 .product-notes {
-  color: #b5bea8 !important;
+  color: var(--theme-text-muted, #b5bea8) !important;
   font-size: 11px !important;
   line-height: 1.5 !important;
 }
 
 .product-bottom-row {
-  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-top: 1px solid var(--theme-border, rgba(255, 255, 255, 0.08)) !important;
 }
 
 .product-size {
-  color: #9aa398 !important;
+  color: var(--theme-text-muted, #9aa398) !important;
 }
 
 .product-price {
-  color: #e5c178 !important;
+  color: var(--color-champagne-gold, #C9A96E) !important;
   font-size: 17px !important;
   font-weight: 600 !important;
 }
@@ -6719,52 +6726,86 @@ body[data-theme="saffron"] .site-header {
 }
 
 /* --------------------------------------------------------------------------
-   THEME 5: IVORY ATELIER ("Daylight Alabaster & French Silk" - Light Luxe)
+   THEME 5: IVORY ATELIER ("Daylight Alabaster & French Silk" - High Contrast Light Luxe)
    -------------------------------------------------------------------------- */
 :root[data-theme="ivory"],
 body[data-theme="ivory"] {
-  --color-olive-base: #F5EFE6;
-  --color-olive-dark: #ECE4D6;
+  --color-olive-base: #F7F4EE;
+  --color-olive-dark: #EDE5D8;
   --color-olive-light: #FFFFFF;
-  --color-near-black: #F8F5EE;
-  --color-warm-ivory: #1A1F16;
-  --bg-primary: #F8F5EE;
+  --color-near-black: #F7F4EE;
+  --color-warm-ivory: #151912;
+  --bg-primary: #F7F4EE;
   --bg-deep: #EDE5D8;
   --bg-surface: #FFFFFF;
-  --text-primary: #1A1F16;
-  --glass-bg: rgba(255, 255, 255, 0.88);
-  --section-gradient-top: #F5EFE6;
-  --section-gradient-bottom: #ECE4D6;
+  --text-primary: #151912;
+  --glass-bg: rgba(255, 255, 255, 0.94);
+  --section-gradient-top: #F7F4EE;
+  --section-gradient-bottom: #EDE5D8;
 }
+
 body[data-theme="ivory"] {
-  background: #F8F5EE !important;
-  color: #1A1F16 !important;
+  background: #F7F4EE !important;
+  color: #151912 !important;
 }
+
 body[data-theme="ivory"] .site-header {
-  background: rgba(248, 245, 238, 0.94) !important;
-  border-bottom: 1px solid rgba(176, 136, 70, 0.25) !important;
+  background: rgba(247, 244, 238, 0.97) !important;
+  border-bottom: 1px solid rgba(168, 128, 56, 0.3) !important;
 }
+
 body[data-theme="ivory"] .announcement-bar {
   background: #EDE5D8 !important;
-  color: #1A1F16 !important;
+  color: #151912 !important;
+  border-bottom: 1px solid rgba(168, 128, 56, 0.25) !important;
 }
+
+body[data-theme="ivory"] .announcement-main,
+body[data-theme="ivory"] .announcement-festive,
+body[data-theme="ivory"] .announcement-secondary {
+  color: #151912 !important;
+}
+
 body[data-theme="ivory"] .desktop-nav a {
-  color: #2D3328 !important;
+  color: #2b3227 !important;
 }
+body[data-theme="ivory"] .desktop-nav a:hover,
+body[data-theme="ivory"] .desktop-nav a.active-nav {
+  color: var(--color-champagne-gold, #A88038) !important;
+}
+
 body[data-theme="ivory"] .brand-name,
+body[data-theme="ivory"] .brand-tagline,
 body[data-theme="ivory"] h1,
 body[data-theme="ivory"] h2,
-body[data-theme="ivory"] h3 {
-  color: #141A11 !important;
+body[data-theme="ivory"] h3,
+body[data-theme="ivory"] h4 {
+  color: #151912 !important;
 }
+
 body[data-theme="ivory"] .hero-section {
-  background: linear-gradient(135deg, #F8F5EE 0%, #EDE3D4 100%) !important;
-  color: #1A1F16 !important;
+  background: linear-gradient(135deg, #FAF8F4 0%, #EDE4D4 100%) !important;
+  color: #151912 !important;
 }
+
 body[data-theme="ivory"] .hero-grand-title,
-body[data-theme="ivory"] .hero-lead-narrative {
-  color: #181E15 !important;
+body[data-theme="ivory"] .hero-grand-title .title-line-1,
+body[data-theme="ivory"] .hero-grand-title .title-line-2 {
+  color: #151912 !important;
 }
+
+body[data-theme="ivory"] .hero-lead-narrative {
+  color: #3f473a !important;
+}
+
+body[data-theme="ivory"] .active-flacon-strip {
+  background: rgba(255, 255, 255, 0.92) !important;
+  border-color: rgba(168, 128, 56, 0.35) !important;
+}
+body[data-theme="ivory"] .flacon-active-name {
+  color: #151912 !important;
+}
+
 body[data-theme="ivory"] .dark-luxury-section,
 body[data-theme="ivory"] .full-width-section,
 body[data-theme="ivory"] .collection-section,
@@ -6772,62 +6813,123 @@ body[data-theme="ivory"] .circular-categories-section,
 body[data-theme="ivory"] .signature-line-section,
 body[data-theme="ivory"] .category-cards-section,
 body[data-theme="ivory"] .site-footer {
-  background: linear-gradient(180deg, #F8F5EE 0%, #EDE5D8 100%) !important;
-  color: #1A1F16 !important;
+  background: linear-gradient(180deg, #FAF8F4 0%, #EDE5D8 100%) !important;
+  color: #151912 !important;
 }
+
 body[data-theme="ivory"] .section-heading h2,
 body[data-theme="ivory"] .section-heading h2 em {
-  color: #141A11 !important;
+  color: #151912 !important;
 }
+
 body[data-theme="ivory"] .section-intro,
 body[data-theme="ivory"] p {
-  color: #4A5244 !important;
+  color: #3e463a !important;
 }
+
+/* Ivory Cards Styling */
 body[data-theme="ivory"] .product-card,
 body[data-theme="ivory"] .luxury-cat-card,
 body[data-theme="ivory"] .review-card,
 body[data-theme="ivory"] .circular-cat-card {
-  background: rgba(255, 255, 255, 0.85) !important;
-  border-color: rgba(176, 136, 70, 0.25) !important;
-  color: #1A1F16 !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(168, 128, 56, 0.3) !important;
+  color: #151912 !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
 }
-body[data-theme="ivory"] .product-name-button,
-body[data-theme="ivory"] .product-brand,
+
+body[data-theme="ivory"] .product-visual {
+  background: radial-gradient(circle at 50% 65%, rgba(201, 169, 110, 0.22) 0%, rgba(246, 241, 233, 0.96) 100%) !important;
+}
+
+body[data-theme="ivory"] .product-details {
+  background: rgba(255, 255, 255, 0.98) !important;
+  color: #151912 !important;
+}
+
+body[data-theme="ivory"] .product-name-button {
+  color: #151912 !important;
+}
+
+body[data-theme="ivory"] .product-brand {
+  color: var(--color-champagne-gold, #A88038) !important;
+}
+
+body[data-theme="ivory"] .product-notes {
+  color: #555e4e !important;
+}
+
 body[data-theme="ivory"] .product-price {
-  color: #141A11 !important;
+  color: var(--color-champagne-gold, #A88038) !important;
 }
+
+body[data-theme="ivory"] .product-size {
+  color: #717c6b !important;
+}
+
 body[data-theme="ivory"] .spotlight-card {
-  background: rgba(255, 255, 255, 0.9) !important;
-  border-color: rgba(176, 136, 70, 0.3) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(168, 128, 56, 0.35) !important;
 }
+
 body[data-theme="ivory"] .spotlight-content h3 {
-  color: #141A11 !important;
+  color: #151912 !important;
 }
+
 body[data-theme="ivory"] .spotlight-content p {
-  color: #4A5244 !important;
+  color: #3e463a !important;
 }
+
 body[data-theme="ivory"] .spotlight-chips span {
-  background: rgba(0, 0, 0, 0.05) !important;
-  color: #2D3328 !important;
+  background: rgba(0, 0, 0, 0.06) !important;
+  color: #242c20 !important;
+  border-color: rgba(168, 128, 56, 0.3) !important;
 }
+
 body[data-theme="ivory"] .cart-drawer,
 body[data-theme="ivory"] .product-modal,
 body[data-theme="ivory"] .checkout-modal,
-body[data-theme="ivory"] .auth-modal-dialog {
-  background: #FDFBF7 !important;
-  color: #1A1F16 !important;
+body[data-theme="ivory"] .auth-modal-dialog,
+body[data-theme="ivory"] .theme-modal-sheet {
+  background: #FCFAF6 !important;
+  color: #151912 !important;
+  border-color: rgba(168, 128, 56, 0.3) !important;
+}
+
+body[data-theme="ivory"] .royal-poetry-band {
+  background: #EDE5D8 !important;
+  color: #151912 !important;
+}
+body[data-theme="ivory"] .band-column h3,
+body[data-theme="ivory"] .band-column p {
+  color: #151912 !important;
+}
+
+body[data-theme="ivory"] .poetry-marquee-strip {
+  background: #E5DCce !important;
+  border-color: rgba(168, 128, 56, 0.3) !important;
+}
+body[data-theme="ivory"] .poetry-marquee-content {
+  color: #151912 !important;
 }
 
 /* --------------------------------------------------------------------------
-   UNIVERSAL THEME PROPAGATION ACROSS ALL SECTIONS
+   UNIVERSAL THEME PROPAGATION & SMOOTH MORPHING ACROSS ALL SECTIONS
    -------------------------------------------------------------------------- */
+body,
+.site-header,
 .hero-section,
 .collection-section,
 .dark-luxury-section,
 .full-width-section,
-.site-footer {
-  transition: background 0.4s ease, color 0.4s ease;
+.site-footer,
+.product-card,
+.product-visual,
+.product-details {
+  transition: background 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              color 0.35s ease,
+              border-color 0.35s ease,
+              box-shadow 0.35s ease;
 }
 
 /* Dynamic Accent Tint Styling (Buttons, Badges, Links, Borders) */
@@ -6893,4 +6995,59 @@ body[data-theme="ivory"] .auth-modal-dialog {
 }
 .marquee-star {
   color: var(--color-champagne-gold, #C9A96E) !important;
+}
+
+/* --------------------------------------------------------------------------
+   AUTHENTIC URDU NASTA'LIQ & HINGLISH POETRY TYPOGRAPHY
+   -------------------------------------------------------------------------- */
+[lang="ur"],
+.urdu-script,
+.announcement-urdu,
+.poetic-couplet-urdu {
+  font-family: 'Noto Nastaliq Urdu', 'Amiri', 'Playfair Display', serif !important;
+  direction: rtl;
+  unicode-bidi: isolate;
+  font-size: 15px;
+  line-height: 2;
+  letter-spacing: 0;
+}
+
+.announcement-urdu {
+  font-size: 13.5px;
+  padding-inline: 6px;
+  color: var(--color-champagne-light, #dfc796);
+}
+
+.announcement-origin {
+  color: var(--color-champagne-gold, #C9A96E);
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.announcement-hinglish {
+  font-size: 9.5px;
+  color: var(--theme-text-muted, #c0c6b8);
+  font-style: italic;
+  letter-spacing: 0.4px;
+}
+
+.poetic-couplet-urdu {
+  font-size: 19px;
+  color: var(--color-champagne-gold, #C9A96E);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.poetic-couplet-hinglish {
+  font-size: 13px;
+  font-style: italic;
+  color: var(--theme-text-primary, #ffffff);
+  line-height: 1.6;
+  margin-bottom: 6px;
+}
+
+.poetic-couplet-meaning {
+  font-size: 11px;
+  color: var(--theme-text-muted, #a2aa9c);
+  line-height: 1.6;
 }

@@ -5,18 +5,21 @@
 <app-spray-cursor></app-spray-cursor>
 
 <!-- ATELIER THEME & CHROMATICS CUSTOMIZER -->
-<app-theme-customizer [isOpen]="themeModalOpen" (close)="themeModalOpen = false"></app-theme-customizer>
+<app-theme-customizer></app-theme-customizer>
 
 <div class="royal-header-wrapper">
   <div class="announcement-bar">
     <span class="announcement-dot"></span>
     <span class="announcement-main">HAUTE PARFUMERIE EXTRAITS</span>
     <span class="announcement-divider">·</span>
-    <span class="announcement-festive">Complimentary Express Delivery on Orders Over ₹1,999</span>
+    <span class="announcement-origin">Handcrafted in Amravati, Maharashtra</span>
     <span class="announcement-divider">·</span>
-    <span class="announcement-urdu" dir="rtl">خوشبو وہ خاموش زبان ہے جو دل سے دل تک بات करती है</span>
+    <span class="announcement-festive">Complimentary Express Delivery Over ₹1,999</span>
     <span class="announcement-divider">·</span>
-    <span class="announcement-secondary">Hand-Distilled With Rare Natural Botanicals</span>
+    <span class="announcement-urdu" dir="rtl" lang="ur">خوشبو سخنِ دل ہے، جو روح کو چھوتی ہے</span>
+    <span class="announcement-hinglish">(Dil se nikli baat, rooh tak mehakti hai)</span>
+    <span class="announcement-divider">·</span>
+    <span class="announcement-secondary">100% Rare Botanical Extraits</span>
   </div>
 
   <header class="site-header" [class.is-open]="mobileMenuOpen">
@@ -55,7 +58,7 @@
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><path d="M12 18v-6"></path><path d="m9 15 3-3 3 3"></path></svg>
         <span class="tool-label">CSV</span>
       </button>
-      <button class="icon-button theme-btn" type="button" aria-label="Atelier Theme and Colors" title="Atelier Theme & Chromatics" (click)="themeModalOpen = true">
+      <button class="icon-button theme-btn" type="button" aria-label="Atelier Theme and Colors" title="Atelier Theme & Chromatics" (click)="themeService.openCustomizer()">
         <span class="theme-dot-mini" [style.background]="themeService.currentAccent"></span>
         <span class="tool-label">Palette</span>
       </button>
@@ -103,7 +106,7 @@
         <span>Philosophy &amp; Notes</span>
         <span class="nav-arrow">→</span>
       </a>
-      <a href="javascript:void(0)" class="mobile-nav-link theme-highlight" (click)="themeModalOpen = true; mobileMenuOpen = false">
+      <a href="javascript:void(0)" class="mobile-nav-link theme-highlight" (click)="themeService.openCustomizer(); mobileMenuOpen = false">
         <span>✦ Atelier Mood &amp; Colors</span>
         <span class="nav-badge" [style.background]="themeService.currentAccent" style="color: #0d0f0b;">{{ themeService.activeThemeObject.name }}</span>
       </a>
@@ -184,7 +187,7 @@
       <div class="page-shell">
         <div class="section-heading">
           <div>
-            <div class="eyebrow"><span class="eyebrow-line"></span> OLFACTIVE REALMS · इत्र एवं सुवास</div>
+            <div class="eyebrow"><span class="eyebrow-line"></span> OLFACTIVE REALMS · BORN IN AMRAVATI</div>
             <h2>Shop by Character. <em>Find the scent that speaks your soul.</em></h2>
             <p class="section-intro">Explore our signature olfactory expressions, hand-distilled with rare botanicals from Mysore, Grasse &amp; Kannauj.</p>
           </div>
@@ -219,7 +222,7 @@
           <div class="spotlight-card spotlight-him">
             <div class="spotlight-glass-overlay"></div>
             <div class="spotlight-content">
-              <span class="spotlight-badge">COLLECTION HOMME · ज़ौक़</span>
+              <span class="spotlight-badge">COLLECTION HOMME · ZAUQ (MASCULINE GRACE)</span>
               <span class="spotlight-kicker">FOR THE ZAUQ IN EVERY MAN</span>
               <h3>Bold. Refined. <em>Unforgettable.</em></h3>
               <p>Commanding compositions rooted in 20-year aged Assam agarwood, smoked leather, and black pepper. Scents of quiet, masculine power.</p>
@@ -242,7 +245,7 @@
           <div class="spotlight-card spotlight-her">
             <div class="spotlight-glass-overlay"></div>
             <div class="spotlight-content">
-              <span class="spotlight-badge">COLLECTION FEMME · शौक़</span>
+              <span class="spotlight-badge">COLLECTION FEMME · SHAUQ (ETHEREAL CHARM)</span>
               <span class="spotlight-kicker">FOR THE SHAUQ IN EVERY WOMAN</span>
               <h3>Grace. Charm. <em>Eternity.</em></h3>
               <p>Ethereal blooms of dawn-picked Kannauj Damask rose, velvety white peony, and bourbon vanilla. An intoxicating aura that lingers long after you leave.</p>
@@ -390,28 +393,34 @@
     <section class="royal-poetry-band full-width-section">
       <div class="page-shell poetry-band-inner">
         <div class="band-column">
-          <span class="band-label">ZAUQ &amp; SHAUQ ADAB · ज़ौक़ और शौक़</span>
-          <h3>Kuch Khushboo Qaidi Nahi Hoti,<br><em>Woh Azad Rehti Hai…</em></h3>
-          <p>“Zauq bhi… Shauq bhi… Tum bhi… Kuch log khushboo lagate hain, kuch log yaadein. Yahan dono milti hain.”</p>
-          <button type="button" class="band-btn" (click)="selectCategory('For Him')">Explore For Him ↗</button>
+          <span class="band-label">ZAUQ-O-SHAUQ · ALLAMA IQBAL'S ODE TO PASSION</span>
+          <span class="poetic-couplet-urdu" dir="rtl" lang="ur">نہ بادہ ہے، نہ ساقی ہے، نہ کوئی مے کدہ ہے — بس اک ذوقِ نظر اور اک شوقِ بے خودی</span>
+          <h3>Kuch Khushboo Qaidi Nahi Hoti,<br><em>Woh Rooh Bankar Azad Rehti Hai…</em></h3>
+          <p class="poetic-couplet-hinglish">“Na baada hai, na saaqi hai, na koi mai-kada... Bas ek Zauq-e-nazar aur ek Shauq-e-be-khudi.”</p>
+          <p class="poetic-couplet-meaning">Crafted in the royal historic soil of Amravati (Maharashtra) — where ancient Indian resins meet French haute perfumerie.</p>
+          <button type="button" class="band-btn" (click)="selectCategory('For Him')">Explore Collection Homme ↗</button>
         </div>
         <div class="band-divider"></div>
         <div class="band-column">
-          <span class="band-label">THE SCENT SIGNATURE · अपनी महक</span>
-          <h3>Apni Mehak,<br><em>Apni Pehchaan.</em></h3>
-          <p>“Har lamha, thoda sa shauq, thoda sa khud ke liye. Ishq bhi ek khushboo hai jo dil se uthti hai aur rooh tak jaati hai…”</p>
-          <button type="button" class="band-btn" (click)="selectCategory('For Her')">Explore For Her ↗</button>
+          <span class="band-label">THE SCENT SIGNATURE · BORN IN AMRAVATI</span>
+          <span class="poetic-couplet-urdu" dir="rtl" lang="ur">دل سے جو بات نکلتی ہے، اثر رکھتی ہے — پَر نہیں، طاقتِ پرواز مگر رکھتی ہے</span>
+          <h3>Apni Mehak,<br><em>Apni Anokhi Pehchaan.</em></h3>
+          <p class="poetic-couplet-hinglish">“Dil se jo baat nikalti hai, asar rakhti hai... Har boond mein ek dastaan hai.”</p>
+          <p class="poetic-couplet-meaning">Hand-distilled with rare Kannauj Damask rose and Mysore sandalwood, shaped into an enduring signature.</p>
+          <button type="button" class="band-btn" (click)="selectCategory('For Her')">Explore Collection Femme ↗</button>
         </div>
       </div>
 
       <!-- Additional Poetic Marquee Ribbon (From Boards 4 & 5) -->
       <div class="poetry-marquee-strip">
         <div class="poetry-marquee-content">
-          <span>✦ “Khushboo bhi ajeeb cheez hai, na dikhti hai, na suni jaati hai, bas mehsoos hoti hai... aur dil pe hamesha ke liye reh jaati hai.” — Zauq &amp; Shauq</span>
+          <span>✦ “Dil se jo baat nikalti hai, rooh tak mehakti hai — Crafted in Amravati, Maharashtra.”</span>
           <span class="marquee-star">✦</span>
-          <span>“Har mehfil mein reh jaata hai kisi khushboo ka asar, Kuch log yaad nahi rehte, Par unki mehak rehti hai…”</span>
+          <span class="poetic-couplet-urdu" dir="rtl" lang="ur">خوشبو سخنِ دل ہے، جو روح کو چھوتی ہے</span>
           <span class="marquee-star">✦</span>
-          <span>“Mehkati Yaadein Hamesha Saath Rehti Hain — Scent, With Soul.”</span>
+          <span>“Kuch log yaad nahi rehte, par unki mehak sadiyon tak sath rehti hai — Scent, With Soul.”</span>
+          <span class="marquee-star">✦</span>
+          <span>“Zauq-o-Shauq: The fine art of Indian Haute Parfumerie, distilled in Vidarbha.”</span>
           <span class="marquee-star">✦</span>
         </div>
       </div>
@@ -653,8 +662,8 @@
     </div>
   </div>
   <div class="footer-bottom page-shell" id="footer-legal">
-    <span>© 2026 Zauq &amp; Shauq. Royal French &amp; Arabian Haute Parfumerie.</span>
-    <span>Har Khushboo Ek Kahani Kehti Hai.</span>
+    <span>© 2026 Zauq &amp; Shauq · Royal Indian Haute Parfumerie · Handcrafted in Amravati, Maharashtra</span>
+    <span>Har Khushboo Ek Kahani Kehti Hai · Har Saans Mein Zauq-o-Shauq</span>
     <span class="payment-methods">SECURE CHECKOUT · 256-BIT ENCRYPTED</span>
   </div>
 </footer>
@@ -808,17 +817,17 @@
           <div class="form-row form-row-three">
             <label [class.has-error]="fieldErrors['city']">
               City *
-              <input [(ngModel)]="checkout.city" name="city" required placeholder="e.g. Jaipur" (input)="fieldErrors['city'] = ''">
+              <input [(ngModel)]="checkout.city" name="city" required placeholder="e.g. Amravati" (input)="fieldErrors['city'] = ''">
               <span class="field-error-msg" *ngIf="fieldErrors['city']">{{ fieldErrors['city'] }}</span>
             </label>
             <label [class.has-error]="fieldErrors['state']">
               State / Region *
-              <input [(ngModel)]="checkout.state" name="state" required placeholder="e.g. Rajasthan" (input)="fieldErrors['state'] = ''">
+              <input [(ngModel)]="checkout.state" name="state" required placeholder="e.g. Maharashtra" (input)="fieldErrors['state'] = ''">
               <span class="field-error-msg" *ngIf="fieldErrors['state']">{{ fieldErrors['state'] }}</span>
             </label>
             <label [class.has-error]="fieldErrors['postalCode']">
               PIN Code *
-              <input [(ngModel)]="checkout.postalCode" name="postalCode" required placeholder="e.g. 302001" maxlength="6" (input)="fieldErrors['postalCode'] = ''">
+              <input [(ngModel)]="checkout.postalCode" name="postalCode" required placeholder="e.g. 444601" maxlength="6" (input)="fieldErrors['postalCode'] = ''">
               <span class="field-error-msg" *ngIf="fieldErrors['postalCode']">{{ fieldErrors['postalCode'] }}</span>
             </label>
           </div>

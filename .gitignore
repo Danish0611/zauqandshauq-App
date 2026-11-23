@@ -32,4 +32,6 @@ application-local.properties
 
 COMMANDS-AND-CREDENTIALS.txt
 uploaded_assets/
+.agent/
+.agents/
 

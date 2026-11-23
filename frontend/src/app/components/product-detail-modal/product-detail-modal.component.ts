@@ -80,8 +80,11 @@ export interface FragranticaAccord {
             <!-- Poetic Quote Banner for this Bottle -->
             <div class="pdp-poetry-strip">
               <span class="pdp-poetry-mark">“</span>
-              <p>خوشبو وہ خاموش زبان ہے جو دل سے دل تک بات کرتی ہے</p>
-              <small>Scent is the silent language that speaks from soul to soul.</small>
+              <div class="pdp-poetry-body">
+                <p class="urdu-script" lang="ur" dir="rtl">دل سے جو بات نکلتی ہے، اثر رکھتی ہے</p>
+                <span class="pdp-hinglish">Dil se jo baat nikalti hai, asar rakhti hai — Par nahin, taaqat-e-parwaaz magar rakhti hai.</span>
+                <small>Allama Iqbal · Baal-e-Jibreel (Handcrafted in Amravati)</small>
+              </div>
             </div>
           </div>
 
@@ -538,19 +541,34 @@ export interface FragranticaAccord {
       font-size: 2rem;
       line-height: 1;
       color: #c89d54;
+      flex-shrink: 0;
     }
-    .pdp-poetry-strip p {
-      font-family: 'Amiri', 'Playfair Display', serif;
-      font-size: 0.92rem;
-      color: #d8bfa7;
-      margin: 0 0 0.2rem;
+    .pdp-poetry-body {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      flex: 1;
+    }
+    .pdp-poetry-strip p.urdu-script {
+      font-family: 'Noto Nastaliq Urdu', 'Amiri', serif !important;
+      font-size: 1.05rem;
+      color: #dfc796;
+      margin: 0;
+      line-height: 1.8;
+      direction: rtl;
+      unicode-bidi: isolate;
+    }
+    .pdp-hinglish {
+      font-size: 0.76rem;
+      color: #d8c2b0;
+      font-style: italic;
       line-height: 1.4;
     }
     .pdp-poetry-strip small {
       display: block;
-      font-size: 0.72rem;
-      color: rgba(247, 242, 234, 0.6);
-      font-style: italic;
+      font-size: 0.7rem;
+      color: rgba(247, 242, 234, 0.65);
+      letter-spacing: 0.3px;
     }
 
     /* Right Details Column */

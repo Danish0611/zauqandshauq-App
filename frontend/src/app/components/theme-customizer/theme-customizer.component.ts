@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
 
@@ -12,7 +12,7 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
     <button
       type="button"
       class="theme-floating-trigger"
-      (click)="isOpen = true"
+      (click)="themeService.openCustomizer()"
       aria-label="Customize Atelier Theme and Colors"
       title="Atelier Theme & Chromatics">
       <span class="theme-glow-orb" [style.background]="themeService.currentAccent"></span>
@@ -24,24 +24,37 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
     </button>
 
     <!-- THEME CUSTOMIZER MODAL / DRAWER -->
-    <div class="theme-modal-backdrop" *ngIf="isOpen" (click)="isOpen = false"></div>
+    <div
+      class="theme-modal-backdrop"
+      *ngIf="themeService.isCustomizerOpen$ | async"
+      (click)="themeService.closeCustomizer()">
+    </div>
 
-    <aside class="theme-modal-sheet" [class.is-open]="isOpen" role="dialog" aria-modal="true" aria-labelledby="theme-modal-title">
+    <aside
+      class="theme-modal-sheet"
+      [class.is-open]="themeService.isCustomizerOpen$ | async"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="theme-modal-title">
       <!-- HEADER -->
       <div class="theme-sheet-header">
         <div class="theme-header-brand">
           <span class="theme-crest-mini">Z<span>&amp;</span>S</span>
           <div>
-            <div class="theme-eyebrow">HAUTE PARFUMERIE · ATELIER</div>
+            <div class="theme-eyebrow">HAUTE PARFUMERIE · AMRAVATI ATELIER</div>
             <h3 id="theme-modal-title">Atmosphere &amp; <em>Chromatics.</em></h3>
           </div>
         </div>
-        <button type="button" class="theme-close-btn" (click)="isOpen = false" aria-label="Close theme selector">✕</button>
+        <button
+          type="button"
+          class="theme-close-btn"
+          (click)="themeService.closeCustomizer()"
+          aria-label="Close theme selector">✕</button>
       </div>
 
       <div class="theme-sheet-body">
         <p class="theme-sheet-intro">
-          Select a bespoke olfactory atmosphere and fine metallic chromatic tint. The aesthetic updates seamlessly across all sections of the house.
+          Select an olfactory atmosphere and royal chromatic tint. Every section, perfume card, button, and glowing flacon adapts live across the house.
         </p>
 
         <!-- SECTION 1: CURATED ATELIER MOODS -->
@@ -137,7 +150,7 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
 
       <!-- FOOTER -->
       <div class="theme-sheet-footer">
-        <button type="button" class="theme-done-btn" (click)="isOpen = false">
+        <button type="button" class="theme-done-btn" (click)="themeService.closeCustomizer()">
           <span>Apply &amp; Continue Exploring</span>
           <span>→</span>
         </button>
@@ -156,11 +169,11 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
       gap: 10px;
       padding: 9px 16px 9px 12px;
       border-radius: 999px;
-      background: rgba(14, 18, 13, 0.88);
+      background: var(--theme-bg-card, rgba(14, 18, 13, 0.92));
       -webkit-backdrop-filter: blur(18px);
       backdrop-filter: blur(18px);
       border: 1px solid var(--color-champagne-border, rgba(201, 169, 110, 0.35));
-      color: var(--color-warm-ivory, #F5EFE6);
+      color: var(--theme-text-primary, #F5EFE6);
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 18px var(--color-champagne-dim, rgba(201, 169, 110, 0.15));
       cursor: pointer;
       transition: all 0.28s cubic-bezier(0.22, 1, 0.36, 1);
@@ -197,10 +210,10 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
     }
     .theme-name-tag {
       font-size: 10px;
-      color: var(--color-warm-ivory, #F5EFE6);
+      color: var(--theme-text-primary, #F5EFE6);
       opacity: 0.85;
       padding-left: 6px;
-      border-left: 1px solid rgba(201, 169, 110, 0.3);
+      border-left: 1px solid var(--theme-border, rgba(201, 169, 110, 0.3));
     }
 
     /* BACKDROP */
@@ -226,11 +239,11 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
       bottom: 0;
       width: min(480px, 100vw);
       z-index: 160;
-      background: linear-gradient(180deg, rgba(16, 20, 15, 0.96) 0%, rgba(9, 12, 9, 0.98) 100%);
+      background: var(--theme-header-bg, #0d0f0b);
       -webkit-backdrop-filter: blur(24px);
       backdrop-filter: blur(24px);
-      border-left: 1px solid var(--color-champagne-border, rgba(201, 169, 110, 0.28));
-      color: var(--color-warm-ivory, #F5EFE6);
+      border-left: 1px solid var(--theme-border, rgba(201, 169, 110, 0.28));
+      color: var(--theme-text-primary, #F5EFE6);
       box-shadow: -20px 0 60px rgba(0, 0, 0, 0.7);
       display: flex;
       flex-direction: column;
@@ -244,7 +257,7 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
     /* HEADER */
     .theme-sheet-header {
       padding: 24px 28px 20px;
-      border-bottom: 1px solid rgba(201, 169, 110, 0.2);
+      border-bottom: 1px solid var(--theme-border, rgba(201, 169, 110, 0.2));
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -285,7 +298,7 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
       font-family: 'Playfair Display', Georgia, serif;
       font-size: 20px;
       font-weight: 400;
-      color: #ffffff;
+      color: var(--theme-text-primary, #ffffff);
       letter-spacing: -0.3px;
     }
     .theme-sheet-header h3 em {
@@ -293,9 +306,9 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
       font-style: italic;
     }
     .theme-close-btn {
-      border: 1px solid rgba(201, 169, 110, 0.25);
+      border: 1px solid var(--theme-border, rgba(201, 169, 110, 0.25));
       background: rgba(255, 255, 255, 0.05);
-      color: var(--color-warm-ivory, #F5EFE6);
+      color: var(--theme-text-primary, #F5EFE6);
       width: 34px;
       height: 34px;
       border-radius: 50%;
@@ -323,7 +336,7 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
     .theme-sheet-intro {
       font-size: 11.5px;
       line-height: 1.7;
-      color: #c0c6b8;
+      color: var(--theme-text-secondary, #c0c6b8);
       margin: 0;
     }
 
@@ -341,15 +354,15 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
       letter-spacing: 2px;
       font-weight: 700;
       color: var(--color-champagne-gold, #C9A96E);
-      border-bottom: 1px solid rgba(201, 169, 110, 0.18);
+      border-bottom: 1px solid var(--theme-border, rgba(201, 169, 110, 0.18));
       padding-bottom: 8px;
     }
     .theme-section-badge {
       font-size: 8px;
       padding: 2px 7px;
       border-radius: 999px;
-      background: rgba(201, 169, 110, 0.12);
-      border: 1px solid rgba(201, 169, 110, 0.25);
+      background: var(--color-champagne-dim, rgba(201, 169, 110, 0.12));
+      border: 1px solid var(--color-champagne-border, rgba(201, 169, 110, 0.25));
     }
 
     /* REALMS GRID */
@@ -364,22 +377,22 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
       gap: 14px;
       padding: 12px 14px;
       border-radius: 12px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(201, 169, 110, 0.2);
+      background: var(--theme-bg-card, rgba(255, 255, 255, 0.04));
+      border: 1px solid var(--theme-border, rgba(201, 169, 110, 0.2));
       text-align: left;
       cursor: pointer;
       transition: all 0.22s ease;
       color: inherit;
     }
     .theme-realm-card:hover {
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.1);
       border-color: var(--color-champagne-gold, #C9A96E);
       transform: translateX(3px);
     }
     .theme-realm-card.active {
-      background: rgba(201, 169, 110, 0.12);
+      background: var(--color-champagne-dim, rgba(201, 169, 110, 0.14));
       border-color: var(--color-champagne-gold, #C9A96E);
-      box-shadow: 0 0 20px rgba(201, 169, 110, 0.22);
+      box-shadow: 0 0 20px var(--color-champagne-dim, rgba(201, 169, 110, 0.22));
     }
     .realm-swatch-wrapper {
       position: relative;
@@ -388,7 +401,7 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
       border-radius: 50%;
       flex-shrink: 0;
       overflow: hidden;
-      border: 1px solid rgba(201, 169, 110, 0.4);
+      border: 1px solid var(--theme-border, rgba(201, 169, 110, 0.4));
       display: grid;
       place-items: center;
     }
@@ -429,7 +442,7 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
     .realm-name {
       font-size: 13.5px;
       font-family: 'Playfair Display', Georgia, serif;
-      color: #ffffff;
+      color: var(--theme-text-primary, #ffffff);
     }
     .realm-tag {
       font-size: 7.5px;
@@ -447,7 +460,7 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
     }
     .realm-notes {
       font-size: 9.5px;
-      color: #9ba59b;
+      color: var(--theme-text-muted, #9ba59b);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -465,10 +478,10 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
       gap: 8px;
       padding: 8px 10px;
       border-radius: 8px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(201, 169, 110, 0.18);
+      background: var(--theme-bg-card, rgba(255, 255, 255, 0.04));
+      border: 1px solid var(--theme-border, rgba(201, 169, 110, 0.18));
       cursor: pointer;
-      color: var(--color-warm-ivory, #F5EFE6);
+      color: var(--theme-text-primary, #F5EFE6);
       transition: all 0.2s ease;
     }
     .accent-chip:hover {
@@ -477,7 +490,7 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
     }
     .accent-chip.active {
       border-color: var(--color-champagne-gold, #C9A96E);
-      background: rgba(201, 169, 110, 0.15);
+      background: var(--color-champagne-dim, rgba(201, 169, 110, 0.15));
       font-weight: 600;
     }
     .accent-circle {
@@ -508,7 +521,7 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
       padding: 12px 14px;
       border-radius: 10px;
       background: rgba(255, 255, 255, 0.03);
-      border: 1px dashed rgba(201, 169, 110, 0.3);
+      border: 1px dashed var(--theme-border, rgba(201, 169, 110, 0.3));
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -516,7 +529,7 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
     }
     .custom-color-label {
       font-size: 10.5px;
-      color: #c5ccbf;
+      color: var(--theme-text-secondary, #c5ccbf);
     }
     .custom-input-group {
       display: flex;
@@ -527,15 +540,15 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
       width: 28px;
       height: 28px;
       border-radius: 50%;
-      border: 1px solid rgba(201, 169, 110, 0.5);
+      border: 1px solid var(--color-champagne-gold, #C9A96E);
       padding: 0;
       background: transparent;
       cursor: pointer;
     }
     .color-hex-input {
       width: 78px;
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(201, 169, 110, 0.3);
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--theme-border, rgba(201, 169, 110, 0.3));
       border-radius: 6px;
       color: var(--color-champagne-gold, #C9A96E);
       font-family: monospace;
@@ -559,15 +572,15 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
       text-transform: uppercase;
     }
     .color-apply-btn:hover {
-      background: #dfc796;
+      background: var(--color-champagne-light, #dfc796);
     }
 
     /* SUMMARY */
     .theme-summary-card {
       padding: 14px 16px;
       border-radius: 10px;
-      background: rgba(201, 169, 110, 0.07);
-      border: 1px solid rgba(201, 169, 110, 0.22);
+      background: var(--color-champagne-dim, rgba(201, 169, 110, 0.07));
+      border: 1px solid var(--theme-border, rgba(201, 169, 110, 0.22));
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -586,7 +599,7 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
     }
     .summary-value {
       font-size: 11px;
-      color: #ffffff;
+      color: var(--theme-text-primary, #ffffff);
     }
     .theme-reset-link {
       background: transparent;
@@ -599,14 +612,14 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
       padding: 0;
     }
     .theme-reset-link:hover {
-      color: #ffffff;
+      color: var(--theme-text-primary, #ffffff);
     }
 
     /* FOOTER */
     .theme-sheet-footer {
       padding: 18px 28px;
-      border-top: 1px solid rgba(201, 169, 110, 0.2);
-      background: rgba(10, 14, 10, 0.9);
+      border-top: 1px solid var(--theme-border, rgba(201, 169, 110, 0.2));
+      background: var(--theme-header-bg, rgba(10, 14, 10, 0.9));
     }
     .theme-done-btn {
       width: 100%;
@@ -622,13 +635,13 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
       letter-spacing: 1.5px;
       text-transform: uppercase;
       font-weight: 700;
-      border: 1px solid #ffd875;
+      border: 1px solid var(--color-champagne-light, #ffd875);
       cursor: pointer;
       box-shadow: 0 6px 20px var(--color-champagne-dim, rgba(201, 169, 110, 0.35));
       transition: all 0.25s ease;
     }
     .theme-done-btn:hover {
-      background: #dfc796;
+      background: var(--color-champagne-light, #dfc796);
       transform: translateY(-2px);
     }
 
@@ -653,14 +666,16 @@ import { ThemeService, AtelierTheme, AccentOption } from '../../theme.service';
     }
   `]
 })
-export class ThemeCustomizerComponent {
-  @Input() isOpen = false;
-  @Output() close = new EventEmitter<void>();
-
+export class ThemeCustomizerComponent implements OnInit {
   customHexValue = '#C9A96E';
 
-  constructor(public themeService: ThemeService) {
+  constructor(public themeService: ThemeService) {}
+
+  ngOnInit(): void {
     this.customHexValue = this.themeService.currentAccent;
+    this.themeService.currentAccent$.subscribe(accent => {
+      this.customHexValue = accent;
+    });
   }
 
   get activeTheme(): AtelierTheme {
@@ -668,7 +683,7 @@ export class ThemeCustomizerComponent {
   }
 
   onSelectTheme(themeId: string): void {
-    this.themeService.setTheme(themeId);
+    this.themeService.setTheme(themeId, false);
     this.customHexValue = this.themeService.currentAccent;
   }
 

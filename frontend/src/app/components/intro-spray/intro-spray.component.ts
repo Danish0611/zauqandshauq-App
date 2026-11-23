@@ -42,7 +42,7 @@ interface Particle {
         
         <div class="intro-brand-lockup">
           <img src="/assets/logo/svg/zauq-shauq-mark-gold.svg" alt="Zauq &amp; Shauq Crest" class="intro-crest-logo" width="56" height="56">
-          <span class="intro-kicker">HAUTE PARFUMERIE · PARIS &amp; JAIPUR</span>
+          <span class="intro-kicker">ROYAL INDIAN HAUTE PARFUMERIE · AMRAVATI ATELIER</span>
           <h1 class="intro-title">ZAUQ <span>&amp;</span> SHAUQ</h1>
           <p class="intro-tagline">Scent, With Soul</p>
         </div>
@@ -60,7 +60,7 @@ interface Particle {
 
       <!-- Subtitle Audio/Visual Cue -->
       <div class="intro-bottom-caption">
-        <span>“Khushboo woh khamosh zubaan hai...” · Atomizing signature extraits</span>
+        <span>“Dil se jo baat nikalti hai, asar rakhti hai...” · Handcrafted in Amravati, Maharashtra</span>
       </div>
     </div>
   `,

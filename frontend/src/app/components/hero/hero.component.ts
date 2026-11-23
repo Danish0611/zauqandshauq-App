@@ -80,7 +80,7 @@ export interface HeroSlide {
             <span class="hero-crest-mini-wrap">
               <img src="/assets/logo/svg/zauq-shauq-mark-gold.svg" alt="Z&amp;S" class="hero-crest-mini">
             </span>
-            <span class="hero-kicker">ROYAL INDIAN HAUTE PARFUMERIE · PARIS &amp; JAIPUR</span>
+            <span class="hero-kicker">ROYAL INDIAN HAUTE PARFUMERIE · BORN IN AMRAVATI, MAHARASHTRA</span>
           </div>
 
           <!-- Main Grand Title (Scent, With Soul) -->
@@ -354,10 +354,10 @@ export class HeroComponent implements OnInit, OnDestroy, AfterViewInit {
         season: 'Fall · Winter',
         timeOfDay: 'Evening Gala'
       },
-      quoteScript: 'خوشبو وہ خاموش زبان ہے جو دل سے دل تک بات کرتی ہے',
-      quoteAuthor: 'Urdu Literary Tradition',
-      quoteTranslation: '“Fragrance is the silent tongue that speaks from heart to heart.”',
-      badges: ['24h Extrait Longevity', 'Assam Agarwood', 'Royal House Fav.'],
+      quoteScript: 'دل سے جو بات نکلتی ہے، اثر رکھتی ہے',
+      quoteAuthor: 'Allama Iqbal · Baal-e-Jibreel (Zauq-o-Shauq)',
+      quoteTranslation: '“What surges from the depths of the heart carries boundless soul and flight.”',
+      badges: ['24h Extrait Longevity', 'Assam Agarwood', 'Amravati Atelier Fav.'],
       spotlightGradient: 'radial-gradient(circle at 65% 45%, rgba(13, 56, 41, 0.78) 0%, rgba(5, 26, 19, 0.96) 60%, #03120c 100%)',
       accentColor: '#e5c875'
     },
