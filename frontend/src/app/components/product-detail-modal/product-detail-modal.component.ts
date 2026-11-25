@@ -52,6 +52,9 @@ export interface FragranticaAccord {
               <span class="pdp-badge-discount" *ngIf="discountPercent > 0">
                 {{ discountPercent }}% OFF
               </span>
+              <span class="pdp-badge-bestseller" *ngIf="product.bestseller || product.badge === 'BESTSELLER'">
+                ✦ BESTSELLER EXTRAIT
+              </span>
               <span class="pdp-concentration-chip">
                 ✦ {{ product.concentration || 'Eau de Parfum' }}
               </span>
@@ -477,6 +480,22 @@ export interface FragranticaAccord {
       letter-spacing: 0.08em;
       padding: 0.3rem 0.65rem;
       border-radius: 999px;
+    }
+
+    .pdp-badge-bestseller {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: linear-gradient(135deg, #ffd875 0%, #d4af37 50%, #b89047 100%);
+      color: #080c07;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 0.3rem 0.65rem;
+      border-radius: 999px;
+      border: 1px solid #ffffff;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+      z-index: 2;
     }
 
     .pdp-concentration-chip {

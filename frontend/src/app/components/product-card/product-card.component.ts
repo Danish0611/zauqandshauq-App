@@ -12,7 +12,9 @@ import { Product } from '../../product.model';
         <button class="product-image-button" type="button" (click)="open.emit(product)" [attr.aria-label]="'View ' + product.name">
           <img [src]="product.image" [alt]="product.name + ' perfume bottle illustration'" loading="lazy">
         </button>
-        <span class="product-badge" *ngIf="product.badge">{{ product.badge }}</span>
+        <span class="product-badge" [class.badge-bestseller]="product.bestseller || product.badge === 'BESTSELLER'" *ngIf="product.badge || product.bestseller">
+          {{ product.badge || 'BESTSELLER' }}
+        </span>
         <button type="button" class="wish-button" [class.wished]="wished" (click)="toggleWish.emit(product)" [attr.aria-label]="wished ? 'Remove from wishlist' : 'Add to wishlist'">
           <svg viewBox="0 0 24 24"><path d="M20.8 8.8c0 5.2-8.8 10.2-8.8 10.2S3.2 14 3.2 8.8A4.7 4.7 0 0 1 12 6.1a4.7 4.7 0 0 1 8.8 2.7Z"></path></svg>
         </button>
